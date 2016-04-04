@@ -1,6 +1,7 @@
 package org.me.tuoristguide.activity;
 
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     ImageView imageView;
     JSONObject profile,profile_pic_data,profile_pic_url;
+    public static FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String str=(String)intent.getExtras().get("profile");
         System.out.println("str:" + str);
+        fragmentManager = getFragmentManager();
         try {
             profile=new JSONObject(str);
             name=profile.getString("name");

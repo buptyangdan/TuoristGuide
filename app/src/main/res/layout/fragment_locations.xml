@@ -1,22 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+
+<fragment
+    android:id="@+id/location_map"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
-    <TextView
-        android:id="@+id/txtLabel"
-         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="16dp"
-        android:text="Locations"/>
-    
-    <ImageView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtLabel"
-        android:src="@drawable/ic_location"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
-    
+    android:layout_height="match_parent"
+    class="com.google.android.gms.maps.MapFragment"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true" />
+
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
+        android:id="@+id/searchView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:queryHint="Explore"
+        android:visibility="visible"
+        android:backgroundTintMode="src_over" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1"
+        android:background="#d7d9d9">
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageButton2"
+            android:layout_gravity="center_horizontal|bottom"
+            android:src="@drawable/ic_location" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="280dp"
+            android:layout_height="100dp"
+            android:longClickable="false"
+            android:layout_gravity="bottom|right"
+            android:id="@+id/linearLayout"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1.75">
+
+            <TextView
+                android:id="@+id/txtStatus"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center|right|top"
+                android:drawablePadding="5dp"
+                android:singleLine="true"
+                android:text="@string/CommercialName"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="23dp" />
+
+            <RatingBar
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:id="@+id/ratingBar"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom|right"
+                android:numStars="5"
+                android:rating="4.5"
+                android:stepSize="0.5" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
