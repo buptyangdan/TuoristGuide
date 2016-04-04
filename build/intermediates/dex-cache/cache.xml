@@ -1,2 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-panorama-8.4.0_d285e29a1c3895f380987657cbe87206f61d2c50.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/design/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="72961d8b453b46e277702f18de9d210bc019e36e">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.2.1_7f2ec048f6d58cdab17c1901fa01e4a5ca3baa1b.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.10.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="53df71a373e68311fc2c587aa814db7f366ace95">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-android-sdk-4.10.1_6f8bd1e336008a2551a588dadb5bfa2021028051.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-gcm-8.4.0_6a6128f95292042a1d2f288e35fdaa8ea6aef6ef.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-analytics-8.4.0_959b0f928f0f81da434a3caee7fc2c79e5251cc2.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-nearby-8.4.0_0e59c7bc15e3b679225a88a0707b8333b15d780b.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-measurement-8.4.0_d20ac34d5a98be9a7329372fb5c97fb4f8d1a395.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appinvite-8.4.0_7dc89842c2610e6fd41d02138ddde2d2f567e72e.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-cast-8.4.0_f020ba855e87ffbb0561922e46c63130426f75ba.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-plus-8.4.0_3defdadcdd5d17b772ca685f1fc58b26b7d39227.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="bc599eb9531da9d18bc58ec4eb0b1a1d895f6839">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.2.0_158871ab78ccca93f5802bcb979ae3adfbb5d89c.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/de.hdodenhof/circleimageview/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ac6948cce36f694f3eb3d73a135e298dc4b3527a">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/de.hdodenhof-circleimageview-1.3.0_09ba0a7c76c0fd5292328dd353becc0796fe774a.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.2.1_0f3480ef8753cfbacd84d03bdb588270597ad5f0.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-drive-8.4.0_b83689f2af7cb32d0165aebb47fbde474c069bd1.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.3.0/bc535105332645408ef5f1380215cc954b842178/bolts-applinks-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="bc535105332645408ef5f1380215cc954b842178">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.3.0_792c4482313c401cfc6cbf006b587b3100c90489.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-games-8.4.0_5172f53e40f7be044b7881b0112b692fd5938308.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-ads-8.4.0_b07d3213617cdd9c11e60e52b57d9f9fbb7768e7.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.github.clans/fab/1.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="daa2783c5e148426f8333ff0cc34389527584520">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.github.clans-fab-1.5.0_0845013abd1ea10a014919d2221309f73d7246fc.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-wallet-8.4.0_8621bb86dd778dca1fb36813721fd58359ded9a3.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-8.4.0_9e95f906999e9ae2603c53605d0e12ef79b0118b.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3be474b1b21b31cf2fa93fe6bd641ae108d96452">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.2.1_59b4e1412baa584dc6523b7a6a2d3564485a818d.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-auth-8.4.0_8a123fef2f96c79245e5146491e4d38e76995116.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="673d77a5bbddd766037f088e775df525c46407f0">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.2.1_ee97c8468e38cd72ef7365daded37584bbba90af.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.4.0_ae0075059348f8a7cb4b251c9e93d94f41f85589.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.4.0_9de9188a91d68d0e2cb513eb9c8b0493335cd07d.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-vision-8.4.0_4522f8d5453d57722867cfa3735eb549aa1d8eb5.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3469cb457f10f74c28cbc05f069b6c894f6cbdd0">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.2.1_caf2d3b8770e758bd458a9beaa6fd3083bcc830d.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.4.0_197c086699e717c56ad370cf7d0b503da70ed8ef.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.3.0/8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c/bolts-tasks-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.3.0_6bb7eee06aeb2e4bcb429d869f28f3d9a5ac29b8.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e3885783ff8926ed9e2fdcd16816c2e1e73e7aee">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.2.1_de377537eca944c2d206325d422ba3184fa6f4f4.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/picasso-2.5.2_746a9716a969ec9f2d10172ef9b55019b1755bdb.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.2.1/support-annotations-23.2.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/support-annotations-23.2.1_024aabba479ebe5c59f10163600ed40a2db5ca27.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.android.support-mediarouter-v7-23.0.0_35698b055b897e55ce89e71f613ea419a8a2076a.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0_b298a87d1a2ff0e5b69b103457b153631394f4a6.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-wearable-8.4.0_fa05360f3339448a6c118ee699dbb98ed1ea6e67.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/libs/internal_impl-23.2.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/internal_impl-23.2.1_2fab0f9b57b583d8e4acbd3d3d93edbeb37931bf.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-safetynet-8.4.0_166abca1e726bd3b741aad8311aed3c5b9594c55.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-location-8.4.0_e8be771ea923e4ab410d0ac344c26dbfc9d02ec1.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-fitness-8.4.0_6c02fff1cfc394225228577dad09d41e62d50b2a.jar" />
+    </item>
+    <item
+        jar="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="/Users/caoyi/Desktop/TuoristGuide/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-identity-8.4.0_0b14b5eaf881a8cf18e3288e95093942244d54ff.jar" />
+    </item>
+
+</items>
