@@ -1,9 +1,8 @@
-package org.me.tuoristguide;
+package org.me.tuoristguide.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,8 +22,9 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-import org.json.JSONException;
 import org.json.JSONObject;
+import org.me.tuoristguide.R;
+
 import java.util.Arrays;
 import java.util.List;
 

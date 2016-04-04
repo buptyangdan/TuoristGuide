@@ -1,4 +1,4 @@
-package org.me.tuoristguide;
+package org.me.tuoristguide.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;

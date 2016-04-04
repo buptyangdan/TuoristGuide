@@ -1,21 +1,24 @@
-package org.me.tuoristguide;
+package org.me.tuoristguide.fragment;
 
 
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class LocationsFragment extends Fragment {
+import org.me.tuoristguide.R;
+
+public class HomeFragment extends Fragment {
 	
-	public LocationsFragment(){}
+	public HomeFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_locations, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
          
         return rootView;
     }

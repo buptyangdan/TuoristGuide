@@ -1,4 +1,4 @@
-package org.me.tuoristguide;
+package org.me.tuoristguide.activity;
 
 
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 
 
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +24,11 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.me.tuoristguide.R;
+import org.me.tuoristguide.fragment.ExploreFragment;
+import org.me.tuoristguide.fragment.HomeFragment;
+import org.me.tuoristguide.fragment.LocationsFragment;
+import org.me.tuoristguide.fragment.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
