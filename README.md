@@ -19,4 +19,43 @@ To run and test it locally, run following command after you clone the repo:
   compile 'com.facebook.android:facebook-android-sdk:4.+'
   compile 'com.android.support:design:23.2.0'
   compile 'de.hdodenhof:circleimageview:1.3.0'
+  compile 'com.android.support:multidex:1.0.0'
+  compile 'com.yelp.clientlib:yelp-android:1.0.0'
+  compile 'com.android.volley:volley:1.0.0'
+  compile 'com.android.support:multidex:1.0.0'
+  compile 'com.google.android.gms:play-services:8.4.0'
 ```
+* Support jars
+
+```Download and import jars
+[https://github.com/47deg/android-wunderground-client/downloads](https://github.com/47deg/android-wunderground-client/downloads)
+[https://github.com/47deg/android-wunderground-client/downloads](https://github.com/47deg/android-wunderground-client/downloads)
+```
+
+* Yelp API
+
+[https://www.yelp.com/developers/](https://www.yelp.com/developers/)
+
+```Explore Fragment
+YelpAPIFactory apiFactory = new YelpAPIFactory(consumerKey, consumerSecret, token, tokenSecret);
+YelpAPI yelpAPI = apiFactory.createAPI();
+```
+
+* Weather Underground Weather API
+
+[https://www.wunderground.com/weather/api/d/docs?d=index/](https://www.wunderground.com/weather/api/d/docs?d=index/)
+
+```Locations Fragment
+ GeoPoint center = mapView.getMapCenter();
+    WundergroundApiProvider.getClient().query(new ContextAwareAPIDelegate<WundergroundResponse>(MainActivity.this, WundergroundResponse.class, RequestCache.LoadPolicy.NEVER) {
+        @Override
+        public void onResults(WundergroundResponse wundergroundResponse) {
+            Toast.makeText(MyActivity.this, wundergroundResponse.getCurrentObservation().getWeather(), Toast.LENGTH_LONG).show();
+        }
+        @Override
+        public void onError(Throwable e) {
+            Toast.makeText(MyActivity.this, "fail", Toast.LENGTH_LONG).show();
+        }
+    }, "Your API Key", Query.latLng(center.getLatitudeE6() / 1E6, center.getLongitudeE6() / 1E6), Feature.conditions);
+```
+
