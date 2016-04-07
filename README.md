@@ -28,8 +28,10 @@ To run and test it locally, run following command after you clone the repo:
 * Support jars
 
 ```Download and import jars
+
 [https://github.com/47deg/android-wunderground-client/downloads](https://github.com/47deg/android-wunderground-client/downloads)
 [https://github.com/47deg/android-wunderground-client/downloads](https://github.com/47deg/android-wunderground-client/downloads)
+
 ```
 
 * Yelp API
@@ -37,8 +39,10 @@ To run and test it locally, run following command after you clone the repo:
 [https://www.yelp.com/developers/](https://www.yelp.com/developers/)
 
 ```Explore Fragment
+
 YelpAPIFactory apiFactory = new YelpAPIFactory(consumerKey, consumerSecret, token, tokenSecret);
 YelpAPI yelpAPI = apiFactory.createAPI();
+
 ```
 
 * Weather Underground Weather API
@@ -46,6 +50,7 @@ YelpAPI yelpAPI = apiFactory.createAPI();
 [https://www.wunderground.com/weather/api/d/docs?d=index/](https://www.wunderground.com/weather/api/d/docs?d=index/)
 
 ```Locations Fragment
+
  GeoPoint center = mapView.getMapCenter();
     WundergroundApiProvider.getClient().query(new ContextAwareAPIDelegate<WundergroundResponse>(MainActivity.this, WundergroundResponse.class, RequestCache.LoadPolicy.NEVER) {
         @Override
@@ -57,5 +62,6 @@ YelpAPI yelpAPI = apiFactory.createAPI();
             Toast.makeText(MyActivity.this, "fail", Toast.LENGTH_LONG).show();
         }
     }, "Your API Key", Query.latLng(center.getLatitudeE6() / 1E6, center.getLongitudeE6() / 1E6), Feature.conditions);
+    
 ```
 
