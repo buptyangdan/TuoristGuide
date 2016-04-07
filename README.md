@@ -39,7 +39,7 @@ To run and test it locally, run following command after you clone the repo:
 
 [https://www.yelp.com/developers/](https://www.yelp.com/developers/)
 
-```Explore Fragment
+```java
 
 YelpAPIFactory apiFactory = new YelpAPIFactory(consumerKey, consumerSecret, token, tokenSecret);
 YelpAPI yelpAPI = apiFactory.createAPI();
@@ -50,7 +50,7 @@ YelpAPI yelpAPI = apiFactory.createAPI();
 
 [https://www.wunderground.com/weather/api/d/docs?d=index/](https://www.wunderground.com/weather/api/d/docs?d=index/)
 
-```bash
+```java
 
  GeoPoint center = mapView.getMapCenter();
     WundergroundApiProvider.getClient().query(new ContextAwareAPIDelegate<WundergroundResponse>(MainActivity.this, WundergroundResponse.class, RequestCache.LoadPolicy.NEVER) {
