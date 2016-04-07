@@ -25,7 +25,8 @@
             android:layout_height="100dp"
             android:id="@+id/imageButton3"
             android:layout_gravity="center_horizontal|bottom"
-            android:src="@drawable/ic_location" />
+            android:src="@drawable/ic_location"
+            android:onClick="onClick"/>
 
         <LinearLayout
             android:orientation="vertical"

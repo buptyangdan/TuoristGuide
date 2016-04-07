@@ -1,12 +1,15 @@
 package org.me.tuoristguide.fragment;
 
+
+
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,11 +42,12 @@ public class ExploreFragment extends Fragment {
     private static View view;
     private static Double latitude, longitude;
     private static GoogleMap mMap;
+
     Call<SearchResponse> call;
 
 
-
     public ExploreFragment() {
+
     }
 
     @Override
@@ -54,14 +58,12 @@ public class ExploreFragment extends Fragment {
             return null;
         }
         view = (RelativeLayout) inflater.inflate(R.layout.fragment_explore, container, false);
-        // Passing harcoded values for latitude & longitude. Please change as per your need. This is just used to drop a Marker on the Map
+
         latitude = 37.422006;
         longitude = -122.084095;
-        setUpMapIfNeeded(); // For setting up the MapFragment
-        //here we call the yelp api to get the business data
+        setUpMapIfNeeded();
         yelpNearby(latitude, longitude);
 
-        System.out.println("Business");
         return view;
     }
 
@@ -81,8 +83,7 @@ public class ExploreFragment extends Fragment {
         //mMap.setMyLocationEnabled(true);
         // For dropping a marker at a point on the Map
         //set up the map according to the result
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("My Home").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location)).snippet("Home Address"));
-        System.out.println("Suxx!"+businesses);
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("My Home").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)).snippet("Home Address"));
         for (Business b : businesses) {
             mMap.addMarker(new MarkerOptions().position(new LatLng(b.location().coordinate().latitude(), b.location().coordinate().longitude())).title(b.name())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location)).snippet(b.name()));
@@ -90,6 +91,8 @@ public class ExploreFragment extends Fragment {
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,
                 longitude), 14.0f));
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
     }
 
 //    @Override

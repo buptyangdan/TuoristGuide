@@ -10,4 +10,10 @@
     <color name="PrimaryDarkColor">#1976D2</color>
     <color name="accent">#477CE5</color>
     <color name="accent_dark">#1F3765</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="view_bg">#b20e0f</color>
+    <color name="white">#ffffff</color>
+    <color name="btn_bg">#3e4a56</color>
 </resources>

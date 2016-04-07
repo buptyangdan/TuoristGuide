@@ -15,4 +15,10 @@
     <string name="openDrawer">Navigation View Closed</string>
     <string name="title_activity_maps">Map</string>
     <string name="CommercialName">Safeway Rating:9.2/10.0</string>
+    <string name="lbl_you_are_at">YOU ARE AT</string>
+    <string name="btn_get_location">SEND</string>
+    <string name="Temperature">Temperature</string>
+    <string name="condition">Condition</string>
+    <string name="locations">location</string>
+    <string name="Time">Time</string>
 </resources>
