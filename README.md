@@ -30,7 +30,7 @@ To run and test it locally, run following command after you clone the repo:
 
 [https://github.com/47deg/android-wunderground-client/downloads](https://github.com/47deg/android-wunderground-client/downloads)
 
-[https://github.com/47deg/android-wunderground-client/downloads](https://github.com/47deg/android-wunderground-client/downloads)
+[https://github.com/47deg/appsly-android-rest/downloads](https://github.com/47deg/appsly-android-rest/downloads)
 
 
 * Yelp API
