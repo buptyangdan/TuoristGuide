@@ -27,13 +27,11 @@ To run and test it locally, run following command after you clone the repo:
 ```
 * Support jars
 
-```bash
 
 [https://github.com/47deg/android-wunderground-client/downloads](https://github.com/47deg/android-wunderground-client/downloads)
 
 [https://github.com/47deg/android-wunderground-client/downloads](https://github.com/47deg/android-wunderground-client/downloads)
 
-```
 
 * Yelp API
 
