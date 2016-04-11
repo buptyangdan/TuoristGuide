@@ -34,60 +34,68 @@ import org.me.tuoristguide.fragment.SearchFragment;
 public class MainActivity extends AppCompatActivity {
 
     //Defining Variables
-    private Toolbar toolbar;
-    private NavigationView navigationView;
-    private DrawerLayout drawerLayout;
+    public Toolbar toolbar;
+    public NavigationView navigationView;
+    public DrawerLayout drawerLayout;
     String name;
     String email;
     String picture;
-    TextView textView;
+    TextView textView1;
+    TextView textView2;
     ImageView imageView;
     JSONObject profile,profile_pic_data,profile_pic_url;
     public static FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        fragmentManager = getFragmentManager();
         Intent intent=getIntent();
         String str=(String)intent.getExtras().get("profile");
         System.out.println("str:" + str);
-        fragmentManager = getFragmentManager();
-        try {
-            profile=new JSONObject(str);
-            name=profile.getString("name");
-            System.out.println("name"+name);
-            email=profile.getString("email");
-            profile_pic_data=new JSONObject(profile.getString("picture"));
-            profile_pic_url=new JSONObject(profile_pic_data.getString("data"));
-//            picture=profile.getString("picture");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         // Initializing Toolbar and setting it as the actionbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         //Initializing NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
         View header=navigationView.getHeaderView(0);
-        textView=(TextView)header.findViewById(R.id.username);
-        textView.setText(name);
-        textView=(TextView)header.findViewById(R.id.email);
-        textView.setText(email);
+        textView1=(TextView)header.findViewById(R.id.username);
+        textView2=(TextView)header.findViewById(R.id.email);
         imageView=(ImageView)header.findViewById(R.id.profile_image);
-        try {
-            Picasso.with(this).load(profile_pic_url.getString("url"))
-                    .into(imageView);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+            try {
+                profile=new JSONObject(str);
+                name=profile.getString("name");
+                System.out.println("name"+name);
+                email=profile.getString("email");
+                profile_pic_data=new JSONObject(profile.getString("picture"));
+                profile_pic_url=new JSONObject(profile_pic_data.getString("data"));
+//            picture=profile.getString("picture");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            textView1.setText(name);
+            textView2.setText(email);
+            try {
+                Picasso.with(this).load(profile_pic_url.getString("url"))
+                        .into(imageView);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+
         //  imageView.setImageResource(picture);
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
+
 
 
                 //Checking if the item is in checked state or not, if not make it in checked state
@@ -126,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
                         return true;
-
                 }
             }
         });

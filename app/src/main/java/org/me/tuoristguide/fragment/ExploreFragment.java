@@ -57,13 +57,13 @@ public class ExploreFragment extends Fragment {
         if (container == null) {
             return null;
         }
-        view = (RelativeLayout) inflater.inflate(R.layout.fragment_explore, container, false);
+
+           view = (RelativeLayout) inflater.inflate(R.layout.fragment_explore, container, false);
 
         latitude = 37.422006;
         longitude = -122.084095;
         setUpMapIfNeeded();
         yelpNearby(latitude, longitude);
-
         return view;
     }
 

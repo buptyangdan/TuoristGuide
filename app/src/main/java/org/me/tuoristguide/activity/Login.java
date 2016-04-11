@@ -10,7 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -32,12 +33,13 @@ import java.util.List;
 public class Login extends Activity {
 
     private SharedPreferences mPrefs;
-    LoginButton btn_login;
+    public static LoginButton btn_login;
     CallbackManager callbackManager;
     GraphRequest graphRequest;
     String jsonresult;
     Intent intent;
     public LoginManager instance;
+    public AccessTokenTracker mAccessTokenTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +50,14 @@ public class Login extends Activity {
         setContentView(R.layout.activity_login);
 
         btn_login=(LoginButton)findViewById(R.id.btn_login);
+        instance=LoginManager.getInstance();
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+                if(instance==null){
+                    login();
+                }
+
 
             }
         });
@@ -169,7 +175,36 @@ public class Login extends Activity {
         super.onStart();
         instance=LoginManager.getInstance();
         if(instance!=null){
-            instance.logOut();
+            instance.logInWithReadPermissions(Login.this,Arrays.asList("public_profile"));
+            View view=(View)findViewById(R.id.login);
+            view.setVisibility(View.INVISIBLE);
+            graphRequest= GraphRequest.newMeRequest(
+                    AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject json, GraphResponse response) {
+                            if (response.getError() != null) {
+                                // handle error
+                                Log.d("ERROR!", "cuole");
+                                System.out.println("ERROR");
+                            } else {
+                                System.out.println("Success");
+
+                                jsonresult = String.valueOf(json);
+                                System.out.println("JSON Result" + jsonresult);
+                                Log.d("SUCCESS!", jsonresult);
+                                intent = new Intent(Login.this, MainActivity.class);
+                                intent.putExtra("profile", jsonresult);
+                                startActivity(intent);
+                            }
+                        }
+
+                    });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id, name, email, gender, birthday, picture");
+            graphRequest.setParameters(parameters);
+            graphRequest.executeAsync();
+
+
         }
     }
 }

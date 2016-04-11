@@ -10,6 +10,18 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
+        android:id="@+id/searchView3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:queryHint="Explore"
+        android:visibility="visible"
+        android:backgroundTintMode="src_over" >
+    </SearchView>
+
 
     <LinearLayout
         android:orientation="horizontal"

@@ -14,14 +14,14 @@
     <SearchView
         android:layout_width="wrap_content"
         android:layout_height="85dp"
-        android:id="@+id/searchView3"
+        android:id="@+id/search_view"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:queryHint="Explore"
+        android:queryHint="@string/search_hint"
         android:visibility="visible"
-        android:backgroundTintMode="src_over" >
-
+        android:backgroundTintMode="src_over"
+        android:onClick="onClick">
     </SearchView>
 
 
