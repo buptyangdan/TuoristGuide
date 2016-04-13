@@ -26,7 +26,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.tuoristguide.R;
-import org.me.tuoristguide.fragment.DetailFragment;
 import org.me.tuoristguide.fragment.ExploreFragment;
 import org.me.tuoristguide.fragment.HomeFragment;
 import org.me.tuoristguide.fragment.LocationsFragment;
@@ -133,9 +132,12 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.detail:
-                        fragment = new DetailFragment();
-                        fragmentTransaction.replace(R.id.frame,fragment);
-                        fragmentTransaction.commit();
+
+                        Intent startdetail = new Intent(MainActivity.this, DetailActivity.class);
+
+                        startdetail.putExtra("store_name","CMU Silicon Valley");
+                        startActivity(startdetail);
+
                         return true;
 
                     default:

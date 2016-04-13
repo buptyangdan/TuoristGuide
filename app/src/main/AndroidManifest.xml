@@ -57,6 +57,7 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.DetailActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

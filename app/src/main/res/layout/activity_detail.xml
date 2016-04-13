@@ -24,6 +24,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/store_name"
                 android:text="CMU SV"
                 android:textSize="28sp"
                 android:layout_weight="4"
@@ -31,6 +32,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/store_rate"
                 android:layout_weight="3"
                 android:layout_width="0dp"
                 android:textSize="16sp"
@@ -39,6 +41,7 @@
 
         </LinearLayout>
         <TableLayout
+            android:id="@+id/comments"
             android:layout_width="match_parent"
             android:layout_weight="5"
             android:layout_height="0dp">
@@ -62,12 +65,14 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/comment_content"
                 android:layout_weight="5"
                 android:layout_width="0dp"
                 android:hint="enter your comment here."
                 android:layout_height="wrap_content" />
 
             <Button
+                android:id="@+id/submit"
                 android:text="Submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
