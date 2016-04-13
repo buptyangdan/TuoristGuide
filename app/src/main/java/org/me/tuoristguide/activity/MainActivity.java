@@ -112,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.profile:
                         fragment = new HomeFragment();
+                        fragmentTransaction.replace(R.id.frame,fragment);
+                        fragmentTransaction.commit();
+                        return true;
                     // For rest of the options we just show a toast on click
                     case R.id.explore:
                         fragment = new ExploreFragment();
