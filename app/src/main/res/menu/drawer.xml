@@ -28,6 +28,11 @@
             android:icon="@drawable/ic_explore"
             android:title="@string/explore_string" />
 
+        <item
+            android:id="@+id/detail"
+            android:checked="false"
+            android:icon="@drawable/ic_explore"
+            android:title="Detail" />
 
     </group>
 </menu>

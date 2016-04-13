@@ -15,19 +15,63 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:text="CMU SV"
+                android:textSize="28sp"
+                android:layout_weight="4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:textSize="16sp"
+                android:text="5 stars"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_weight="5"
+            android:layout_height="0dp">
 
             <TableRow>
 
-
+                <TextView
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="hello there"
+                    />
 
             </TableRow>
         </TableLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:hint="enter your comment here."
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="Submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

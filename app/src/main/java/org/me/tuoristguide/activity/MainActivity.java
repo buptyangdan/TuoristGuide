@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.tuoristguide.R;
+import org.me.tuoristguide.fragment.DetailFragment;
 import org.me.tuoristguide.fragment.ExploreFragment;
 import org.me.tuoristguide.fragment.HomeFragment;
 import org.me.tuoristguide.fragment.LocationsFragment;
@@ -111,9 +112,6 @@ public class MainActivity extends AppCompatActivity {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.profile:
                         fragment = new HomeFragment();
-                        fragmentTransaction.replace(R.id.frame, fragment);
-                        fragmentTransaction.commit();
-                        return true;
                     // For rest of the options we just show a toast on click
                     case R.id.explore:
                         fragment = new ExploreFragment();
@@ -127,6 +125,12 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.search:
                         fragment = new SearchFragment();
+                        fragmentTransaction.replace(R.id.frame,fragment);
+                        fragmentTransaction.commit();
+                        return true;
+
+                    case R.id.detail:
+                        fragment = new DetailFragment();
                         fragmentTransaction.replace(R.id.frame,fragment);
                         fragmentTransaction.commit();
                         return true;
