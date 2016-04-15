@@ -2,6 +2,7 @@ package org.me.tuoristguide.ui.fragment;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.yelp.clientlib.entities.SearchResponse;
 import com.yelp.clientlib.entities.options.BoundingBoxOptions;
 
 import org.me.tuoristguide.R;
+import org.me.tuoristguide.ui.activity.DetailActivity;
 import org.me.tuoristguide.ui.activity.MainActivity;
 
 import java.util.ArrayList;
@@ -159,6 +161,14 @@ public class ExploreFragment extends Fragment {
         call = yelpAPI.search(bouds, queryParams);
         call.enqueue(callback);
 
+    }
+
+
+    public void swithToDetailView(String store_name, String store_id) {
+        Intent startdetail = new Intent(getActivity(), DetailActivity.class);
+        startdetail.putExtra("store_name", store_name);
+        startdetail.putExtra("store_id", store_id);
+        startActivity(startdetail);
     }
 
 }

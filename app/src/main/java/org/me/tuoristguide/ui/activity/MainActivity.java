@@ -66,104 +66,51 @@ public class MainActivity extends AppCompatActivity {
         textView2=(TextView)header.findViewById(R.id.email);
         imageView=(ImageView)header.findViewById(R.id.profile_image);
 
-            try {
-                profile=new JSONObject(str);
-                name=profile.getString("name");
-                System.out.println("name"+name);
-                email=profile.getString("email");
-                profile_pic_data=new JSONObject(profile.getString("picture"));
-                profile_pic_url=new JSONObject(profile_pic_data.getString("data"));
+        try {
+            profile=new JSONObject(str);
+            name=profile.getString("name");
+            System.out.println("name"+name);
+            email=profile.getString("email");
+            profile_pic_data=new JSONObject(profile.getString("picture"));
+            profile_pic_url=new JSONObject(profile_pic_data.getString("data"));
 //            picture=profile.getString("picture");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-            textView1.setText(name);
-            textView2.setText(email);
-            try {
-                Picasso.with(this).load(profile_pic_url.getString("url"))
-                        .into(imageView);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
+        textView1.setText(name);
+        textView2.setText(email);
+        try {
+            Picasso.with(this).load(profile_pic_url.getString("url"))
+                    .into(imageView);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
         //  imageView.setImageResource(picture);
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            // This method will trigger on item Click of navigation menu
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-
-
-
-                //Checking if the item is in checked state or not, if not make it in checked state
-                if(menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
-
-                //Closing drawer on item click
-                drawerLayout.closeDrawers();
-                android.support.v4.app.Fragment fragment = null;
-                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId()){
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.profile:
-                        fragment = new HomeFragment();
-                        fragmentTransaction.replace(R.id.frame,fragment);
-                        fragmentTransaction.commit();
-                        return true;
-                    // For rest of the options we just show a toast on click
-                    case R.id.explore:
-                        fragment = new ExploreFragment();
-                        fragmentTransaction.replace(R.id.frame,fragment);
-                        fragmentTransaction.commit();
-                        return true;
-                    case R.id.locations:
-                        fragment = new LocationsFragment();
-                        fragmentTransaction.replace(R.id.frame,fragment);
-                        fragmentTransaction.commit();
-                        return true;
-                    case R.id.search:
-                        fragment = new SearchFragment();
-                        fragmentTransaction.replace(R.id.frame,fragment);
-                        fragmentTransaction.commit();
-                        return true;
-
-                    case R.id.detail:
-
-                        Intent startdetail = new Intent(MainActivity.this, DetailActivity.class);
-
-                        startdetail.putExtra("store_name","CMU Silicon Valley");
-                        startActivity(startdetail);
-
-                        return true;
-
-                    default:
-                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
-                        return true;
-                }
-            }
-        });
+        navigationView.setNavigationItemSelectedListener(new OnNavigationItemSelectedListener());
 
         // Initializing Drawer Layout and ActionBarToggle
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer){
+        ActionBarDrawerToggle actionBarDrawerToggle =
+                new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer){
 
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
-                super.onDrawerClosed(drawerView);
-            }
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        // Code here will be triggered once the drawer closes as
+                        // we dont want anything to happen so we leave this blank
+                        super.onDrawerClosed(drawerView);
+                    }
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
-
-                super.onDrawerOpened(drawerView);
-            }
-        };
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        // Code here will be triggered once the drawer open as we
+                        // dont want anything to happen so we leave this blank
+                        super.onDrawerOpened(drawerView);
+                    }
+                };
 
         //Setting the actionbarToggle to drawer layout
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
@@ -191,8 +138,62 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private class OnNavigationItemSelectedListener implements NavigationView.OnNavigationItemSelectedListener
+    {
+
+        @Override
+        public boolean onNavigationItemSelected(MenuItem menuItem) {
+            //Checking if the item is in checked state or not, if not make it in checked state
+            if(menuItem.isChecked()) menuItem.setChecked(false);
+            else menuItem.setChecked(true);
+
+            //Closing drawer on item click
+            drawerLayout.closeDrawers();
+            android.support.v4.app.Fragment fragment = null;
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            //Check to see which item was being clicked and perform appropriate action
+            switch (menuItem.getItemId()){
+                //Replacing the main content with ContentFragment Which is our Inbox View;
+                case R.id.profile:
+                    fragment = new HomeFragment();
+                    fragmentTransaction.replace(R.id.frame,fragment);
+                    fragmentTransaction.commit();
+                    return true;
+                // For rest of the options we just show a toast on click
+                case R.id.explore:
+                    fragment = new ExploreFragment();
+                    fragmentTransaction.replace(R.id.frame,fragment);
+                    fragmentTransaction.commit();
+                    return true;
+                case R.id.locations:
+                    fragment = new LocationsFragment();
+                    fragmentTransaction.replace(R.id.frame,fragment);
+                    fragmentTransaction.commit();
+                    return true;
+                case R.id.search:
+                    fragment = new SearchFragment();
+                    fragmentTransaction.replace(R.id.frame,fragment);
+                    fragmentTransaction.commit();
+                    return true;
+
+                case R.id.detail:
+
+                    Intent startdetail = new Intent(MainActivity.this, DetailActivity.class);
+
+                    startdetail.putExtra("store_name","CMU Silicon Valley");
+                    startActivity(startdetail);
+
+                    return true;
+
+                default:
+                    Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+                    return true;
+            }
+        }
     }
 }
 
