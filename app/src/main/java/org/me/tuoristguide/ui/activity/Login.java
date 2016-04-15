@@ -1,4 +1,4 @@
-package org.me.tuoristguide.activity;
+package org.me.tuoristguide.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -57,8 +57,6 @@ public class Login extends Activity {
                 if(instance==null){
                     login();
                 }
-
-
             }
         });
 
@@ -75,9 +73,9 @@ public class Login extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult)
             {
-               View view=(View)findViewById(R.id.login);
+                View view=(View)findViewById(R.id.login);
                 view.setVisibility(View.INVISIBLE);
-               graphRequest= GraphRequest.newMeRequest(
+                graphRequest= GraphRequest.newMeRequest(
                         loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject json, GraphResponse response) {
@@ -88,9 +86,9 @@ public class Login extends Activity {
                                 } else {
                                     System.out.println("Success");
 
-                                          jsonresult = String.valueOf(json);
-                                          System.out.println("JSON Result" + jsonresult);
-                                          Log.d("SUCCESS!", jsonresult);
+                                    jsonresult = String.valueOf(json);
+                                    System.out.println("JSON Result" + jsonresult);
+                                    Log.d("SUCCESS!", jsonresult);
                                     intent = new Intent(Login.this,MainActivity.class);
                                     intent.putExtra("profile",jsonresult);
                                     startActivity(intent);
@@ -118,12 +116,6 @@ public class Login extends Activity {
             }
         });
     }
-
-
-
-
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)

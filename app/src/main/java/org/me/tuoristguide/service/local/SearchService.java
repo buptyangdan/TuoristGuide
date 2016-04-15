@@ -1,19 +1,14 @@
-package org.me.tuoristguide.service;
+package org.me.tuoristguide.service.local;
 
 import android.app.Activity;
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 
-import org.me.tuoristguide.fragment.SearchFragment;
 import org.me.tuoristguide.model.Geo;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
 
 /**

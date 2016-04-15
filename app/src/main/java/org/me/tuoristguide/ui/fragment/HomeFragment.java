@@ -1,4 +1,4 @@
-package org.me.tuoristguide.fragment;
+package org.me.tuoristguide.ui.fragment;
 
 
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import com.facebook.AccessToken;
 import com.facebook.login.widget.LoginButton;
 
 import org.me.tuoristguide.R;
-import org.me.tuoristguide.activity.Login;
+import org.me.tuoristguide.ui.activity.Login;
 
 public class HomeFragment extends Fragment {
 
@@ -39,6 +39,5 @@ public class HomeFragment extends Fragment {
         });
 
         return rootView;
-
     }
 }

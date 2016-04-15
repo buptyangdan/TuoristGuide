@@ -1,4 +1,4 @@
-package org.me.tuoristguide.activity;
+package org.me.tuoristguide.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +36,12 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
+    
+    private class onSubmitButtonClicked implements View.OnClickListener {
 
+        @Override
+        public void onClick(View v) {
 
+        }
+    }
 }
