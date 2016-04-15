@@ -64,3 +64,14 @@ YelpAPI yelpAPI = apiFactory.createAPI();
 
 ```
 
+
+## Run Server
+* Install Activator
+```bash
+# brew install typesafe-activator
+# cd /xxx/ToursitGuide-server
+# activator run
+```
+
+
+
