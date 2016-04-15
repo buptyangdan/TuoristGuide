@@ -1,4 +1,4 @@
-package org.me.tuoristguide.ui.adaptor;
+package org.me.tuoristguide.ui.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 /**
  * Created by zy on 4/14/16.
  */
-public class BaseListAdaptor extends BaseAdapter {
+public class BaseListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
