@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_material"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/marker" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/lbl_you_are_at"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/lblLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
+    <TextView
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/locations"
+        android:id="@+id/location_view"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold" />
+    <TextView
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/Temperature"
+        android:id="@+id/temperature__view"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"/>
+
+
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gallerylayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/condition"
+            android:id="@+id/condition_view"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/imageView"
+            android:background="#0000"
+            android:alpha=".65"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/ic_directions"
+            android:layout_alignTop="@id/condition_view"
+            android:layout_alignBottom="@id/condition_view"
+            android:layout_centerHorizontal="true"
+             />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/place_autocomplete_button_padding"
+        >
+        <TextView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:text="@string/Time"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
