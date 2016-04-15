@@ -1,4 +1,4 @@
-package org.me.tuoristguide.fragment;
+package org.me.tuoristguide.ui.fragment;
 
 
 
@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,20 +21,14 @@ import android.widget.Toast;
 
 import com.fortysevendeg.android.wunderground.api.service.WundergroundApiProvider;
 import com.fortysevendeg.android.wunderground.api.service.request.Feature;
-import com.fortysevendeg.android.wunderground.api.service.request.Lang;
-import com.fortysevendeg.android.wunderground.api.service.request.Setting;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.fortysevendeg.android.wunderground.api.service.WundergroundApiClient;
-import com.fortysevendeg.android.wunderground.api.service.request.FeatureParam;
 import com.fortysevendeg.android.wunderground.api.service.request.Query;
-import com.fortysevendeg.android.wunderground.api.service.request.Settings;
 import com.fortysevendeg.android.wunderground.api.service.response.WundergroundResponse;
-import com.google.android.gms.vision.barcode.Barcode;
 import com.squareup.picasso.Picasso;
 
 import org.me.tuoristguide.R;

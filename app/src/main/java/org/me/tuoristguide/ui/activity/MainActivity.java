@@ -1,4 +1,4 @@
-package org.me.tuoristguide.activity;
+package org.me.tuoristguide.ui.activity;
 
 
 import android.app.FragmentManager;
@@ -26,10 +26,10 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.tuoristguide.R;
-import org.me.tuoristguide.fragment.ExploreFragment;
-import org.me.tuoristguide.fragment.HomeFragment;
-import org.me.tuoristguide.fragment.LocationsFragment;
-import org.me.tuoristguide.fragment.SearchFragment;
+import org.me.tuoristguide.ui.fragment.ExploreFragment;
+import org.me.tuoristguide.ui.fragment.HomeFragment;
+import org.me.tuoristguide.ui.fragment.LocationsFragment;
+import org.me.tuoristguide.ui.fragment.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 

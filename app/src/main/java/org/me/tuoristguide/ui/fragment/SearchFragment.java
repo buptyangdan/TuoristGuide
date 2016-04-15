@@ -1,23 +1,18 @@
-package org.me.tuoristguide.fragment;
+package org.me.tuoristguide.ui.fragment;
 
 
 import android.app.Activity;
-import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,16 +21,11 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.squareup.picasso.Picasso;
 
 import org.me.tuoristguide.R;
-import org.me.tuoristguide.activity.MainActivity;
+import org.me.tuoristguide.ui.activity.MainActivity;
 import org.me.tuoristguide.model.Geo;
-import org.me.tuoristguide.service.SearchService;
-
-import java.io.IOException;
-import java.util.List;
-
+import org.me.tuoristguide.service.local.SearchService;
 
 
 public class SearchFragment extends Fragment implements  View.OnClickListener {

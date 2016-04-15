@@ -1,4 +1,4 @@
-package org.me.tuoristguide.activity;
+package org.me.tuoristguide.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
