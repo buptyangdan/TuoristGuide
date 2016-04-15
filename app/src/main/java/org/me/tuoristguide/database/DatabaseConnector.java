@@ -7,6 +7,11 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/*
+    User:       Name, Email
+    Comment:    User, Store, Text
+
+ */
 
 public class DatabaseConnector
 {
@@ -14,7 +19,6 @@ public class DatabaseConnector
     {
     }
 
-    // open the database connection
     public void open() throws SQLException
     {
     }
@@ -51,8 +55,7 @@ public class DatabaseConnector
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion,
-                              int newVersion)
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
         {
         }
     }

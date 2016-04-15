@@ -36,6 +36,12 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
+    
+    private class onSubmitButtonClicked implements View.OnClickListener {
 
+        @Override
+        public void onClick(View v) {
 
+        }
+    }
 }
