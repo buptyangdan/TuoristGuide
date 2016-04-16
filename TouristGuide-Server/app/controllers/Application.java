@@ -22,15 +22,6 @@ public class Application extends Controller {
         return ok(index.render());
     }
 
-    public  Result getPersons() {
-        Person person = form(Person.class).bindFromRequest().get();
-        System.out.println("person"+person);
-        Http.RequestBody requestBody=request().body();
-        System.out.println(requestBody.asText());
-        List<Person> persons = new Model.Finder(String.class, Person.class).all();
-        persons.add(0,new Person((long)1,new Date(), "zhangs"));
-        return ok(toJson(persons));
-    }
     @BodyParser.Of(BodyParser.Json.class)
     public Result postUserInfo() {
         JsonNode json = request().body().asJson();
