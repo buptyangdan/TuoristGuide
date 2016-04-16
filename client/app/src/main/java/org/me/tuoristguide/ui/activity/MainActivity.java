@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         fragmentManager = getFragmentManager();
         Intent intent=getIntent();
-        String str=(String)intent.getExtras().get("profile");
-        System.out.println("str:" + str);
+        //String str=(String)intent.getExtras().get("profile");
+        //System.out.println("str:" + str);
         // Initializing Toolbar and setting it as the actionbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         textView2=(TextView)header.findViewById(R.id.email);
         imageView=(ImageView)header.findViewById(R.id.profile_image);
 
+        /*
         try {
             profile=new JSONObject(str);
             name=profile.getString("name");
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+*/
 
         //  imageView.setImageResource(picture);
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
