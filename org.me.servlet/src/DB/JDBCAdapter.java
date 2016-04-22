@@ -32,10 +32,10 @@ public class JDBCAdapter {
 
         try {
 
-            String url="jdbc:mysql://127.0.0.1:3306/ToursitGuide";
+            String url="jdbc:mysql://localhost:3306/ToursitGuide";
             String Driver="com.mysql.jdbc.Driver";
             String username="root";
-            String password="Since1992!";
+            String password="root";
             Class.forName(Driver);
             connection = DriverManager.getConnection(url, username, password);
             stmt = connection.createStatement();
