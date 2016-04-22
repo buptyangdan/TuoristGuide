@@ -15,9 +15,9 @@ public class CreateUserStore extends JDBCAdapter {
     public void CreateUserStore(Users_stores users_stores){
         String sql=null;
         try{
-            String store_geo=users_stores.getStore_geo();
-            String email=users_stores.getEmail();
-            sql="insert into users_stores(email, store_geo) values ('"+email+"','"+store_geo+"');";
+            String user_name=users_stores.getUser_name();
+            String store_name=users_stores.getStore_name();
+            sql="insert into users_stores(user_name, store_name) values ('"+user_name+"','"+store_name+"');";
             this.stmt.executeUpdate(sql);
         }catch (Exception e){
             e.printStackTrace();

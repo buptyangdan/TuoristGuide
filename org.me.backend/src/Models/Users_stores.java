@@ -4,28 +4,26 @@ package Models;
  * Created by caoyi on 16/4/19.
  */
 public class Users_stores {
-    private String user_name;
-    private String store_name;
+    private String email;
+    private String store_geo;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getStore_geo() {
+		return store_geo;
+	}
+	public void setStore_geo(String store_geo) {
+		this.store_geo = store_geo;
+	}
+	public Users_stores(String email, String store_geo) {
+		super();
+		this.email = email;
+		this.store_geo = store_geo;
+	}
 
-    public Users_stores(String store_name, String user_name) {
-        this.store_name = store_name;
-        this.user_name = user_name;
-    }
-
-    public String getStore_name() {
-        return store_name;
-    }
-
-    public void setStore_name(String store_name) {
-        this.store_name = store_name;
-    }
-
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
+    
 }
 

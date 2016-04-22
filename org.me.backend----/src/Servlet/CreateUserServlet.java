@@ -25,7 +25,6 @@ import DB.CreateTable;
 import Dao.CreateStore;
 import Dao.CreateUser;
 import Dao.CreateUserStore;
-import Dao.GetCommentsByStore;
 import Dao.GetCommentsByUser;
 import Models.Comments;
 import Models.Store_info;
@@ -43,7 +42,7 @@ public class CreateUserServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       
+        super.doPost(req, resp);
 //        final PrintWriter out = resp.getWriter();
 //        out.write("POST method (changing data) was invoked!");
         CreateTable createTable=new CreateTable(path);
@@ -72,31 +71,30 @@ public class CreateUserServlet extends HttpServlet {
         }else if(mode.equals("stores_info")){
             String store_name=map.get("store_name");
             String pic_url=map.get("pic_url");
-            String store_geo=map.get("store_geo");
             String comment_txt=map.get("comment_text");
             String create_time=String.valueOf(new Date());
-            Store_info store_info=new Store_info(store_geo,store_name,comment_txt,pic_url,create_time);
+            Store_info store_info=new Store_info(store_name,comment_txt,pic_url,create_time);
             CreateStore createStore=new CreateStore(path);
             createStore.CreateStore(store_info);
         }else if(mode.equals("users_stores")){
-            String store_geo=map.get("store_geo");
-            String email=map.get("email");
-            Users_stores users_stores=new Users_stores(email,store_geo);
+            String store_name=map.get("store_name");
+            String user_name=map.get("user_name");
+            Users_stores users_stores=new Users_stores(store_name,user_name);
             CreateUserStore createUserStore=new CreateUserStore(path);
             createUserStore.CreateUserStore(users_stores);
         }
     }
     public void createTable(){
     	CreateTable createTable=new CreateTable(path);
-        createTable.CreateTableShema("/home/ubuntu/apache-tomcat-8.0.33/webapps/org.me.backend/CreateTables.txt");
+        createTable.CreateTableShema("/Users/caoyi/Documents/workspace-lunaee/org.me.backend/CreateTables.txt");
     }
    
     @SuppressWarnings("unchecked")
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+        super.doGet(req, resp);
      
-        
+        List<JSONObject> jsonObjects=new ArrayList<JSONObject>();
         Enumeration paramNames = req.getParameterNames();
         Map<String,String> map=new HashMap<String,String>();
         while(paramNames.hasMoreElements()){
@@ -106,50 +104,31 @@ public class CreateUserServlet extends HttpServlet {
         }
         String mode=map.get("Mode");
         System.out.println(mode+"======");
-        JSONObject result=new JSONObject();
         if(mode.equals("byUser")){
             //select by username
            GetCommentsByUser getCommentsByUser=new GetCommentsByUser(path);
-           String email=map.get("email");
-           JSONObject jsonObject=new JSONObject();
-           List<Comments> commentses= getCommentsByUser.GetCommentsByUser(email);
-           List<JSONObject> jsonObjects=new ArrayList<JSONObject>();
+           String user_name=map.get("user_name");
+           List<Comments> commentses= getCommentsByUser.GetCommentsByUser(user_name);
             for(Comments comment: commentses){
-            	JSONObject buffjsonObject=new JSONObject();
-                buffjsonObject.put("comment_txt",comment.getComment_txt());
-                buffjsonObject.put("created_time",comment.getCreated_time());
-                buffjsonObject.put("store_name", comment.getStore_name());
-                buffjsonObject.put("pic_url", comment.getPic_url());
-                jsonObjects.add(buffjsonObject);
+            	JSONObject jsonObject=new JSONObject();
+                jsonObject.put("user_name",comment.getUser_name());
+                jsonObject.put("store_name",comment.getStore_name());
+                jsonObject.put("comment_txt",comment.getComment_txt());
+                jsonObject.put("created_time",comment.getCreated_time());
+                jsonObject.put("photo_url",comment.getPhoto_url());
+                jsonObject.put("pic_url",comment.getPic_url());
+                jsonObject.put("email",comment.getEmail());
+                jsonObjects.add(jsonObject);
             }
-           result.put("stores", jsonObjects);
-           result.put("user_name",commentses.get(0).getUser_name());
-           result.put("poto_url", commentses.get(0).getPhoto_url());
-           result.put("email", commentses.get(0).getEmail());
-          
+
         }else if(mode.equals("byStore")){
             //select by storename
-        	GetCommentsByStore getCommentsByStore=new GetCommentsByStore(path);
-        	String store_geo=map.get("store_geo");
-        	JSONObject jsonObject=new JSONObject();
-        	List<Comments> commentes=getCommentsByStore.GetCommentsByStore(store_geo);
-            List<JSONObject> jsonObjects=new ArrayList<JSONObject>();
-            for(Comments comment: commentes){
-            	JSONObject buffjsonObject=new JSONObject();
-                buffjsonObject.put("user_name",comment.getUser_name());
-                buffjsonObject.put("email",comment.getEmail());
-                buffjsonObject.put("comment_txt",comment.getComment_txt());
-                buffjsonObject.put("created_time",comment.getCreated_time());
-                buffjsonObject.put("photo_url",comment.getPhoto_url());
-                jsonObjects.add(buffjsonObject);
-            }
-            result.put("users", jsonObjects);
-            result.put("store_name",commentes.get(0).getStore_name());
-            result.put("pic_url", commentes.get(0).getPic_url());
+
         }
+         System.out.println(jsonObjects.toString());
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(result.toString());
+        resp.getWriter().write(jsonObjects.toString());
 
     }
 

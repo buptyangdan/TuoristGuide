@@ -13,6 +13,7 @@
    <servlet>
         <servlet-name>CreateUser</servlet-name>
         <servlet-class>Servlet.CreateUserServlet</servlet-class>
+       
     </servlet>
     <servlet-mapping>
         <servlet-name>CreateUser</servlet-name>

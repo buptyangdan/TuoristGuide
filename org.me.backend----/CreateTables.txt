@@ -1,7 +1,6 @@
 create table stores_info (
   id                        bigint auto_increment not null,
   store_name                varchar(255),
-  store_geo                 varchar(255),
   pic_url                   varchar(255),
   comment_text              varchar(255),
   created_time              varchar(255),
@@ -18,7 +17,7 @@ create table user_info (
 
 create table users_stores (
   id                        bigint auto_increment not null,
-  email                 varchar(255),
-  store_geo                varchar(255),
+  user_name                 varchar(255),
+  store_name                varchar(255),
   constraint pk_users_stores primary key (id))
 ;

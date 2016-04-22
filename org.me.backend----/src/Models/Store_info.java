@@ -9,14 +9,12 @@ public class Store_info {
     private String pic_url;
     private String comment_text;
     private String created_time;
-    private String store_geo;
 
-    public Store_info(String store_geo,String store_name, String comment_text,  String pic_url, String created_time) {
+    public Store_info(String store_name, String comment_text,  String pic_url, String created_time) {
         this.store_name = store_name;
         this.comment_text = comment_text;
         this.pic_url = pic_url;
         this.created_time=created_time;
-        this.store_geo=store_geo;
     }
 
     public String getComment_text() {
@@ -50,13 +48,4 @@ public class Store_info {
     public void setStore_name(String store_name) {
         this.store_name = store_name;
     }
-
-	public String getStore_geo() {
-		return store_geo;
-	}
-
-	public void setStore_geo(String store_geo) {
-		this.store_geo = store_geo;
-	}
-    
 }

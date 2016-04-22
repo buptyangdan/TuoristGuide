@@ -18,12 +18,11 @@ public class CreateStore extends JDBCAdapter {
     public void CreateStore(Store_info store){
         String sql=null;
         try{
-           String store_geo=store.getStore_geo();	
            String store_name=store.getStore_name();
            String comment_txt=store.getComment_text();
            String pic_url=store.getPic_url();
            String create_time=store.getCreated_time();
-            sql="insert into stores_info (store_geo, store_name, pic_url, comment_text, created_time) values ('"+store_geo+"','"+store_name+"','"+pic_url+"','"+comment_txt+"','"+create_time+"');";
+            sql="insert into stores_info (store_name,pic_url, comment_text, created_time) values ('"+store_name+"','"+pic_url+"','"+comment_txt+"','"+create_time+"');";
             System.out.println(sql);
             this.stmt.executeUpdate(sql);
         }catch (Exception e){
