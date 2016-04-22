@@ -1,7 +1,8 @@
 package org.me.tuoristguide.entities;
 
-import org.me.tuoristguide.model.Comment;
+import org.json.JSONObject;
 import org.me.tuoristguide.model.User;
+import org.me.tuoristguide.service.local.FacebookService;
 
 import java.util.ArrayList;
 
@@ -10,19 +11,35 @@ import java.util.ArrayList;
  */
 public class UserManager {
 
-    private User current_user = null;
+    private static UserManager instance = null;
 
-    public void createUser(String name, String email){
+    private User currentUser = null;
 
+    public static UserManager getInstance() {
+        if (instance == null){
+            instance = new UserManager();
+        }
+        return instance;
     }
 
     public User getCurrentUser() {
+        return currentUser;
+    }
 
-        return current_user;
+    public void setupUser(JSONObject json){
+        currentUser = new User(json);
     }
 
 
-    public ArrayList<Comment> getUserLocalComments() {
-        return null;
+    public void removeUser() {
+        currentUser = null;
     }
+
+    public void loadDBUser() {
+        // check if user has already logged in and read data from local database
+        if (FacebookService.getInstance(null).checkLoginStatus()){
+            // TODO load from databse
+        }
+    }
+
 }

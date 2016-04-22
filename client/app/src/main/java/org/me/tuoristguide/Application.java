@@ -1,6 +1,9 @@
 package org.me.tuoristguide;
 
 import com.android.volley.toolbox.Volley;
+import com.facebook.FacebookSdk;
+
+import org.me.tuoristguide.entities.UserManager;
 import org.me.tuoristguide.util.NetworkConnector;
 
 /**
@@ -15,6 +18,8 @@ public class Application extends android.app.Application {
 
         // create Network thread pool here
         NetworkConnector.getInstance().setmQueue(Volley.newRequestQueue(this));
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        UserManager.getInstance().loadDBUser();
     }
 
 }

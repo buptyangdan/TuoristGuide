@@ -15,21 +15,27 @@ import org.me.tuoristguide.util.NetworkConnector;
  */
 public class DetailActivity extends AppCompatActivity {
 
-    private TextView storeName;
+    private TextView storeNameText;
     private Button submitButton;
+    private String store_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         String storename = getIntent().getExtras().getString("store_name");
+        store_id = getIntent().getExtras().getString("store_id");
+        String rate_string = getIntent().getExtras().getString("store_rate");
 
-        storeName = (TextView) findViewById(R.id.store_name);
+        storeNameText = (TextView) findViewById(R.id.store_name);
 
-        storeName.setText(storename);
+        if (storeNameText != null) {
+            storeNameText.setText(storename);
+        }
 
+
+        // test butotn
         submitButton = (Button)findViewById(R.id.submit);
-
         submitButton.setOnClickListener(new OnSubmitButtonClicked());
 
     }
@@ -42,6 +48,14 @@ public class DetailActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
 
     }
+
+
+    private void getComments(String store_id) {
+
+        // get all comments of one store from server
+    }
+
+    // listeners
 
     private class OnSubmitButtonClicked implements View.OnClickListener {
 

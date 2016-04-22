@@ -21,13 +21,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.tuoristguide.R;
+import org.me.tuoristguide.entities.UserManager;
+import org.me.tuoristguide.service.local.FacebookService;
 import org.me.tuoristguide.ui.fragment.ExploreFragment;
-import org.me.tuoristguide.ui.fragment.HomeFragment;
 import org.me.tuoristguide.ui.fragment.LocationsFragment;
 import org.me.tuoristguide.ui.fragment.SearchFragment;
 
@@ -47,8 +45,23 @@ public class MainActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (UserManager.getInstance().getCurrentUser() != null){
+            // TODO load user data from local database
+            System.out.println("login");
+        } else {
+            // TODO Setup header with default data
+            System.out.println("not login");
+            UserManager.getInstance().removeUser();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_main);
         fragmentManager = getFragmentManager();
@@ -66,29 +79,6 @@ public class MainActivity extends AppCompatActivity {
         textView2=(TextView)header.findViewById(R.id.email);
         imageView=(ImageView)header.findViewById(R.id.profile_image);
 
-        /*
-        try {
-            profile=new JSONObject(str);
-            name=profile.getString("name");
-            System.out.println("name"+name);
-            email=profile.getString("email");
-            profile_pic_data=new JSONObject(profile.getString("picture"));
-            profile_pic_url=new JSONObject(profile_pic_data.getString("data"));
-//            picture=profile.getString("picture");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        textView1.setText(name);
-        textView2.setText(email);
-        try {
-            Picasso.with(this).load(profile_pic_url.getString("url"))
-                    .into(imageView);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-*/
 
         //  imageView.setImageResource(picture);
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
@@ -121,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,9 +152,13 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()){
                 //Replacing the main content with ContentFragment Which is our Inbox View;
                 case R.id.profile:
-                    fragment = new HomeFragment();
+                    Intent startLogin = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(startLogin);
+                    /*
+                    fragment = new ProfileFragment();
                     fragmentTransaction.replace(R.id.frame,fragment);
                     fragmentTransaction.commit();
+                    */
                     return true;
                 // For rest of the options we just show a toast on click
                 case R.id.explore:
