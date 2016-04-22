@@ -18,8 +18,13 @@ public class Application extends android.app.Application {
 
         // create Network thread pool here
         NetworkConnector.getInstance().setmQueue(Volley.newRequestQueue(this));
+
+        // init Facebook SDK
         FacebookSdk.sdkInitialize(getApplicationContext());
+
+        // init UserManager
         UserManager.getInstance().loadDBUser();
+
     }
 
 }
