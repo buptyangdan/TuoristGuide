@@ -9,13 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
- 
-   <servlet>
-        <servlet-name>CreateUser</servlet-name>
-        <servlet-class>Servlet.CreateUserServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CreateUser</servlet-name>
-        <url-pattern>/user_info</url-pattern>
-    </servlet-mapping>
+  <servlet>
+    <servlet-name>CreateUser</servlet-name>
+    <servlet-class>Servlet.CreateUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateUser</servlet-name>
+    <url-pattern>/user_info</url-pattern>
+  </servlet-mapping>
 </web-app>
