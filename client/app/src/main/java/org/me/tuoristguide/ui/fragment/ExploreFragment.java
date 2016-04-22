@@ -73,7 +73,12 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         //mMap.setMyLocationEnabled(true);
         // For dropping a marker at a point on the Map
         //set up the map according to the result
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("My Home").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)).snippet("Home Address"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title("My Home")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+                .snippet("Home Address"));
+
         for (Business b : businesses) {
             mMap.addMarker(new MarkerOptions().position(new LatLng(b.location().coordinate().latitude(), b.location().coordinate().longitude())).title(b.name())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location)).snippet(b.name()));

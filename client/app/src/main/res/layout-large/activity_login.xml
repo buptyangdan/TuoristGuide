@@ -44,7 +44,7 @@
     <!-- Place footer next to header to set z-index property to minus value -->
     <!-- Footer Ends -->
 
-    <!-- Login Form -->
+    <!-- ProfileActivity Form -->
 
         <com.facebook.login.widget.LoginButton
 
@@ -56,7 +56,7 @@
 
 
 
-    <!-- Login Form Ends -->
+    <!-- ProfileActivity Form Ends -->
 
 </RelativeLayout>
 

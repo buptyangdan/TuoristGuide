@@ -8,6 +8,7 @@ import org.me.tuoristguide.model.User;
 public class UserService {
 
     public void createNewUser(User user) {
+        // create user on Server side
 
     }
 }
