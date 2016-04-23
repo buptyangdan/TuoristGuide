@@ -18,10 +18,8 @@ import java.sql.Statement;
  * Created by caoyi on 16/4/19.
  */
 public class CreateTable extends JDBCAdapter{
-
-
-    public CreateTable(String fileName) {
-        super(fileName);
+    public CreateTable() {
+        super();
     }
 
     //read file and create the table
@@ -45,10 +43,8 @@ public class CreateTable extends JDBCAdapter{
                         line = br.readLine();
                     }
                     sb.append(line);
-
                     this.stmt.executeUpdate(sb.toString());
                 }
-
             }
             br.close();
         } catch (IOException | SQLException e) {

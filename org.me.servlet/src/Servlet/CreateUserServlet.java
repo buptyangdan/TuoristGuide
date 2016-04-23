@@ -38,7 +38,6 @@ import Models.Users_stores;
  */
 public class CreateUserServlet extends HttpServlet {
      
-	static String path="./dbInit.txt";
     public CreateUserServlet() {
     }
     @Override
@@ -46,7 +45,7 @@ public class CreateUserServlet extends HttpServlet {
        
 //        final PrintWriter out = resp.getWriter();
 //        out.write("POST method (changing data) was invoked!");
-        CreateTable createTable=new CreateTable(path);
+        CreateTable createTable=new CreateTable();
         if((createTable.hasTable("user_info"))){
         	createTable();
         }
@@ -67,36 +66,33 @@ public class CreateUserServlet extends HttpServlet {
             String email=map.get("email");
             String photo_url=map.get("photo_url");
             User_info user=new User_info(user_name,email,photo_url);
-            CreateUser createUser=new CreateUser(path);
+            CreateUser createUser=new CreateUser();
             createUser.CreateUser(user);
         }else if(mode.equals("stores_info")){
             String store_name=map.get("store_name");
             String pic_url=map.get("pic_url");
             String store_geo=map.get("store_geo");
-            String comment_txt=map.get("comment_text");
-            String create_time=String.valueOf(new Date());
-            Store_info store_info=new Store_info(store_geo,store_name,comment_txt,pic_url,create_time);
-            CreateStore createStore=new CreateStore(path);
+            Store_info store_info=new Store_info(store_name, pic_url, store_geo);
+            CreateStore createStore=new CreateStore();
             createStore.CreateStore(store_info);
         }else if(mode.equals("users_stores")){
             String store_geo=map.get("store_geo");
             String email=map.get("email");
-            Users_stores users_stores=new Users_stores(email,store_geo);
-            CreateUserStore createUserStore=new CreateUserStore(path);
+            String comment_text=map.get("comment_text");
+            String create_time=String.valueOf(new Date());
+            Users_stores users_stores=new Users_stores(email, store_geo, comment_text, create_time);
+            CreateUserStore createUserStore=new CreateUserStore();
             createUserStore.CreateUserStore(users_stores);
         }
     }
     public void createTable(){
-    	CreateTable createTable=new CreateTable(path);
-        createTable.CreateTableShema("/home/ubuntu/apache-tomcat-8.0.33/webapps/org.me.backend/CreateTables.txt");
+    	CreateTable createTable=new CreateTable();
+        createTable.CreateTableShema("/Users/caoyi/Desktop/TuoristGuide/org.me.servlet/CreateTables.txt");
     }
    
     @SuppressWarnings("unchecked")
 	@Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-     
-        
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {   
         Enumeration paramNames = req.getParameterNames();
         Map<String,String> map=new HashMap<String,String>();
         while(paramNames.hasMoreElements()){
@@ -109,7 +105,7 @@ public class CreateUserServlet extends HttpServlet {
         JSONObject result=new JSONObject();
         if(mode.equals("byUser")){
             //select by username
-           GetCommentsByUser getCommentsByUser=new GetCommentsByUser(path);
+           GetCommentsByUser getCommentsByUser=new GetCommentsByUser();
            String email=map.get("email");
            JSONObject jsonObject=new JSONObject();
            List<Comments> commentses= getCommentsByUser.GetCommentsByUser(email);
@@ -123,22 +119,23 @@ public class CreateUserServlet extends HttpServlet {
                 jsonObjects.add(buffjsonObject);
             }
            result.put("stores", jsonObjects);
-           result.put("user_name",commentses.get(0).getUser_name());
+           result.put("user_name",commentses.get(0).getComment_user());
            result.put("poto_url", commentses.get(0).getPhoto_url());
            result.put("email", commentses.get(0).getEmail());
           
         }else if(mode.equals("byStore")){
             //select by storename
-        	GetCommentsByStore getCommentsByStore=new GetCommentsByStore(path);
+        	GetCommentsByStore getCommentsByStore=new GetCommentsByStore();
         	String store_geo=map.get("store_geo");
         	JSONObject jsonObject=new JSONObject();
         	List<Comments> commentes=getCommentsByStore.GetCommentsByStore(store_geo);
             List<JSONObject> jsonObjects=new ArrayList<JSONObject>();
             for(Comments comment: commentes){
             	JSONObject buffjsonObject=new JSONObject();
-                buffjsonObject.put("user_name",comment.getUser_name());
+                buffjsonObject.put("user_name",comment.getComment_user());
                 buffjsonObject.put("email",comment.getEmail());
                 buffjsonObject.put("comment_txt",comment.getComment_txt());
+                buffjsonObject.put("comment_user",comment.getComment_user());
                 buffjsonObject.put("created_time",comment.getCreated_time());
                 buffjsonObject.put("photo_url",comment.getPhoto_url());
                 jsonObjects.add(buffjsonObject);

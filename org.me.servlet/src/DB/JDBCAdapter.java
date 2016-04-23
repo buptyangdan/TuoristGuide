@@ -26,7 +26,7 @@ public class JDBCAdapter {
     //constructor connect to the database
 
 
-    public JDBCAdapter(String filename) {
+    public JDBCAdapter() {
         // TODO Auto-generated constructor stub
    
 
@@ -35,7 +35,7 @@ public class JDBCAdapter {
             String url="jdbc:mysql://localhost:3306/ToursitGuide";
             String Driver="com.mysql.jdbc.Driver";
             String username="root";
-            String password="root";
+            String password="Since1992!";
             Class.forName(Driver);
             connection = DriverManager.getConnection(url, username, password);
             stmt = connection.createStatement();

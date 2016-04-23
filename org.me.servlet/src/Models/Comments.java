@@ -4,32 +4,22 @@ package Models;
  * Created by caoyi on 16/4/19.
  */
 public class Comments {
-    String user_name;
     String email;
     String store_name;
     String comment_txt;
     String created_time;
     String photo_url;
     String pic_url;
-
-    public Comments(String comment_txt, String created_time, String email, String photo_url, String pic_url, String store_name, String user_name) {
+    String comment_user;
+    public Comments(String comment_user, String comment_txt, String created_time, String email, String photo_url, String pic_url, String store_name) {
         this.comment_txt = comment_txt;
         this.created_time = created_time;
         this.email = email;
         this.photo_url = photo_url;
         this.pic_url = pic_url;
         this.store_name = store_name;
-        this.user_name = user_name;
+        this.comment_user=comment_user;
     }
-
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
-
     public String getComment_txt() {
         return comment_txt;
     }
@@ -37,6 +27,14 @@ public class Comments {
     public void setComment_txt(String comment_txt) {
         this.comment_txt = comment_txt;
     }
+    public String getComment_user() {
+        return comment_user;
+    }
+
+    public void setComment_user(String comment_user) {
+        this.comment_user = comment_user;
+    }
+
 
     public String getCreated_time() {
         return created_time;
