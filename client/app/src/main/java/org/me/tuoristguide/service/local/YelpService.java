@@ -30,13 +30,13 @@ public class YelpService {
     public static YelpService getInstance() {
         if(instance == null) {
             instance = new YelpService();
-            YelpAPIFactory apiFactory = new YelpAPIFactory("NUBhGlHwegeyRXi5Ci9XLA",
+            YelpAPIFactory apiFactory =
+                    new YelpAPIFactory("NUBhGlHwegeyRXi5Ci9XLA",
                     "evZpCq1B7GcjEv-5WgFYH2iNBcM",
                     "Rl5mlNSOFd4sJ9G4KNVjDWa7wLmdyUVG",
                     "31cVuZroz3LPGrfRqy6IAfpn3n0");
 
             yelpAPI = apiFactory.createAPI();
-
         }
         return instance;
     }
@@ -55,6 +55,8 @@ public class YelpService {
      * @return
      */
     public void yelpNearby(Double latitude, Double longitude) {
+        // get neary businesses by Yelp API
+
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("limit", "20");
         BoundingBoxOptions bouds = BoundingBoxOptions.builder()
@@ -70,7 +72,7 @@ public class YelpService {
                 System.out.println("here is the response!!! " + response.body().businesses());
                 ArrayList<Business> businesses=response.body().businesses();
                 if (controller != null)
-                    controller.setUpMap(businesses);
+                    controller.placeBusinessMarks(businesses);
             }
 
             @Override
@@ -86,7 +88,7 @@ public class YelpService {
 
 
     public interface YelpServiceInterface {
-        void setUpMap(ArrayList<Business> businesses);
+        void placeBusinessMarks(ArrayList<Business> businesses);
     }
 
 }

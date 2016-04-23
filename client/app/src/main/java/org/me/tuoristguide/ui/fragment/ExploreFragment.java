@@ -1,112 +1,176 @@
 package org.me.tuoristguide.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.yelp.clientlib.entities.Business;
+import com.yelp.clientlib.entities.Coordinate;
 
 import org.me.tuoristguide.R;
+import org.me.tuoristguide.service.local.LocationService;
 import org.me.tuoristguide.service.local.YelpService;
 import org.me.tuoristguide.ui.activity.DetailActivity;
 import org.me.tuoristguide.ui.activity.MainActivity;
 
 import java.util.ArrayList;
+import javax.inject.Inject;
+
+import roboguice.inject.InjectView;
 
 
-public class ExploreFragment extends Fragment implements YelpService.YelpServiceInterface {
+public class ExploreFragment extends Fragment implements YelpService.YelpServiceInterface,
+        OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    private static View view;
-    private static Double latitude, longitude;
-    private static GoogleMap mMap;
+    private static final String MAP_FRAGMENT_TAG = "MAP_FRAGMENT";
+    private static final String TAG = "ExploreFragment";
+
+    private FloatingActionButton locationButton;
 
 
-    public ExploreFragment() {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // set self as controller in YelpService
         YelpService.getInstance().setController(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        if (container == null) {
-            return null;
-        }
-
-        view = (RelativeLayout) inflater.inflate(R.layout.fragment_explore, container, false);
-
-        // TODO change to getting real
-        latitude = 37.422006;
-        longitude = -122.084095;
-        setUpMapIfNeeded();
-        YelpService.getInstance().yelpNearby(latitude, longitude);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_explore, container, false);
     }
 
-    public static void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((MapFragment) MainActivity.fragmentManager
-                    .findFragmentById(R.id.explore_map)).getMap();
-            // Check if we were successful in obtaining the map.
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        // set google map fragment
+        FragmentManager fragmentManager = getChildFragmentManager();
+        SupportMapFragment fragment = (SupportMapFragment) fragmentManager.findFragmentById(R.id.explore_map);
+        if (fragment == null) {
+            fragment = SupportMapFragment.newInstance();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.explore_map, fragment, MAP_FRAGMENT_TAG)
+                    .commit();
         }
+
+        // floating location button
+        locationButton = (FloatingActionButton) getActivity().findViewById(R.id.my_location_button);
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LocationService.getInstance().requestLocationUpdates(ExploreFragment.this);
+            }
+        });
+
+        // set up google api client
+        LocationService.getInstance().setGoogleApiClient(
+                new GoogleApiClient.Builder(getActivity())
+                        .addApi(LocationServices.API)
+                        .addConnectionCallbacks(this)
+                        .addOnConnectionFailedListener(this)
+                        .build());
+
+        fragment.getMapAsync(this);
+
+
+        //YelpService.getInstance().yelpNearby(latitude, longitude);
     }
+
 
     // interface method from YelpService interface
-    public void setUpMap(ArrayList<Business> businesses) {
-        // For showing a move to my loction button
-        //mMap.setMyLocationEnabled(true);
-        // For dropping a marker at a point on the Map
-        //set up the map according to the result
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude, longitude))
-                .title("My Home")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
-                .snippet("Home Address"));
-
+    public void placeBusinessMarks(ArrayList<Business> businesses) {
         for (Business b : businesses) {
-            mMap.addMarker(new MarkerOptions().position(new LatLng(b.location().coordinate().latitude(), b.location().coordinate().longitude())).title(b.name())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location)).snippet(b.name()));
+            Coordinate coord = b.location().coordinate();
+            LocationService.getInstance().addMarker(
+                    new MarkerOptions()
+                            .position(new LatLng(coord.latitude(), coord.longitude()))
+                            .title(b.name())
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location))
+                            .snippet(b.name())
+            );
         }
+    }
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,
-                longitude), 14.0f));
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.getUiSettings().setZoomGesturesEnabled(true);
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LocationService.getInstance().stopLocationUpdates(this);
+   }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mMap != null) {
-            MainActivity.fragmentManager.beginTransaction()
-                    .remove(MainActivity.fragmentManager.findFragmentById(R.id.explore_map)).commit();
-            mMap = null;
-        }
     }
 
 
-    public void swithToDetailView(String store_name, String store_id) {
-        Intent startdetail = new Intent(getActivity(), DetailActivity.class);
-        startdetail.putExtra("store_name", store_name);
-        startdetail.putExtra("store_id", store_id);
-        startActivity(startdetail);
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.d(TAG, "Location services connected.");
     }
 
+    @Override
+    public void onConnectionSuspended(int cause) {
+        Log.d(TAG, "Location services disconnected. Please reconnect.");
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        // inform LocationService the change
+        LocationService.getInstance().locationChanged(location);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        // set google map in the LocationService instance
+        LocationService.getInstance().setUpGoogleMap(googleMap);
+    }
 }

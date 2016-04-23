@@ -3,7 +3,9 @@ package org.me.tuoristguide.ui.activity;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
@@ -28,8 +30,11 @@ import org.me.tuoristguide.service.local.FacebookService;
 import org.me.tuoristguide.ui.fragment.ExploreFragment;
 import org.me.tuoristguide.ui.fragment.LocationsFragment;
 import org.me.tuoristguide.ui.fragment.SearchFragment;
+import android.Manifest;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CODE_PERMISSION_ACCESS_FINE_LOCATION = 1;
 
     //Defining Variables
     public Toolbar toolbar;
@@ -110,8 +115,25 @@ public class MainActivity extends AppCompatActivity {
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
 
+
+        checkAndRequestLocationPermission();
+
     }
 
+    private void checkAndRequestLocationPermission(){
+
+        // check location permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED)
+        {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_PERMISSION_ACCESS_FINE_LOCATION);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
