@@ -1,11 +1,14 @@
 package org.me.tuoristguide.service.local;
 
+import android.location.Location;
+
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.SearchResponse;
 import com.yelp.clientlib.entities.options.BoundingBoxOptions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +26,7 @@ public class YelpService {
     private static YelpService instance = null;
     private YelpServiceInterface controller = null;
     private static YelpAPI yelpAPI = null;
+    private ArrayList<Business> businesses = null;
 
     Call<SearchResponse> call;
 
@@ -59,32 +63,39 @@ public class YelpService {
 
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("limit", "20");
-        BoundingBoxOptions bouds = BoundingBoxOptions.builder()
+
+        BoundingBoxOptions bounds = BoundingBoxOptions.builder()
                 .swLatitude(latitude - 0.01)
                 .swLongitude(longitude - 0.01)
                 .neLatitude(latitude + 0.01)
                 .neLongitude(longitude + 0.01).build();
 
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {
+
             @Override
             public void onResponse(Response<SearchResponse> response, Retrofit retrofit) {
 
                 System.out.println("here is the response!!! " + response.body().businesses());
-                ArrayList<Business> businesses=response.body().businesses();
+                businesses = response.body().businesses();
                 if (controller != null)
                     controller.placeBusinessMarks(businesses);
             }
 
             @Override
             public void onFailure(Throwable t) {
-                System.out.println("something wrong!!");
-                System.out.println(t);
+                System.out.println("something wrong!!" + t);
             }
+
         };
-        call = yelpAPI.search(bouds, queryParams);
+
+        call = yelpAPI.search(bounds, queryParams);
         call.enqueue(callback);
     }
 
+    public void yelpNearby(Location location){
+        if (location != null)
+            yelpNearby(location.getLatitude(), location.getLongitude());
+    }
 
 
     public interface YelpServiceInterface {

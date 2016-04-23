@@ -1,15 +1,8 @@
 package org.me.tuoristguide.service.local;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -72,17 +65,25 @@ public class LocationService {
     }
 
 
-    public void showCurrentLocationInMap() {
+    public void showAndMoveCurrentLocationInMap() {
         if (currentLocation != null) {
+            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+            float zoom = googleMap.getCameraPosition().zoom;
+
+            if (zoom < 12.5f)
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.5f));
+            else
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
             googleMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
+                    .position(latLng)
                     .title("Current Location")
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
         }
     }
 
     public void requestLocationUpdates(LocationListener listener) {
-        onPreLocationUpdate();
+        //onPreLocationUpdate();
         LocationRequest locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1_000)        // 10 seconds
@@ -117,16 +118,8 @@ public class LocationService {
     }
 
     public void locationChanged(Location location) {
-
-        Log.d("LocationService", "Location Changed..........");
+        // Log.d("LocationService", "Location Changed..........");
         currentLocation = location;
-        googleMap.clear();
-        LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        float zoom = googleMap.getCameraPosition().zoom;
-        if (zoom < 12.5f) googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.5f));
-        else googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
-        showCurrentLocationInMap();
     }
 
     public void addMarker(MarkerOptions marker){

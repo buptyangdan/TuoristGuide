@@ -3,9 +3,7 @@ package org.me.tuoristguide.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,13 +34,9 @@ import com.yelp.clientlib.entities.Coordinate;
 import org.me.tuoristguide.R;
 import org.me.tuoristguide.service.local.LocationService;
 import org.me.tuoristguide.service.local.YelpService;
-import org.me.tuoristguide.ui.activity.DetailActivity;
-import org.me.tuoristguide.ui.activity.MainActivity;
 
 import java.util.ArrayList;
-import javax.inject.Inject;
 
-import roboguice.inject.InjectView;
 
 
 public class ExploreFragment extends Fragment implements YelpService.YelpServiceInterface,
@@ -74,7 +68,9 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
         // set google map fragment
         FragmentManager fragmentManager = getChildFragmentManager();
-        SupportMapFragment fragment = (SupportMapFragment) fragmentManager.findFragmentById(R.id.explore_map);
+        SupportMapFragment fragment = (SupportMapFragment)
+                fragmentManager.findFragmentById(R.id.explore_map);
+
         if (fragment == null) {
             fragment = SupportMapFragment.newInstance();
             fragmentManager.beginTransaction()
@@ -88,6 +84,8 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
             @Override
             public void onClick(View view) {
                 LocationService.getInstance().requestLocationUpdates(ExploreFragment.this);
+                LocationService.getInstance().showAndMoveCurrentLocationInMap();
+                YelpService.getInstance().yelpNearby(LocationService.getInstance().getCurrentLocation());
             }
         });
 
@@ -101,8 +99,6 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
         fragment.getMapAsync(this);
 
-
-        //YelpService.getInstance().yelpNearby(latitude, longitude);
     }
 
 
@@ -120,20 +116,16 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         }
     }
 
-
-
     @Override
     public void onStart() {
         super.onStart();
     }
 
-
     @Override
     public void onStop() {
         super.onStop();
         LocationService.getInstance().stopLocationUpdates(this);
-   }
-
+    }
 
     @Override
     public void onDestroy() {
@@ -165,12 +157,12 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         // set google map in the LocationService instance
         LocationService.getInstance().setUpGoogleMap(googleMap);
+        LocationService.getInstance().showAndMoveCurrentLocationInMap();
     }
 }
