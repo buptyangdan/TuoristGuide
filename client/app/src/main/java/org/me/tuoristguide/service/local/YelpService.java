@@ -84,7 +84,7 @@ public class YelpService {
             @Override
             public void onResponse(Response<SearchResponse> response, Retrofit retrofit) {
 
-                System.out.println("here is the response!!! " + response.body().businesses());
+                // System.out.println("here is the response!!! " + response.body().businesses());
                 businesses = response.body().businesses();
                 if (controller != null)
                     controller.placeBusinessMarks(businesses);

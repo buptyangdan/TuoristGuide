@@ -28,4 +28,5 @@
     <string name="last_map_location_lng_key" translatable="false">LAST_MAP_LNG</string>
     <string name="last_map_zoom_key" translatable="false">LAST_MAP_ZOOM</string>
     <string name="current_location">Current location</string>
+    <string name="build_route">View recommended route</string>
 </resources>

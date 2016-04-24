@@ -8,76 +8,16 @@
         android:id="@+id/explore_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    
-    <SearchView
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:id="@+id/searchView3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:queryHint="Explore"
-        android:visibility="visible"
-        android:backgroundTintMode="src_over" >
-    </SearchView>
 
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="168dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="#d7d9d9" >
-
-        <ImageButton
-            android:layout_weight="5"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/imageButton3"
-            android:layout_gravity="center_horizontal|bottom"
-            android:src="@drawable/ic_location"
-            android:onClick="onClick"/>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:longClickable="false"
-            android:layout_gravity="bottom|right"
-            android:id="@+id/linearLayout2"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_weight="500"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center|right|top"
-                android:drawablePadding="5dp"
-                android:singleLine="true"
-                android:text="@string/CommercialName"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:textSize="23dp" />
-
-            <RatingBar
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ratingBar2"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="left|top"
-                android:numStars="5"
-                android:rating="4.5"
-                android:stepSize="0.5" />
-        </LinearLayout>
-    </LinearLayout>
+        android:background="@android:color/transparent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"/>
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/my_location_button"

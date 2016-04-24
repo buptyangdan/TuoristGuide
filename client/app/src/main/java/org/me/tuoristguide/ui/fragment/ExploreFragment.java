@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.ads.internal.util.client.VersionInfoParcel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -53,7 +56,11 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     private static final String TAG = "ExploreFragment";
     private String business_id;
     private FloatingActionButton locationButton;
+
     private ImageButton plan_route;
+
+    private ViewPager viewPager;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,6 +123,10 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
         fragment.getMapAsync(this);
 
+
+        // pager
+        viewPager = (ViewPager) getActivity().findViewById(R.id.pager);
+
     }
 
 
@@ -132,6 +143,8 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
                             .snippet(b.id())
             );
         }
+        viewPager.setVisibility(View.VISIBLE);
+        viewPager.setAdapter(new StoresAdapter(businesses));
     }
 
     @Override
@@ -200,8 +213,28 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     @Override
     public boolean onMarkerClick(Marker marker) {
         //here get the send the Business info to detail Activity
-         business_id=marker.getSnippet();
-         YelpService.getInstance().yelpBussiness(business_id);
+        business_id = marker.getSnippet();
+        YelpService.getInstance().yelpBussiness(business_id);
         return false;
+    }
+    private class StoresAdapter extends FragmentStatePagerAdapter {
+
+        private ArrayList<Business> businesses;
+
+
+        public StoresAdapter(ArrayList<Business> businesses){
+            super(getChildFragmentManager());
+            this.businesses = businesses;
+        }
+
+        @Override
+        public StoreFragment getItem(int position) {
+            return StoreFragment.newInstance(businesses.get(position));
+        }
+
+        @Override
+        public int getCount() {
+            return this.businesses.size();
+        }
     }
 }
