@@ -15,6 +15,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.me.tuoristguide.R;
+import org.me.tuoristguide.ui.activity.MainActivity;
+import org.me.tuoristguide.ui.fragment.ExploreFragment;
 
 /**
  * Created by zy on 4/14/16.
@@ -35,7 +37,7 @@ public class LocationService {
     // google map services
     private Location currentLocation;
     private GoogleApiClient googleApiClient;
-    private GoogleMap googleMap;
+    public GoogleMap googleMap;
     private LocationManager locationManager;
 
     public void setGoogleApiClient(GoogleApiClient client) {
@@ -71,9 +73,13 @@ public class LocationService {
             float zoom = googleMap.getCameraPosition().zoom;
 
             if (zoom < 12.5f)
+            {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.5f));
+            }
             else
+            {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            }
 
             googleMap.addMarker(new MarkerOptions()
                     .position(latLng)

@@ -2,11 +2,14 @@ package org.me.tuoristguide.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import com.facebook.login.widget.LoginButton;
+import com.squareup.picasso.Picasso;
 
 import org.me.tuoristguide.R;
 import org.me.tuoristguide.entities.UserManager;
@@ -19,6 +22,8 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
     private LoginButton btn_login;
     private TextView nameTextview;
     private TextView emailTextview;
+    private ImageView photoImageview;
+
 
 
     @Override
@@ -37,6 +42,7 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         // set up other components
         nameTextview = (TextView) findViewById(R.id.user_name);
         emailTextview = (TextView) findViewById(R.id.user_email);
+        photoImageview=(ImageView) findViewById(R.id.profile_picture);
     }
 
     @Override
@@ -59,6 +65,8 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         if (user != null){
             nameTextview.setText(user.name);
             emailTextview.setText(user.email);
+            Picasso.with(this).load(user.picture_url)
+                    .into(photoImageview);
         }
 
     }

@@ -16,6 +16,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONObject;
 import org.me.tuoristguide.entities.UserManager;
+import org.me.tuoristguide.service.remote.UserService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -75,8 +76,10 @@ public class FacebookService {
                                 } else {
                                     // set up user information locally
                                     UserManager.getInstance().setupUser(json);
+
                                     if (registered_activity != null)
                                         registered_activity.onFacebookLoggedIn();
+
                                 }
                             }
                         });

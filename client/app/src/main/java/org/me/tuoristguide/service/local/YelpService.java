@@ -1,12 +1,20 @@
 package org.me.tuoristguide.service.local;
 
+import android.content.Intent;
 import android.location.Location;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.SearchResponse;
 import com.yelp.clientlib.entities.options.BoundingBoxOptions;
+
+import org.me.tuoristguide.R;
+import org.me.tuoristguide.entities.StoreManager;
+import org.me.tuoristguide.ui.activity.DetailActivity;
+import org.me.tuoristguide.ui.fragment.ExploreFragment;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -18,6 +26,8 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
+import static org.me.tuoristguide.R.string.app_name;
+
 /**
  * Created by zy on 4/14/16.
  */
@@ -28,7 +38,6 @@ public class YelpService {
     private static YelpAPI yelpAPI = null;
     private ArrayList<Business> businesses = null;
 
-    Call<SearchResponse> call;
 
 
     public static YelpService getInstance() {
@@ -64,7 +73,7 @@ public class YelpService {
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("limit", "20");
 
-        BoundingBoxOptions bounds = BoundingBoxOptions.builder()
+        final BoundingBoxOptions bounds = BoundingBoxOptions.builder()
                 .swLatitude(latitude - 0.01)
                 .swLongitude(longitude - 0.01)
                 .neLatitude(latitude + 0.01)
@@ -88,7 +97,7 @@ public class YelpService {
 
         };
 
-        call = yelpAPI.search(bounds, queryParams);
+        Call<SearchResponse>  call = yelpAPI.search(bounds, queryParams);
         call.enqueue(callback);
     }
 
@@ -100,6 +109,36 @@ public class YelpService {
 
     public interface YelpServiceInterface {
         void placeBusinessMarks(ArrayList<Business> businesses);
+        void startDetailActivity();
+    }
+
+    public void yelpBussiness(String id){
+        System.out.println("======================================");
+        System.out.println("businsess_id:" + id);
+        Callback<Business> callback = new Callback<Business>() {
+            @Override
+            public void onResponse(Response<Business> response, Retrofit retrofit) {
+                   Business business=response.body();
+//                   ArrayList<Business> businesses=new ArrayList<Business>();
+//                   businesses.add(business);
+//                   if(controller!=null) {
+//                       controller.placeBusinessMarks(businesses);
+//                   }
+                StoreManager.getInstance().setCurrent_store(business);
+                controller.startDetailActivity();
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                System.out.println("something is wrong!");
+            }
+
+        };
+
+       Call<Business> call = yelpAPI.getBusiness(id);
+        call.enqueue(callback);
     }
 
 }

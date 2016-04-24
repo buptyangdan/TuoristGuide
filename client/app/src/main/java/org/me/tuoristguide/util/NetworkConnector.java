@@ -16,11 +16,11 @@ import org.json.JSONObject;
  */
 public class NetworkConnector {
 
-    private static NetworkConnector instance = null;
-    private RequestQueue mQueue;
-    private Context context;
+    public static NetworkConnector instance = null;
+    public RequestQueue mQueue;
+    public Context context;
 
-    private static String host_url = "http://ec2-54-84-135-175.compute-1.amazonaws.com:3000/api/v0";
+    public static String host_url = "http://ec2-54-84-135-175.compute-1.amazonaws.com:3000/api/v0";
 
     protected NetworkConnector() {
         // Exists only to defeat instantiation.
