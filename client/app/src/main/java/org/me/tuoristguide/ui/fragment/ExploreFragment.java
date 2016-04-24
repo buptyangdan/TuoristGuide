@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.ads.internal.util.client.VersionInfoParcel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -47,6 +50,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     private static final String TAG = "ExploreFragment";
 
     private FloatingActionButton locationButton;
+    private ViewPager viewPager;
 
 
     @Override
@@ -99,6 +103,10 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
         fragment.getMapAsync(this);
 
+
+        // pager
+        viewPager = (ViewPager) getActivity().findViewById(R.id.pager);
+
     }
 
 
@@ -114,6 +122,8 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
                             .snippet(b.name())
             );
         }
+        viewPager.setVisibility(View.VISIBLE);
+        viewPager.setAdapter(new StoresAdapter(businesses));
     }
 
     @Override
@@ -164,5 +174,26 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         // set google map in the LocationService instance
         LocationService.getInstance().setUpGoogleMap(googleMap);
         LocationService.getInstance().showAndMoveCurrentLocationInMap();
+    }
+
+    private class StoresAdapter extends FragmentStatePagerAdapter {
+
+        private ArrayList<Business> businesses;
+
+
+        public StoresAdapter(ArrayList<Business> businesses){
+            super(getChildFragmentManager());
+            this.businesses = businesses;
+        }
+
+        @Override
+        public StoreFragment getItem(int position) {
+            return StoreFragment.newInstance(businesses.get(position));
+        }
+
+        @Override
+        public int getCount() {
+            return this.businesses.size();
+        }
     }
 }
