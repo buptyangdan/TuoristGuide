@@ -58,11 +58,10 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // set google map fragment
+        // google map fragment
         FragmentManager fragmentManager = getChildFragmentManager();
         SupportMapFragment fragment = (SupportMapFragment)
                 fragmentManager.findFragmentById(R.id.explore_map);
-
         if (fragment == null) {
             fragment = SupportMapFragment.newInstance();
             fragmentManager.beginTransaction()
@@ -93,6 +92,22 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
         // pager
         viewPager = (ViewPager) getActivity().findViewById(R.id.pager);
+        locationService.setViewPager(viewPager);
+        viewPager.setClipToPadding(false);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                locationService.showMarkerAtPosition(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
         fragment.getMapAsync(locationService);
     }

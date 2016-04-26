@@ -6,7 +6,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -18,11 +19,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.me.tuoristguide.R;
-import org.me.tuoristguide.ui.activity.MainActivity;
-import org.me.tuoristguide.ui.fragment.ExploreFragment;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * This class provides Google Map and Location function supports
@@ -34,25 +37,31 @@ public class LocationService implements
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
 
-    public LocationService(Context context){
+    // google map services
+    private Location currentLocation;
+    private GoogleApiClient googleApiClient;
+    private GoogleMap googleMap;
+    private LocationManager locationManager;
+    private ArrayList<Marker> markers;
+    private ViewPager viewPager;
 
+
+    public LocationService(Context context){
         googleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
         googleApiClient.connect();
+        markers = new ArrayList<>();
     }
-
-    // google map services
-    private Location currentLocation;
-    private GoogleApiClient googleApiClient;
-    public GoogleMap googleMap;
-    private LocationManager locationManager;
-
 
     public Location getCurrentLocation() {
         return currentLocation;
+    }
+
+    public void setViewPager(ViewPager v){
+        viewPager = v;
     }
 
     public Location getLastLocation() {
@@ -125,8 +134,17 @@ public class LocationService implements
         googleApiClient.disconnect();
     }
 
-    public void addMarker(MarkerOptions marker){
-        googleMap.addMarker(marker);
+    public void addMarker(MarkerOptions markerOptions){
+        Marker marker = googleMap.addMarker(markerOptions);
+        markers.add(marker);
+    }
+
+    public void showMarkerAtPosition(int position){
+        Marker marker = markers.get(position);
+        if (marker != null) {
+            marker.showInfoWindow();
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15f));
+        }
     }
 
     @Override
@@ -155,5 +173,13 @@ public class LocationService implements
         this.googleMap = googleMap;
         googleMap.getUiSettings().setMapToolbarEnabled(false);
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                int position = markers.indexOf(marker);
+                viewPager.setCurrentItem(position, true);
+                return false;
+            }
+        });
     }
 }
