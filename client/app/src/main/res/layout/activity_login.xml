@@ -55,14 +55,17 @@
         <TableLayout
             android:layout_below="@id/btn_login"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView android:text="comment 1" />
-            <TextView android:text="comment 1" />
-            <TextView android:text="comment 1" />
-            <TextView android:text="comment 1" />
+            android:layout_height="wrap_content"
+            android:id="@+id/tableLayout">
 
         </TableLayout>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listview_comment"
+            android:layout_toEndOf="@+id/tableLayout"
+            android:layout_alignTop="@+id/tableLayout" />
 
     </RelativeLayout>
 
