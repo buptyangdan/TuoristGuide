@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -88,25 +89,24 @@ public class DetailActivity extends Activity {
         // get all comments of one store from server
 
 
-
-
-
     }
 
     // listeners
 
     private class OnSubmitButtonClicked implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
             // register for callback of clicking button
            // NetworkConnector.getInstance().getJsonData("/promos/editor", new OnReceiveJSONResponse());
             //save the comment and store_info into the server
-
            //if left comment, means the user has gone to the place
-            storeService.CreateStore(StoreManager.getInstance().getCurrent_store());
-            Comment comment=new Comment(comment_content,String.valueOf(new Date()), UserManager.getInstance().getCurrentUser().email,StoreManager.getInstance().getCurrent_store().store_id);
-            storeService.CreateUserStore(comment);
+
+            if(comment_content!=null){
+                Toast.makeText(getBaseContext(),StoreManager.getInstance().getCurrent_store().store_name,Toast.LENGTH_LONG).show();
+                storeService.CreateStore(StoreManager.getInstance().getCurrent_store());
+                Comment comment=new Comment(comment_content,String.valueOf(new Date()), UserManager.getInstance().getCurrentUser().email,StoreManager.getInstance().getCurrent_store().store_id);
+                storeService.CreateUserStore(comment);
+            }
 
         }
     }
@@ -118,8 +118,6 @@ public class DetailActivity extends Activity {
 
             // do some work here after received the response JSON data
             //storeName.setText(result.toString());
-
-
 
         }
     }

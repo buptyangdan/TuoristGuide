@@ -113,17 +113,11 @@ public class YelpService {
     }
 
     public void yelpBussiness(String id){
-        System.out.println("======================================");
-        System.out.println("businsess_id:" + id);
         Callback<Business> callback = new Callback<Business>() {
             @Override
             public void onResponse(Response<Business> response, Retrofit retrofit) {
                    Business business=response.body();
-//                   ArrayList<Business> businesses=new ArrayList<Business>();
-//                   businesses.add(business);
-//                   if(controller!=null) {
-//                       controller.placeBusinessMarks(businesses);
-//                   }
+
                 StoreManager.getInstance().setCurrent_store(business);
                 controller.startDetailActivity();
 

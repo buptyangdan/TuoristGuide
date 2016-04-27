@@ -24,22 +24,22 @@ import java.util.Map;
  */
 public class StoreService{
 
-
      private static StoreService instance;
 
      public static StoreService getInstance(){
          instance=new StoreService();
          return  instance;
      }
-
       public void CreateStore(final Store store){
           String uri="http://54.172.42.185:8080/org.me.backend/user_info";
+
           StringRequest mReq = new StringRequest(Request.Method.POST, uri,new Response.Listener<String>() {
               public void onResponse(String string) {
                   System.out.println(string);
               }
           }, new Response.ErrorListener() {
               public void onErrorResponse(VolleyError error) {
+                  System.out.println();
               }
           }
           ) {
@@ -57,6 +57,11 @@ public class StoreService{
 
       public void CreateUserStore(final Comment comment){
           String uri="http://54.172.42.185:8080/org.me.backend/user_info";
+          System.out.println("==========================================");
+          System.out.println(comment.comment_text);
+          System.out.println(comment.created_time);
+          System.out.println(comment.email);
+          System.out.println(comment.getStore_id());
           StringRequest mReq = new StringRequest(Request.Method.POST, uri,new Response.Listener<String>() {
               public void onResponse(String string) {
                   System.out.println(string);
@@ -78,15 +83,4 @@ public class StoreService{
           };
           NetworkConnector.getInstance().mQueue.add(mReq);
       }
-
-
-//    @Override
-//    public void placeBusinessMarks(ArrayList<Business> businesses) {
-//            YelpService.getInstance().setController(StoreService.getInstance());
-//            Business business=businesses.get(0);
-//
-//            System.out.println("bad place");
-//            System.out.println(business.id());
-//            StoreManager.getInstance().setCurrent_store(business);
-//    }
 }

@@ -149,14 +149,10 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
     @Override
     public void startDetailActivity() {
-        Toast.makeText(getContext(), business_id, Toast.LENGTH_LONG).show();
-        System.out.println("success!");
-        System.out.println(StoreManager.getInstance().getCurrent_store().store_id);
-        System.out.println(business_id);
-       // if(StoreManager.getInstance().getCurrent_store()!=null&&StoreManager.getInstance().getCurrent_store().store_id==business_id){
+        //Toast.makeText(getContext(), business_id, Toast.LENGTH_LONG).show();
             Intent intent=new Intent(getContext(),DetailActivity.class);
             getContext().startActivity(intent);
-       // }
+
     }
 
     @Override
@@ -212,7 +208,6 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        //here get the send the Business info to detail Activity
         business_id = marker.getSnippet();
         YelpService.getInstance().yelpBussiness(business_id);
         return false;
@@ -231,6 +226,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         public StoreFragment getItem(int position) {
             return StoreFragment.newInstance(businesses.get(position));
         }
+
 
         @Override
         public int getCount() {
