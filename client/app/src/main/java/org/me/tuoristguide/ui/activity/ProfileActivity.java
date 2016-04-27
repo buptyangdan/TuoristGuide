@@ -2,19 +2,26 @@ package org.me.tuoristguide.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Picasso;
 
 import org.me.tuoristguide.R;
 import org.me.tuoristguide.entities.UserManager;
+import org.me.tuoristguide.model.CommentList;
 import org.me.tuoristguide.model.User;
 import org.me.tuoristguide.service.local.FacebookService;
+import org.me.tuoristguide.ui.adapter.CommentsAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProfileActivity extends Activity implements FacebookService.OnFacebookLoggedIn{
@@ -23,7 +30,9 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
     private TextView nameTextview;
     private TextView emailTextview;
     private ImageView photoImageview;
-
+    private ListView IvComment;
+    private CommentsAdapter adapter;
+    private List<CommentList> mCommentList = new ArrayList<CommentList>();
 
 
     @Override
@@ -43,6 +52,25 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         nameTextview = (TextView) findViewById(R.id.user_name);
         emailTextview = (TextView) findViewById(R.id.user_email);
         photoImageview=(ImageView) findViewById(R.id.profile_picture);
+
+        //add sample data for list;
+        //we can get data from DB
+        mCommentList.add(new CommentList("1","SafeWay","Very good!","2015-01-12"));
+        mCommentList.add(new CommentList("2","Appstore","Not bad!","2015-04-12"));
+        mCommentList.add(new CommentList("3","Chef Zhao","Just OK!","2015-08-12"));
+        mCommentList.add(new CommentList("4","KFC","Fantastic!","2015-05-12"));
+        mCommentList.add(new CommentList("5","DY Hotel","Really good!","2015-011-12"));
+
+        adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
+        IvComment = (ListView)findViewById(R.id.listview_comment);
+        IvComment.setAdapter(adapter);
+
+        IvComment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "Clicked Store = " + view.getTag(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -76,3 +104,4 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         checkUserInfo();
     }
 }
+
