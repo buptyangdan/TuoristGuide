@@ -4,7 +4,7 @@ package org.me.tuoristguide.model;
  * Created by danyang on 4/26/16.
  */
 public class CommentList {
-    public CommentList(String comment_id, String store_name, String comment_text, String created_time) {
+    public CommentList(String comment_user, String photo_url,String comment_id, String store_name, String comment_text, String created_time) {
         this.store_name = store_name;
         this.comment_text = comment_text;
         this.created_time = created_time;
@@ -14,7 +14,8 @@ public class CommentList {
     private String created_time;
     private String store_name;
     private String comment_text;
-
+    String comment_user;
+    String photo_url;
     public String getComment_id() {
         return comment_id;
     }

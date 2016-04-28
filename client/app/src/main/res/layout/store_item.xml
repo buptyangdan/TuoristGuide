@@ -77,7 +77,16 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_route"
                     android:drawablePadding="10dp"
+                    android:onClick="buildRoute"
                     android:text="@string/build_route"/>
+                <Button
+                    android:id="@+id/view_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_route"
+                    android:drawablePadding="10dp"
+                    android:onClick="viewDetail"
+                    android:text="@string/view_detail"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

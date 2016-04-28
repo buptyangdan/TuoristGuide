@@ -55,11 +55,8 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
 
         //add sample data for list;
         //we can get data from DB
-        mCommentList.add(new CommentList("1","SafeWay","Very good!","2015-01-12"));
-        mCommentList.add(new CommentList("2","Appstore","Not bad!","2015-04-12"));
-        mCommentList.add(new CommentList("3","Chef Zhao","Just OK!","2015-08-12"));
-        mCommentList.add(new CommentList("4","KFC","Fantastic!","2015-05-12"));
-        mCommentList.add(new CommentList("5","DY Hotel","Really good!","2015-011-12"));
+        mCommentList.add(new CommentList("user","lll","1","SafeWay","Very good!","2015-01-12"));
+        mCommentList.add(new CommentList("user","lll","2","Appstore","Not bad!","2015-04-12"));
 
         adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
         IvComment = (ListView)findViewById(R.id.listview_comment);

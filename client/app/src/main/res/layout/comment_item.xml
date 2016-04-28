@@ -1,45 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:cv="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent" android:background="#ffffff">
+    <android.support.v7.widget.CardView android:background="#ffffff"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
-    android:background="#334592">
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    cv:cardCornerRadius="4dp"
+    cv:cardElevation="4dp"
+    cv:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_width="385dp"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
+        android:padding="10dp">
 
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="52dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="StoreName"
-            android:id="@+id/StoreNameText"
-            android:layout_weight="0.52"
-            android:textSize="20dp"
-            android:textIsSelectable="true"
-            android:textColor="#fffefe" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="133dp"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Time"
-            android:id="@+id/TimeText"
-            android:layout_marginLeft="0dp"
-            android:textColor="#fdfdfd" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:src="@drawable/profile"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:paddingTop="4dp"
+                android:id="@+id/profile_picture"
+                android:layout_centerHorizontal="true" />
+
+
+            <TextView
+                android:text="Name"
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/profile_picture"
+                android:layout_below="@id/profile_picture"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#130b23"
+                android:textStyle="bold|italic"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="where"
+                android:id="@+id/StoreNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:text="Time"
+                android:id="@+id/TimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="italic"/>
+
+            <Button
+                android:id="@+id/CommentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_route"
+                android:drawablePadding="10dp"
+                android:text="@string/build_route"/>
+
+        </LinearLayout>
     </LinearLayout>
+</android.support.v7.widget.CardView>
+</RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Comment"
-        android:id="@+id/CommentText"
-        android:layout_weight="0.05"
-        android:textColor="#fefefe" />
-
-</LinearLayout>

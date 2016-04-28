@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.Coordinate;
@@ -132,47 +134,8 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
     @Override
     public void startDetailActivity() {
-        //Toast.makeText(getContext(), business_id, Toast.LENGTH_LONG).show();
-
-        //System.out.println("success!");
-        //System.out.println(StoreManager.getInstance().getCurrent_store().store_id);
-        //System.out.println(business_id);
-       // if(StoreManager.getInstance().getCurrent_store()!=null&&StoreManager.getInstance().getCurrent_store().store_id==business_id){
             Intent intent=new Intent(getContext(),DetailActivity.class);
             getContext().startActivity(intent);
 
     }
-
-
-    /*
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        business_id = marker.getSnippet();
-        YelpService.getInstance().yelpBussiness(business_id);
-        return false;
-    }
-<<<<<<< HEAD
-    private class StoresAdapter extends FragmentStatePagerAdapter {
-
-        private ArrayList<Business> businesses;
-
-
-        public StoresAdapter(ArrayList<Business> businesses){
-            super(getChildFragmentManager());
-            this.businesses = businesses;
-        }
-
-        @Override
-        public StoreFragment getItem(int position) {
-            return StoreFragment.newInstance(businesses.get(position));
-        }
-
-
-        @Override
-        public int getCount() {
-            return this.businesses.size();
-        }
-    }
-
-    */
 }

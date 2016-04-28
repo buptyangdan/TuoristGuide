@@ -116,22 +116,17 @@ public class YelpService {
         Callback<Business> callback = new Callback<Business>() {
             @Override
             public void onResponse(Response<Business> response, Retrofit retrofit) {
-                   Business business=response.body();
-
+                Business business=response.body();
                 StoreManager.getInstance().setCurrent_store(business);
                 controller.startDetailActivity();
-
             }
-
             @Override
             public void onFailure(Throwable t) {
 
                 System.out.println("something is wrong!");
             }
-
         };
-
-       Call<Business> call = yelpAPI.getBusiness(id);
+        Call<Business> call = yelpAPI.getBusiness(id);
         call.enqueue(callback);
     }
 

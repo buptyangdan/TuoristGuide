@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.yelp.clientlib.entities.Business;
 
 import org.me.tuoristguide.R;
+import org.me.tuoristguide.service.local.YelpService;
 import org.w3c.dom.Text;
 
 import roboguice.inject.InjectView;
@@ -29,7 +30,7 @@ public class StoreFragment extends Fragment{
     private TextView storeRatingTextView;
     private TextView storeNameTextView;
     private TextView reasonTextView;
-
+    private Button viewDetails;
     private Business business;
 
     public StoreFragment() {
@@ -48,16 +49,27 @@ public class StoreFragment extends Fragment{
         buildRouteButton = (Button) view.findViewById(R.id.build_route);
         storeRatingTextView = (TextView) view.findViewById(R.id.poi_rating);
         storeNameTextView = (TextView) view.findViewById(R.id.poi_name);
+        viewDetails=(Button)view.findViewById(R.id.view_detail);
+
+        viewDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YelpService.getInstance().yelpBussiness(business.id());
+            }
+        });
+
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        storeRatingTextView.setText(business.rating().toString());
+        storeRatingTextView.setText(String.valueOf(business.rating()));
         storeNameTextView.setText(business.name());
 
     }
+
+
 
 }
