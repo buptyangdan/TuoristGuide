@@ -13,18 +13,23 @@ import android.widget.Toast;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.me.tuoristguide.R;
 import org.me.tuoristguide.entities.UserManager;
+import org.me.tuoristguide.model.Comment;
 import org.me.tuoristguide.model.CommentList;
 import org.me.tuoristguide.model.User;
 import org.me.tuoristguide.service.local.FacebookService;
+import org.me.tuoristguide.service.remote.CommentService;
 import org.me.tuoristguide.ui.adapter.CommentsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfileActivity extends Activity implements FacebookService.OnFacebookLoggedIn{
+public class ProfileActivity extends Activity implements FacebookService.OnFacebookLoggedIn, CommentService.CommentServiceInterface{
 
     private LoginButton btn_login;
     private TextView nameTextview;
@@ -52,22 +57,11 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         nameTextview = (TextView) findViewById(R.id.user_name);
         emailTextview = (TextView) findViewById(R.id.user_email);
         photoImageview=(ImageView) findViewById(R.id.profile_picture);
-
+        IvComment = (ListView)findViewById(R.id.listview_comment);
         //add sample data for list;
         //we can get data from DB
-        mCommentList.add(new CommentList("user","lll","1","SafeWay","Very good!","2015-01-12"));
-        mCommentList.add(new CommentList("user","lll","2","Appstore","Not bad!","2015-04-12"));
+        CommentService.getInstance().setController(this);
 
-        adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
-        IvComment = (ListView)findViewById(R.id.listview_comment);
-        IvComment.setAdapter(adapter);
-
-        IvComment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Clicked Store = " + view.getTag(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -88,6 +82,7 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
     private void checkUserInfo() {
         User user = UserManager.getInstance().getCurrentUser();
         if (user != null){
+            CommentService.getInstance().getByUser(user.email);
             nameTextview.setText(user.name);
             emailTextview.setText(user.email);
             Picasso.with(this).load(user.picture_url)
@@ -99,6 +94,34 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
     @Override
     public void onFacebookLoggedIn() {
         checkUserInfo();
+    }
+
+    @Override
+    public void getJsonResponse(JSONObject jsonObject) {
+           System.out.print("here is the by user response!");
+           System.out.println(jsonObject);
+           JSONArray arrayObj=null;
+
+        try {
+            String user_name=jsonObject.getString("user_name");
+            String photo_url=jsonObject.getString("poto_url");
+            String stores=jsonObject.getString("stores");
+            arrayObj=new JSONArray(stores);
+            for(int i=0;i<arrayObj.length();i++){
+                JSONObject json=arrayObj.getJSONObject(i);
+                mCommentList.add(new CommentList(user_name, photo_url, i+"" , json.getString("store_name"),json.getString("comment_txt"), json.getString("created_time")));
+                adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
+                IvComment.setAdapter(adapter);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
+           IvComment = (ListView)findViewById(R.id.listview_comment);
+           IvComment.setAdapter(adapter);
     }
 }
 

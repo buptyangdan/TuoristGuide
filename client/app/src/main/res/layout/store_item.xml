@@ -70,19 +70,18 @@
                     android:layout_marginLeft="5dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="italic"/>
-
                 <Button
                     android:id="@+id/build_route"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:drawableLeft="@drawable/ic_route"
                     android:drawablePadding="10dp"
                     android:onClick="buildRoute"
                     android:text="@string/build_route"/>
                 <Button
                     android:id="@+id/view_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
                     android:drawableLeft="@drawable/ic_route"
                     android:drawablePadding="10dp"
                     android:onClick="viewDetail"

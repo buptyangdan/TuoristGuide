@@ -4,7 +4,10 @@ package org.me.tuoristguide.ui.adapter;
   import android.view.View;
   import android.view.ViewGroup;
   import android.widget.BaseAdapter;
+  import android.widget.ImageView;
   import android.widget.TextView;
+
+  import com.squareup.picasso.Picasso;
 
   import org.me.tuoristguide.R;
   import org.me.tuoristguide.model.CommentList;
@@ -44,11 +47,15 @@ public class CommentsAdapter extends BaseAdapter {
         TextView tvName = (TextView)v.findViewById(R.id.StoreNameText);
         TextView tvComment = (TextView)v.findViewById(R.id.CommentText);
         TextView tvTime = (TextView)v.findViewById(R.id.TimeText);
+        ImageView imageView=(ImageView)v.findViewById(R.id.comment_profile_picture);
+        TextView tvUserName=(TextView)v.findViewById(R.id.comment_user_name);
 
         tvName.setText("Store:"+mCommentList.get(position).getStore_name());
         tvComment.setText("Comment: "+mCommentList.get(position).getComment_text());
         tvTime.setText("Time: "+mCommentList.get(position).getCreated_time());
-
+        Picasso.with(mContext).load(mCommentList.get(position).getPhoto_url())
+                .into(imageView);
+        tvUserName.setText(mCommentList.get(position).getComment_user());
         v.setTag(mCommentList.get(position).getComment_id());
         return v;
 

@@ -9,6 +9,8 @@ public class CommentList {
         this.comment_text = comment_text;
         this.created_time = created_time;
         this.comment_id = comment_id;
+        this.comment_user=comment_user;
+        this.photo_url=photo_url;
     }
 
     private String created_time;
@@ -16,6 +18,23 @@ public class CommentList {
     private String comment_text;
     String comment_user;
     String photo_url;
+
+    public String getComment_user() {
+        return comment_user;
+    }
+
+    public void setComment_user(String comment_user) {
+        this.comment_user = comment_user;
+    }
+
+    public String getPhoto_url() {
+        return photo_url;
+    }
+
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
+    }
+
     public String getComment_id() {
         return comment_id;
     }

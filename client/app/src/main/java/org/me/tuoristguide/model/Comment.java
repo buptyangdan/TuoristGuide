@@ -8,12 +8,26 @@ public class Comment {
     public String store_id;
     public String comment_text;
     public String created_time;
+    public String photo_url;
+    public String pic_url;
+    public String user_name;
+    public String store_name;
 
     public Comment(String comment_text, String created_time, String email, String store_id) {
         this.comment_text = comment_text;
         this.created_time = created_time;
         this.email = email;
         this.store_id = store_id;
+    }
+
+
+    public Comment(String comment_text, String created_time,  String photo_url, String pic_url,  String store_name, String user_name) {
+        this.comment_text = comment_text;
+        this.created_time = created_time;
+        this.photo_url = photo_url;
+        this.pic_url = pic_url;
+        this.store_name = store_name;
+        this.user_name = user_name;
     }
 
     public String getComment_text() {

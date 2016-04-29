@@ -1,82 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:src="@drawable/sv_campus"
-        android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:id="@+id/place_image"
-        android:layout_height="200dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical"
+            android:id="@+id/header"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/sv_campus"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:id="@+id/place_image"
+                android:layout_height="200dp" />
 
-            <TextView
-                android:id="@+id/store_name"
-                android:text="CMU SV"
-                android:textSize="28sp"
-                android:layout_weight="4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/store_rate"
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:textSize="16sp"
-                android:text="5 stars"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-        <TableLayout
-            android:id="@+id/comments"
-            android:layout_width="match_parent"
-            android:layout_weight="5"
-            android:layout_height="0dp">
-
-            <TableRow>
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_margin="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="hello there"
-                    />
+                    android:id="@+id/store_name"
+                    android:text="CMU SV"
+                    android:textSize="28sp"
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
 
-            </TableRow>
-        </TableLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/comment_content"
-                android:layout_weight="5"
-                android:layout_width="0dp"
-                android:hint="enter your comment here."
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/submit"
-                android:text="Submit"
+                <TextView
+                    android:id="@+id/store_rate"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:textSize="16sp"
+                    android:text="5 stars"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <ListView
+                android:background="#ffffff"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </LinearLayout>
+                android:minHeight="720dp"
+                android:layout_height="600dp"
+                android:id="@+id/listview_comment"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
 
-</LinearLayout>
+                <EditText
+                    android:id="@+id/comment_content"
+                    android:layout_weight="5"
+                    android:layout_width="0dp"
+                    android:hint="enter your comment here."
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/submit"
+                    android:text="Submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

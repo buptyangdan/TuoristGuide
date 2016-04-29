@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.tuoristguide.R;
 import org.me.tuoristguide.entities.CommentManager;
@@ -23,6 +25,7 @@ import org.me.tuoristguide.entities.UserManager;
 import org.me.tuoristguide.model.Comment;
 import org.me.tuoristguide.model.CommentList;
 import org.me.tuoristguide.model.Store;
+import org.me.tuoristguide.service.remote.CommentService;
 import org.me.tuoristguide.service.remote.StoreService;
 import org.me.tuoristguide.ui.adapter.CommentsAdapter;
 import org.me.tuoristguide.util.NetworkConnector;
@@ -34,7 +37,7 @@ import java.util.List;
 /**
  * Created by zy on 4/12/16.
  */
-public class DetailActivity extends Activity {
+public class DetailActivity extends Activity implements CommentService.CommentServiceInterface {
 
     private TextView storeNameText;
     private Button submitButton;
@@ -64,8 +67,6 @@ public class DetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Store store= StoreManager.getInstance().getCurrent_store();
-        System.out.println("goodplace!");
-        System.out.println(store.store_name + ";" + store.store_id + ";" + store.store_pic);
          store_name =store.store_name;
          store_id=store.store_id;
          store_pic=store.store_pic;
@@ -104,12 +105,33 @@ public class DetailActivity extends Activity {
 
     private void getComments(String store_id) {
         // get all comments of one store from server
-        mCommentList.add(new CommentList("user","lll","1","place","Very good!","2015-01-12"));
-        mCommentList.add(new CommentList("user","lll","2","place","Not bad!","2015-04-12"));
-        adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
-        IvComment.setAdapter(adapter);
+        CommentService.getInstance().setController(this);
+        CommentService.getInstance().getByStore(store_id);
+    }
 
+    @Override
+    public void getJsonResponse(JSONObject jsonObject) {
+            System.out.println("here is the json response!!!");
+            JSONArray arrayObj=null;
+            if(jsonObject!=null){
 
+                try {
+                    String store_name=jsonObject.getString("store_name");
+                    String users=jsonObject.getString("users");
+                     arrayObj=new JSONArray(users);
+                     for(int i=0;i<arrayObj.length();i++){
+                         JSONObject json=arrayObj.getJSONObject(i);
+                         System.out.println(json.getString("user_name"));
+                         System.out.println(json.getString("photo_url"));
+                         mCommentList.add(new CommentList(json.getString("user_name"), json.getString("photo_url"),i+"", store_name,json.getString("comment_txt"), json.getString("created_time")));
+                         adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
+                         IvComment.setAdapter(adapter);
+                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
     }
 
     // listeners
@@ -123,26 +145,16 @@ public class DetailActivity extends Activity {
            //if left comment, means the user has gone to the place
             comment_content=String.valueOf(commentText.getText());
             //use adapter to inflate the view to viewpage
-            mCommentList.add(new CommentList("user", "lll", "1", "dynamic place", comment_content, "2015-01-12"));
-            adapter.notifyDataSetChanged();
             if(comment_content!=null&& UserManager.getInstance().getCurrentUser()!=null){
-                Toast.makeText(getBaseContext(),StoreManager.getInstance().getCurrent_store().store_name,Toast.LENGTH_LONG).show();
+                adapter.notifyDataSetChanged();
                 StoreService.getInstance().CreateStore(StoreManager.getInstance().getCurrent_store());
                 Comment comment=new Comment(comment_content,String.valueOf(new Date()), UserManager.getInstance().getCurrentUser().email,StoreManager.getInstance().getCurrent_store().store_id);
+                mCommentList.add(new CommentList(UserManager.getInstance().getCurrentUser().name, UserManager.getInstance().getCurrentUser().picture_url, "1",StoreManager.getInstance().getCurrent_store().store_name , comment.comment_text, comment.created_time));
                 StoreService.getInstance().CreateUserStore(comment);
             }
 
         }
     }
 
-    private class OnReceiveJSONResponse implements NetworkConnector.OnJSONResponseListener {
 
-        @Override
-        public void onResponse(JSONObject result) {
-
-            // do some work here after received the response JSON data
-            //storeName.setText(result.toString());
-
-        }
-    }
 }
