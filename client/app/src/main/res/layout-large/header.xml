@@ -13,6 +13,7 @@
         android:layout_width="76dp"
         android:layout_height="76dp"
         app:border_color="#FF000000"
+        android:src="@drawable/profile"
         android:layout_marginLeft="24dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
@@ -28,6 +29,7 @@
         android:gravity="left"
         android:paddingBottom="4dp"
         android:id="@+id/username"
+        android:text="user name"
         android:layout_above="@+id/email"
         android:layout_alignLeft="@+id/profile_image"
         android:layout_alignStart="@+id/profile_image" />
@@ -37,6 +39,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/email"
         android:gravity="left"
+        android:text="user email"
         android:layout_marginBottom="8dp"
         android:textSize="14sp"
         android:textColor="#fff"

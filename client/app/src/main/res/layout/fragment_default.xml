@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/default_fragment"
+        >
+    </cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager>
+
+    <TextView
+        android:id="@+id/travel_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TouristGuide"
+        android:textSize="55dp"
+        android:typeface="serif"
+        android:layout_centerInParent="true"
+        android:textColor="@color/PrimaryColor"/>
+
+
+</RelativeLayout>

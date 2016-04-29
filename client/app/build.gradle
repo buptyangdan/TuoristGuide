@@ -40,6 +40,7 @@ repositories {
 
 
 dependencies {
+    compile 'com.nineoldandroids:library:2.4.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:appcompat-v7:23.2.1'
@@ -54,4 +55,8 @@ dependencies {
     provided 'org.roboguice:roboblender:3.+'
     compile files('lib/android-wunderground-client-1.0-SNAPSHOT.jar')
     compile files('lib/restrung-1.0-SNAPSHOT.jar')
+    compile 'com.eftimoff:android-viewpager-transformers:1.0.1@aar'
+    compile ('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
+        exclude module: 'support-v4'
+    }
 }

@@ -1,7 +1,7 @@
 package org.me.tuoristguide.ui.activity;
 
-
 import android.app.FragmentManager;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.design.widget.NavigationView;
@@ -26,11 +26,14 @@ import android.widget.Toast;
 import org.json.JSONObject;
 import org.me.tuoristguide.R;
 import org.me.tuoristguide.entities.UserManager;
-import org.me.tuoristguide.service.local.FacebookService;
+import org.me.tuoristguide.model.User;
+import org.me.tuoristguide.ui.fragment.DefaultFragment;
 import org.me.tuoristguide.ui.fragment.ExploreFragment;
 import org.me.tuoristguide.ui.fragment.LocationsFragment;
 import org.me.tuoristguide.ui.fragment.SearchFragment;
 import android.Manifest;
+
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     JSONObject profile,profile_pic_data,profile_pic_url;
     public static FragmentManager fragmentManager;
+    android.support.v4.app.Fragment fragment = null;
 
     @Override
     protected void onResume() {
@@ -71,19 +75,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         fragmentManager = getFragmentManager();
         Intent intent=getIntent();
-        //String str=(String)intent.getExtras().get("profile");
-        //System.out.println("str:" + str);
-        // Initializing Toolbar and setting it as the actionbar
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //Initializing NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
-
         View header=navigationView.getHeaderView(0);
         textView1=(TextView)header.findViewById(R.id.username);
         textView2=(TextView)header.findViewById(R.id.email);
         imageView=(ImageView)header.findViewById(R.id.profile_image);
-
+        User user = UserManager.getInstance().getCurrentUser();
+        if (user != null){
+            textView1.setText(user.name);
+            textView2.setText(user.email);
+            Picasso.with(this).load(user.picture_url)
+                    .into(imageView);
+        }
 
         //  imageView.setImageResource(picture);
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
@@ -114,9 +120,12 @@ public class MainActivity extends AppCompatActivity {
 
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
-
-
         checkAndRequestLocationPermission();
+
+        //set default screen
+        fragment = new DefaultFragment();
+        openFragment(fragment);
+
 
     }
 
@@ -168,52 +177,45 @@ public class MainActivity extends AppCompatActivity {
 
             //Closing drawer on item click
             drawerLayout.closeDrawers();
-            android.support.v4.app.Fragment fragment = null;
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
             //Check to see which item was being clicked and perform appropriate action
             switch (menuItem.getItemId()){
                 //Replacing the main content with ContentFragment Which is our Inbox View;
                 case R.id.profile:
                     Intent startLogin = new Intent(MainActivity.this, ProfileActivity.class);
                     startActivity(startLogin);
-                    /*
-                    fragment = new ProfileFragment();
-                    fragmentTransaction.replace(R.id.frame,fragment);
-                    fragmentTransaction.commit();
-                    */
                     return true;
-                // For rest of the options we just show a toast on click
                 case R.id.explore:
                     fragment = new ExploreFragment();
-                    fragmentTransaction.replace(R.id.frame,fragment);
-                    fragmentTransaction.commit();
+                    openFragment(fragment);
                     return true;
                 case R.id.locations:
                     fragment = new LocationsFragment();
-                    fragmentTransaction.replace(R.id.frame,fragment);
-                    fragmentTransaction.commit();
+                    openFragment(fragment);
                     return true;
                 case R.id.search:
                     fragment = new SearchFragment();
-                    fragmentTransaction.replace(R.id.frame,fragment);
-                    fragmentTransaction.commit();
+                    openFragment(fragment);
                     return true;
-
                 case R.id.detail:
-
-                    Intent startdetail = new Intent(MainActivity.this, DetailActivity.class);
-
-                    startdetail.putExtra("store_name","CMU Silicon Valley");
-                    startActivity(startdetail);
-
+                    fragment=new DefaultFragment();
+                    openFragment(fragment);
                     return true;
 
                 default:
                     Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
                     return true;
             }
+
         }
     }
+    public void openFragment(android.support.v4.app.Fragment fragment){
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame,fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 }
 
 

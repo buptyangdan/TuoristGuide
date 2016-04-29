@@ -154,6 +154,8 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
                 adapter.notifyDataSetChanged();
                 StoreService.getInstance().CreateStore(StoreManager.getInstance().getCurrent_store());
                 StoreService.getInstance().CreateUserStore(comment);
+            }else{
+                 Toast.makeText(getBaseContext(),"Please login!", Toast.LENGTH_LONG).show();
             }
 
         }
