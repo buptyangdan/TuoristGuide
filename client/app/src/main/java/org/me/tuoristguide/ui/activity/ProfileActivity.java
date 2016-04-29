@@ -3,12 +3,9 @@ package org.me.tuoristguide.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Picasso;
@@ -18,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.tuoristguide.R;
 import org.me.tuoristguide.entities.UserManager;
-import org.me.tuoristguide.model.Comment;
 import org.me.tuoristguide.model.CommentList;
 import org.me.tuoristguide.model.User;
 import org.me.tuoristguide.service.local.FacebookService;
@@ -110,6 +106,7 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
             for(int i=0;i<arrayObj.length();i++){
                 JSONObject json=arrayObj.getJSONObject(i);
                 mCommentList.add(new CommentList(user_name, photo_url, i+"" , json.getString("store_name"),json.getString("comment_txt"), json.getString("created_time")));
+
                 adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
                 IvComment.setAdapter(adapter);
             }
@@ -117,7 +114,6 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
            IvComment = (ListView)findViewById(R.id.listview_comment);

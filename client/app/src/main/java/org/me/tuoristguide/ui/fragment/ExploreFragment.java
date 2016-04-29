@@ -4,25 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.Coordinate;
 
 import org.me.tuoristguide.R;
-import org.me.tuoristguide.entities.StoreManager;
 import org.me.tuoristguide.service.local.LocationService;
 import org.me.tuoristguide.service.local.YelpService;
 import org.me.tuoristguide.ui.activity.DetailActivity;

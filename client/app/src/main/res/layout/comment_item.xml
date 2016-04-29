@@ -3,16 +3,18 @@
 xmlns:cv="http://schemas.android.com/apk/res-auto"
 android:layout_width="match_parent"
 android:layout_height="match_parent" android:background="#ffffff">
-    <android.support.v7.widget.CardView android:background="#ffffff"
+<android.support.v7.widget.CardView android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    android:id="@+id/cardview"
     cv:cardCornerRadius="4dp"
     cv:cardElevation="4dp"
+    android:backgroundTint="@android:color/white"
     cv:cardUseCompatPadding="true">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp">
@@ -46,7 +48,7 @@ android:layout_height="match_parent" android:background="#ffffff">
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#130b23"
+                android:textColor="#000000"
                 android:textStyle="bold|italic"/>
         </RelativeLayout>
 
@@ -62,7 +64,8 @@ android:layout_height="match_parent" android:background="#ffffff">
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000000" />
 
             <TextView
                 android:text="Time"
@@ -71,7 +74,8 @@ android:layout_height="match_parent" android:background="#ffffff">
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="italic"/>
+                android:textStyle="italic"
+                android:textColor="#000000" />
 
             <Button
                 android:id="@+id/CommentText"
@@ -85,4 +89,3 @@ android:layout_height="match_parent" android:background="#ffffff">
     </LinearLayout>
 </android.support.v7.widget.CardView>
 </RelativeLayout>
-

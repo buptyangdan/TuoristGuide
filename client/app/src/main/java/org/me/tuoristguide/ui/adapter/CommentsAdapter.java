@@ -1,6 +1,7 @@
 package org.me.tuoristguide.ui.adapter;
 
   import android.content.Context;
+  import android.support.v7.widget.CardView;
   import android.view.View;
   import android.view.ViewGroup;
   import android.widget.BaseAdapter;
@@ -49,6 +50,8 @@ public class CommentsAdapter extends BaseAdapter {
         TextView tvTime = (TextView)v.findViewById(R.id.TimeText);
         ImageView imageView=(ImageView)v.findViewById(R.id.comment_profile_picture);
         TextView tvUserName=(TextView)v.findViewById(R.id.comment_user_name);
+        CardView cardView = (CardView)v.findViewById(R.id.cardview);
+        cardView.setCardBackgroundColor(-1);
 
         tvName.setText("Store:"+mCommentList.get(position).getStore_name());
         tvComment.setText("Comment: "+mCommentList.get(position).getComment_text());
