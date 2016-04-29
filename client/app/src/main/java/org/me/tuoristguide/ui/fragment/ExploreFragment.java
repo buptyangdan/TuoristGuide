@@ -82,6 +82,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
             }
         });
 
+        /*
         //detail Button
         plan_route=(ImageButton)getActivity().findViewById(R.id.route_plan);
         plan_route.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +92,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
             }
         });
+        */
 
         // pager
         viewPager = (ViewPager) getActivity().findViewById(R.id.pager);
