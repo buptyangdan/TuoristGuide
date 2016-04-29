@@ -3,61 +3,105 @@ package org.me.tuoristguide.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import org.me.tuoristguide.model.User;
+
+import java.util.ArrayList;
 
 /*
-    User:       Name, Email
-    Comment:    User, Store, Text
-
+  User: Name, Email, photo_url to save current_user
  */
+public class DatabaseConnector extends  SQLiteOpenHelper{
+    private User user;
+    private static  final String createUser = "create table User ("
+            + "id integer primary key autoincrement, "
+            + "user_name text, "
+            + "email text, "
+            + "photo_url text)";
 
-public class DatabaseConnector
-{
-    public DatabaseConnector(Context context)
-    {
+    public DatabaseConnector(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+        Log.d("Database Opreations", "Create Database!");
+    }
+    public  void setUser(User user){
+        this.user=user;
+    }
+    public  ContentValues insertValues(){
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("user_name", user.name);
+        contentValues.put("email", user.email);
+        contentValues.put("photo_url",user.picture_url);
+        return  contentValues;
     }
 
-    public void open() throws SQLException
-    {
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+
+        db.execSQL(createUser);
+        Log.d("Database Operations", "Create Tables!");
     }
 
-    public void close()
-    {
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("drop table if exists User");
+        onCreate(db);
     }
+    public ArrayList<Cursor> getData(String Query){
+        //get writable database
+        SQLiteDatabase sqlDB = this.getWritableDatabase();
+        String[] columns = new String[] { "mesage" };
+        //an array list of cursor to save two cursors one has results from the query
+        //other cursor stores error message if any errors are triggered
+        ArrayList<Cursor> alc = new ArrayList<Cursor>(2);
+        MatrixCursor Cursor2= new MatrixCursor(columns);
+        alc.add(null);
+        alc.add(null);
 
-    public Cursor getAllRows(String tableName) {
 
-        return null;
-    }
+        try{
+            String maxQuery = Query ;
+            //execute the query results will be save in Cursor c
+            Cursor c = sqlDB.rawQuery(maxQuery, null);
 
-    public Cursor getAllScoresForOneQuiz(String colName)
-    {
-        return null;
-    }
 
-    public void showDataBaseEntries() {
+            //add value to cursor2
+            Cursor2.addRow(new Object[] { "Success" });
 
-    }
+            alc.set(1,Cursor2);
+            if (null != c && c.getCount() > 0) {
 
-    private class DatabaseOpenHelper extends SQLiteOpenHelper
-    {
-        public DatabaseOpenHelper(Context context, String name,
-                                  SQLiteDatabase.CursorFactory factory, int version)
-        {
-            super(context, name, factory, version);
+
+                alc.set(0,c);
+                c.moveToFirst();
+
+                return alc ;
+            }
+            return alc;
+        } catch(SQLException sqlEx){
+            Log.d("printing exception", sqlEx.getMessage());
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+sqlEx.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
+        } catch(Exception ex){
+
+            Log.d("printing exception", ex.getMessage());
+
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+ex.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
         }
 
-        @Override
-        public void onCreate(SQLiteDatabase db)
-        {
-        }
 
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-        {
-        }
     }
+
+
 }
+
 

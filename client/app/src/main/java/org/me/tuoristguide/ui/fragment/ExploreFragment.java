@@ -82,15 +82,15 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
             }
         });
 
-        //detail Button
-        plan_route=(ImageButton)getActivity().findViewById(R.id.route_plan);
-        plan_route.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // get the click store and redirect to detail Activity
-
-            }
-        });
+//        //detail Button
+//        plan_route=(ImageButton)getActivity().findViewById(R.id.route_plan);
+//        plan_route.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // get the click store and redirect to detail Activity
+//
+//            }
+//        });
 
         // pager
         viewPager = (ViewPager) getActivity().findViewById(R.id.pager);
