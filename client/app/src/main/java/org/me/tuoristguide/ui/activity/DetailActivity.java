@@ -76,7 +76,7 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
          storeRattingText=(TextView)findViewById(R.id.store_rate);
          commentText=(TextView)findViewById(R.id.comment_content);
          IvComment = (ListView)findViewById(R.id.listview_comment);
-         setListViewScrollable(IvComment);
+        setListViewScrollable(IvComment);
         if (storeNameText != null) {
             storeNameText.setText(store_name);
         }
@@ -91,6 +91,8 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
         // test butotn
         submitButton = (Button)findViewById(R.id.submit);
         submitButton.setOnClickListener(new OnSubmitButtonClicked());
+        adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
+        IvComment.setAdapter(adapter);
 
     }
 
@@ -123,10 +125,10 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
                          JSONObject json=arrayObj.getJSONObject(i);
                          System.out.println(json.getString("user_name"));
                          System.out.println(json.getString("photo_url"));
-                         mCommentList.add(new CommentList(json.getString("user_name"), json.getString("photo_url"),i+"", store_name,json.getString("comment_txt"), json.getString("created_time")));
-                         adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
-                         IvComment.setAdapter(adapter);
+                         mCommentList.add(new CommentList(json.getString("user_name"), json.getString("photo_url"), i + "", store_name, json.getString("comment_txt"), json.getString("created_time")));
+                         adapter.notifyDataSetChanged();
                      }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -146,10 +148,11 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
             comment_content=String.valueOf(commentText.getText());
             //use adapter to inflate the view to viewpage
             if(comment_content!=null&& UserManager.getInstance().getCurrentUser()!=null){
-                adapter.notifyDataSetChanged();
-                StoreService.getInstance().CreateStore(StoreManager.getInstance().getCurrent_store());
                 Comment comment=new Comment(comment_content,String.valueOf(new Date()), UserManager.getInstance().getCurrentUser().email,StoreManager.getInstance().getCurrent_store().store_id);
                 mCommentList.add(new CommentList(UserManager.getInstance().getCurrentUser().name, UserManager.getInstance().getCurrentUser().picture_url, "1",StoreManager.getInstance().getCurrent_store().store_name , comment.comment_text, comment.created_time));
+               //adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
+                adapter.notifyDataSetChanged();
+                StoreService.getInstance().CreateStore(StoreManager.getInstance().getCurrent_store());
                 StoreService.getInstance().CreateUserStore(comment);
             }
 

@@ -32,7 +32,10 @@ public class StoreService{
      }
       public void CreateStore(final Store store){
           String uri="http://54.172.42.185:8080/org.me.backend/user_info";
-
+          System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+          System.out.println(store.store_id);
+          System.out.println(store.store_pic);
+          System.out.println(store.store_name);
           StringRequest mReq = new StringRequest(Request.Method.POST, uri,new Response.Listener<String>() {
               public void onResponse(String string) {
                   System.out.println(string);
