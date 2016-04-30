@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.ImageButton;
 
 import android.widget.ImageView;
@@ -70,15 +71,19 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         //we can get data from DB
         CommentService.getInstance().setController(this);
 
-}
-
+    }
 
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
         checkUserInfo();
+
     }
+
 
 
     @Override
@@ -100,7 +105,7 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
             ContentValues values = databaseConnector.insertValues();
             SQLiteDatabase database = databaseConnector.getWritableDatabase();
             database.execSQL("delete from User;");
-           // List<Cursor> resultSet=databaseConnector.getData("select user_name, email, photo_url from User");
+            // List<Cursor> resultSet=databaseConnector.getData("select user_name, email, photo_url from User");
             database.insert("User", null, values);
         }
 
@@ -114,9 +119,9 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
 
     @Override
     public void getJsonResponse(JSONObject jsonObject) {
-           System.out.print("here is the by user response!");
-           System.out.println(jsonObject);
-           JSONArray arrayObj=null;
+        System.out.print("here is the by user response!");
+        System.out.println(jsonObject);
+        JSONArray arrayObj=null;
 
         try {
             String user_name=jsonObject.getString("user_name");
@@ -136,8 +141,8 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
 
 
         adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
-           IvComment = (ListView)findViewById(R.id.listview_comment);
-           IvComment.setAdapter(adapter);
+        IvComment = (ListView)findViewById(R.id.listview_comment);
+        IvComment.setAdapter(adapter);
     }
 
 
