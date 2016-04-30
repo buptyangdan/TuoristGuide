@@ -79,6 +79,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         });
 
 
+
         // pager
         viewPager = (ViewPager) getActivity().findViewById(R.id.pager);
         locationService.setViewPager(viewPager);
