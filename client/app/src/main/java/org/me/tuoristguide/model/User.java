@@ -26,5 +26,11 @@ public class User {
         }
     }
 
+    public User(String email,String name, String picture_url) {
+        this.email = email;
+        this.name = name;
+        this.picture_url = picture_url;
+    }
+
 
 }

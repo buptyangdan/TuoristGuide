@@ -76,7 +76,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
 
 
         //in the below line Change the text 'yourCustomSqlHelper' with your custom sqlitehelper class name
-        dbm = new DatabaseConnector(AndroidDatabaseManager.this,null,null,2);
+        dbm = new DatabaseConnector(AndroidDatabaseManager.this,"User.db",null,2);
 
         mainscrollview = new ScrollView(AndroidDatabaseManager.this);
 

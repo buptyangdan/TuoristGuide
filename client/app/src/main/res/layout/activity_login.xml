@@ -12,60 +12,67 @@
         android:layout_height="wrap_content"
         android:background="#ffffff">
 
+        <ImageView
+            android:id="@+id/header_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:src="@drawable/sv_campus"
+            />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@drawable/profile"
-            android:layout_margin="30dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/profile_picture"
-            android:layout_centerHorizontal="true" />
-
-
+        <LinearLayout
+            android:id="@+id/informations_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/header_imageview"
+            android:gravity="center"
+            android:paddingTop="22dp"
+            android:paddingBottom="12dp">
 
         <TextView
             android:id="@+id/user_name"
-            android:layout_below="@+id/profile_picture"
-            android:layout_marginBottom="20dp"
-            android:text="user name"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" />
+            android:text="@string/header_name"
+            android:textStyle="bold"
+            android:textSize="17dp" />
 
         <TextView
             android:id="@+id/user_email"
-            android:layout_below="@+id/user_name"
-            android:layout_marginBottom="20dp"
-            android:text="user email"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:textColor="#FF707070"
+            android:text="email" />
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/btn_login"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
+            </LinearLayout>
 
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/btn_login"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@+id/user_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/profile"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:id="@+id/profile_picture"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/informations_container"
+            android:layout_marginBottom="-20dp" />
 
-        <TableLayout
-            android:layout_below="@id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tableLayout">
-
-        </TableLayout>
 
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/listview_comment"
-            android:layout_toEndOf="@+id/tableLayout"
-            android:layout_alignTop="@+id/tableLayout" />
+            android:layout_below="@id/informations_container"
+        />
 
     </RelativeLayout>
 

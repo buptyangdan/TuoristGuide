@@ -3,9 +3,11 @@ package org.me.tuoristguide.service.local;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookButtonBase;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
@@ -17,6 +19,7 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONObject;
 import org.me.tuoristguide.entities.UserManager;
 import org.me.tuoristguide.service.remote.UserService;
+import org.me.tuoristguide.ui.activity.ProfileActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,16 +43,27 @@ public class FacebookService {
         registered_activity = activity;
         return instance;
     }
-
+    static  public FacebookService getInstance(){
+        if(instance!=null){
+            return instance;
+        }else{
+            instance=new FacebookService();
+            return  instance;
+        }
+    }
     // Constructor, to create private instances;
     private FacebookService(OnFacebookLoggedIn activity){
         callbackManager = CallbackManager.Factory.create();
         registered_activity = activity;
     }
+    private  FacebookService(){
+
+    }
 
     public boolean checkLoginStatus() {
         // check if user has already login
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
+
         return accessToken != null;
     }
 

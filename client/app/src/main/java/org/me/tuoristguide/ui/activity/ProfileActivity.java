@@ -3,16 +3,18 @@ package org.me.tuoristguide.ui.activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
+
 import android.widget.ImageButton;
+
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -30,7 +32,6 @@ import org.me.tuoristguide.R;
 import org.me.tuoristguide.database.AndroidDatabaseManager;
 import org.me.tuoristguide.database.DatabaseConnector;
 import org.me.tuoristguide.entities.UserManager;
-import org.me.tuoristguide.model.Comment;
 import org.me.tuoristguide.model.CommentList;
 import org.me.tuoristguide.model.User;
 import org.me.tuoristguide.service.local.FacebookService;
@@ -63,9 +64,12 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
 
         // then inflate the view
         setContentView(R.layout.activity_login);
-        // set up login button
-        btn_login = (LoginButton) findViewById(R.id.btn_login);
-        FacebookService.getInstance(this).setupFBLoginButton(btn_login);
+        if(!FacebookService.getInstance().checkLoginStatus()){
+            // set up login button
+            btn_login = (LoginButton) findViewById(R.id.btn_login);
+            FacebookService.getInstance(this).setupFBLoginButton(btn_login);
+
+        }
 
         // set up other components
         nameTextview = (TextView) findViewById(R.id.user_name);
@@ -76,9 +80,13 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         //we can get data from DB
         CommentService.getInstance().setController(this);
 
-
-
-
+        photoImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dbmanager = new Intent(ProfileActivity.this,AndroidDatabaseManager.class);
+                startActivity(dbmanager);
+            }
+        });
 
 }
 
@@ -99,14 +107,21 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
     }
     private void checkUserInfo() {
         User user = UserManager.getInstance().getCurrentUser();
-        if (user != null){
+        if (user!=null&&user.email!=null){
             CommentService.getInstance().getByUser(user.email);
             nameTextview.setText(user.name);
             emailTextview.setText(user.email);
             Picasso.with(this).load(user.picture_url)
                     .into(photoImageview);
-           initPopupWindow();
+            DatabaseConnector databaseConnector = new DatabaseConnector(ProfileActivity.this, "User.db", null, 2);
+            databaseConnector.setUser(user);
+            ContentValues values = databaseConnector.insertValues();
+            SQLiteDatabase database = databaseConnector.getWritableDatabase();
+            database.execSQL("delete from User;");
+           // List<Cursor> resultSet=databaseConnector.getData("select user_name, email, photo_url from User");
+            database.insert("User", null, values);
         }
+
 
     }
 
@@ -136,64 +151,12 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         } catch (JSONException e) {
             e.printStackTrace();
         }
-           adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
+
+
+        adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
            IvComment = (ListView)findViewById(R.id.listview_comment);
            IvComment.setAdapter(adapter);
     }
-
-    public  void initPopupWindow(){
-        Toast.makeText(getBaseContext(), "POPPPPP!", Toast.LENGTH_LONG).show();
-
-        View popupView = getLayoutInflater().inflate(R.layout.pop_up, null);
-        mPopupWindow = new PopupWindow(popupView, RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT, true);
-        mPopupWindow.setTouchable(true);
-        mPopupWindow.setOutsideTouchable(true);
-        mPopupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
-        mPopupWindow.getContentView().setFocusableInTouchMode(true);
-        mPopupWindow.getContentView().setFocusable(true);
-        mPopupWindow.getContentView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0
-                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (mPopupWindow != null && mPopupWindow.isShowing()) {
-                        mPopupWindow.dismiss();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-        if (mPopupWindow != null && !mPopupWindow.isShowing()) {
-            mPopupWindow.showAtLocation(findViewById(R.id.login), Gravity.BOTTOM, 0, 0);
-        }
-        savePassword=(ImageButton)popupView.findViewById(R.id.image_ok);
-        savePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Successfull!", Toast.LENGTH_LONG).show();
-
-                User user = UserManager.getInstance().getCurrentUser();
-                if (user != null) {
-                    DatabaseConnector databaseConnector = new DatabaseConnector(ProfileActivity.this, "User.db", null, 2);
-                    databaseConnector.setUser(user);
-                    ContentValues values = databaseConnector.insertValues();
-                    SQLiteDatabase database = databaseConnector.getWritableDatabase();
-                    database.insert("User", null, values);
-                }
-            }
-        });
-        nsavePassword=(ImageButton)popupView.findViewById(R.id.image_cancel);
-        nsavePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent dbmanager = new Intent(ProfileActivity.this,AndroidDatabaseManager.class);
-                startActivity(dbmanager);
-            }
-        });
-    }
-
-
 
 
 }

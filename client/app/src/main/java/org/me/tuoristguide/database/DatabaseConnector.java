@@ -7,10 +7,13 @@ import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 
 import org.me.tuoristguide.model.User;
 
+import java.io.File;
+import java.sql.DataTruncation;
 import java.util.ArrayList;
 
 /*
@@ -18,21 +21,30 @@ import java.util.ArrayList;
  */
 public class DatabaseConnector extends  SQLiteOpenHelper{
     private User user;
+    public DataTruncation instance;
+
     private static  final String createUser = "create table User ("
             + "id integer primary key autoincrement, "
-            + "user_name text, "
-            + "email text, "
-            + "photo_url text)";
+            + "user_name TEXT, "
+            + "email TEXT, "
+            + "photo_url TEXT);";
 
     public DatabaseConnector(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-        Log.d("Database Opreations", "Create Database!");
+       super(context, name, factory, version);
+       // super(context, "/sdcard/"+name, null, version);
+//        SQLiteDatabase.openOrCreateDatabase("/sdcard/" + name, null);
+
+        Log.d("Database Opreations", "CreateDatabase"+getDatabaseName());
     }
     public  void setUser(User user){
         this.user=user;
     }
     public  ContentValues insertValues(){
         ContentValues contentValues=new ContentValues();
+        System.out.println("here is the saved user!");
+        System.out.println(user.name);
+        System.out.println(user.email);
+        System.out.println(user.picture_url);
         contentValues.put("user_name", user.name);
         contentValues.put("email", user.email);
         contentValues.put("photo_url",user.picture_url);
@@ -46,11 +58,14 @@ public class DatabaseConnector extends  SQLiteOpenHelper{
         Log.d("Database Operations", "Create Tables!");
     }
 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists User");
         onCreate(db);
     }
+
+
     public ArrayList<Cursor> getData(String Query){
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();
