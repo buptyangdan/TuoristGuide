@@ -1,6 +1,10 @@
 package org.me.tuoristguide.ui.fragment;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,8 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -19,7 +27,9 @@ import com.yelp.clientlib.entities.Business;
 import com.yelp.clientlib.entities.Coordinate;
 
 import org.me.tuoristguide.R;
+import org.me.tuoristguide.model.Geo;
 import org.me.tuoristguide.service.local.LocationService;
+import org.me.tuoristguide.service.local.SearchService;
 import org.me.tuoristguide.service.local.YelpService;
 import org.me.tuoristguide.ui.activity.DetailActivity;
 import org.me.tuoristguide.ui.adapter.StoresAdapter;
@@ -27,15 +37,17 @@ import org.me.tuoristguide.ui.adapter.StoresAdapter;
 import java.util.ArrayList;
 
 
-public class ExploreFragment extends Fragment implements YelpService.YelpServiceInterface {
+public class ExploreFragment extends Fragment implements YelpService.YelpServiceInterface,View.OnClickListener {
 
     private static final String MAP_FRAGMENT_TAG = "MAP_FRAGMENT";
     private static final String TAG = "ExploreFragment";
     private FloatingActionButton locationButton;
-    private ImageButton plan_route;
     private ViewPager viewPager;
     private LocationService locationService;
-
+    private static Double latitude, longitude;
+    private static GoogleMap mMap;
+    SearchView searchview;
+    View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +57,24 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         setRetainInstance(true);
         locationService = new LocationService(getActivity());
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().registerReceiver(receiver, new IntentFilter(SearchService.NOTIFICATION));
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(receiver);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_explore, container, false);
+
+        view=(RelativeLayout)inflater.inflate(R.layout.fragment_explore, container, false);
+        searchview=(SearchView)view.findViewById(R.id.search_view);
+        searchview.setOnSearchClickListener(this);
+        return view;
     }
 
     @Override
@@ -126,4 +151,52 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
             getContext().startActivity(intent);
 
     }
+
+    @Override
+    public void onClick(View v) {
+        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (query.length() != 0) {
+                    Intent intent=new Intent(getContext(), SearchService.class);
+                    System.out.println("--->" + query);
+                    // handle search here
+                    intent.putExtra("queryString", query);
+                    getActivity().startService(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras();
+            latitude=Double.parseDouble(bundle.getString(SearchService.Latitude));
+            longitude=Double.parseDouble(bundle.getString(SearchService.Longtitude));
+            if (bundle != null) {
+                int resultCode = bundle.getInt(SearchService.RESULT);
+                if (resultCode == Activity.RESULT_OK) {
+                    System.out.println("@@@@@@@@---->" + latitude);
+                    System.out.println("@@@@@@@@---->" + longitude);
+                    locationService.showCurrentLocationInMap(latitude,longitude);
+                    YelpService.getInstance().yelpNearby(latitude,longitude);
+                    Toast.makeText(getContext(),
+                            "successfully!",
+                            Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(getContext(), "failed",
+                            Toast.LENGTH_LONG).show();
+
+                }
+            }
+        }
+    };
 }

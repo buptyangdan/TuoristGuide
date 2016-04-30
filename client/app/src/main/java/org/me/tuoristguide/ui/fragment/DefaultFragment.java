@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.eftimoff.viewpagertransformers.FlipVerticalTransformer;
 import com.eftimoff.viewpagertransformers.RotateDownTransformer;
 
 import org.me.tuoristguide.R;
@@ -87,7 +88,7 @@ public class DefaultFragment extends Fragment {
                  return view == object;
              }
          });
-           mViewPager.setPageTransformer(true,new RotateDownTransformer());
+           mViewPager.setPageTransformer(true,new FlipVerticalTransformer());
            mViewPager.setInterval(4000);
            mViewPager.startAutoScroll();
 

@@ -8,7 +8,6 @@
             android:checked="false"
             android:icon="@drawable/ic_profile"
             android:title="@string/profile_string" />
-
         <item
             android:id="@+id/locations"
             android:checked="false"
@@ -16,23 +15,12 @@
             android:title="@string/locations_string" />
 
         <item
-            android:id="@+id/search"
-            android:checked="false"
-            android:icon="@drawable/ic_search"
-            android:title="@string/search_string" />
-
-
-        <item
             android:id="@+id/explore"
             android:checked="false"
             android:icon="@drawable/ic_explore"
             android:title="@string/explore_string" />
 
-        <item
-            android:id="@+id/detail"
-            android:checked="false"
-            android:icon="@drawable/ic_explore"
-            android:title="Detail" />
+
 
     </group>
 </menu>

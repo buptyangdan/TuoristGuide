@@ -30,7 +30,7 @@ import org.me.tuoristguide.model.User;
 import org.me.tuoristguide.ui.fragment.DefaultFragment;
 import org.me.tuoristguide.ui.fragment.ExploreFragment;
 import org.me.tuoristguide.ui.fragment.LocationsFragment;
-import org.me.tuoristguide.ui.fragment.SearchFragment;
+
 import android.Manifest;
 
 import com.squareup.picasso.Picasso;
@@ -193,15 +193,6 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new LocationsFragment();
                     openFragment(fragment);
                     return true;
-                case R.id.search:
-                    fragment = new SearchFragment();
-                    openFragment(fragment);
-                    return true;
-                case R.id.detail:
-                    fragment=new DefaultFragment();
-                    openFragment(fragment);
-                    return true;
-
                 default:
                     Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
                     return true;
