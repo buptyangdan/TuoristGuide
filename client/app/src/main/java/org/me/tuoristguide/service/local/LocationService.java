@@ -1,11 +1,14 @@
 package org.me.tuoristguide.service.local;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -23,6 +26,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.me.tuoristguide.R;
+import org.me.tuoristguide.model.Comment;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -44,9 +48,17 @@ public class LocationService implements
     private LocationManager locationManager;
     private ArrayList<Marker> markers;
     private ViewPager viewPager;
+    private static LocationService instance = null;
 
-
-    public LocationService(Context context){
+    static  public LocationService getInstance(Context context){
+        if(instance!=null){
+            return instance;
+        }else{
+            instance=new LocationService(context);
+            return  instance;
+        }
+    }
+    public LocationService(Context context) {
         googleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
@@ -57,10 +69,11 @@ public class LocationService implements
     }
 
     public Location getCurrentLocation() {
+        currentLocation=getLastLocation();
         return currentLocation;
     }
 
-    public void setViewPager(ViewPager v){
+    public void setViewPager(ViewPager v) {
         viewPager = v;
     }
 
@@ -76,28 +89,27 @@ public class LocationService implements
         return currentLocation;
     }
 
-    public void showCurrentLocationInMap() {
-        if (currentLocation != null) {
-            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            float zoom = googleMap.getCameraPosition().zoom;
-
-            if (zoom < 12.5f)
-            {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.5f));
-            }
-            else
-            {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            }
-
-            googleMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .title("Current Location")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
-        }
-    }
-    public void showCurrentLocationInMap(Double latitude, Double longtitude) {
-
+//    public void showCurrentLocationInMap() {
+//        if (currentLocation != null) {
+//            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+//            float zoom = googleMap.getCameraPosition().zoom;
+//
+//            if (zoom < 12.5f)
+//            {
+//                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.5f));
+//            }
+//            else
+//            {
+//                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//            }
+//
+//            googleMap.addMarker(new MarkerOptions()
+//                    .position(latLng)
+//                    .title("Current Location")
+//                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
+//        }
+//    }
+    public void showCurrentLocationInMap(Double latitude, Double longtitude, String type) {
             LatLng latLng = new LatLng(latitude,longtitude );
             float zoom = googleMap.getCameraPosition().zoom;
 
@@ -109,11 +121,20 @@ public class LocationService implements
             {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             }
+            if(type.equals("search")){
+                googleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Searched Location")
+                        .icon(BitmapDescriptorFactory.defaultMarker()));
 
-            googleMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .title("Current Location")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
+
+            }else {
+
+                googleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Current Location")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
+            }
 
     }
 

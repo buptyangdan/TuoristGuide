@@ -3,24 +3,15 @@ package org.me.tuoristguide.ui.activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.View;
 
 import android.widget.ImageButton;
 
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Picasso;
@@ -29,7 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.tuoristguide.R;
-import org.me.tuoristguide.database.AndroidDatabaseManager;
 import org.me.tuoristguide.database.DatabaseConnector;
 import org.me.tuoristguide.entities.UserManager;
 import org.me.tuoristguide.model.CommentList;
@@ -79,14 +69,6 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         //add sample data for list;
         //we can get data from DB
         CommentService.getInstance().setController(this);
-
-        photoImageview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent dbmanager = new Intent(ProfileActivity.this,AndroidDatabaseManager.class);
-                startActivity(dbmanager);
-            }
-        });
 
 }
 

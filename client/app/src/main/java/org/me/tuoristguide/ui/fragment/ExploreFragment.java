@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -52,14 +53,15 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // set self as controller in YelpService
-        YelpService.getInstance().setController(this);
+        //YelpService.getInstance().setController(this);
         setRetainInstance(true);
         locationService = new LocationService(getActivity());
     }
     @Override
     public void onResume() {
         super.onResume();
+        // set self as controller in YelpService
+        YelpService.getInstance().setController(this);
         getActivity().registerReceiver(receiver, new IntentFilter(SearchService.NOTIFICATION));
     }
     @Override
@@ -81,6 +83,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         // google map fragment
         FragmentManager fragmentManager = getChildFragmentManager();
         SupportMapFragment fragment = (SupportMapFragment)
@@ -98,8 +101,13 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
             @Override
             public void onClick(View view) {
                 locationService.requestLocationUpdates();
-                locationService.showCurrentLocationInMap();
-                YelpService.getInstance().yelpNearby(locationService.getCurrentLocation());
+                Location currentlocation=locationService.getCurrentLocation();
+                if(currentlocation!=null)
+                {
+                    locationService.showCurrentLocationInMap(currentlocation.getLatitude(),currentlocation.getLongitude(),"current_location");
+                    YelpService.getInstance().yelpNearby(currentlocation);
+                }
+
             }
         });
 
@@ -174,6 +182,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         });
 
     }
+
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -183,9 +192,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
             if (bundle != null) {
                 int resultCode = bundle.getInt(SearchService.RESULT);
                 if (resultCode == Activity.RESULT_OK) {
-                    System.out.println("@@@@@@@@---->" + latitude);
-                    System.out.println("@@@@@@@@---->" + longitude);
-                    locationService.showCurrentLocationInMap(latitude,longitude);
+                    locationService.showCurrentLocationInMap(latitude,longitude,"search");
                     YelpService.getInstance().yelpNearby(latitude,longitude);
                     Toast.makeText(getContext(),
                             "successfully!",
