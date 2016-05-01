@@ -82,7 +82,6 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
         switch (ViewType.values()[getItemViewType(position)]) {
             case TOP:
                 TopViewHolder topViewHolder = (TopViewHolder) holder;
-                //topViewHolder.markerImage.getDrawable().mutate().setColorFilter(context.getResources().getColor(R.color.secondary_text), PorterDuff.Mode.SRC_IN);
                 topViewHolder.locationDescriptionTextView.setText(getAddress(context, currentLocation));
                 break;
             case MIDDLE:
@@ -90,15 +89,9 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
                 final MiddleViewHolder middleViewHolder = (MiddleViewHolder) holder;
                 middleViewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
                 middleViewHolder.swipeLayout.setDragEdge(SwipeLayout.DragEdge.Right);
-                /*
-                Picasso.with(context)
-                        .load(business.getCategories()[0].getIconUrl())
-                        .transform(new ColorTransformation(context.getResources().getColor(R.color.secondary_text)))
-                        .placeholder(R.drawable.ic_generic_category)
-                        .into(middleViewHolder.categoryImageView);
-                        */
-                //middleViewHolder.categoryNameView.setText(business.categories().toString());
                 middleViewHolder.businessNameView.setText(business.name());
+                middleViewHolder.locationDescriptionTextView.setText(business.rating().toString() + "  " +
+                getAddress(context, business));
                 middleViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -114,15 +107,9 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
                 final Business business1 = businessList.get(position-1);
                 final BottomViewHolder bottomViewHolder = (BottomViewHolder) holder;
                 bottomViewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+                bottomViewHolder.locationDescriptionTextView.setText(business1.rating().toString()
+                 + "  " + getAddress(context, business1));
                 bottomViewHolder.swipeLayout.setDragEdge(SwipeLayout.DragEdge.Right);
-                /*
-                Picasso.with(context)
-                        .load(business1.getCategories()[0].getIconUrl())
-                        .transform(new ColorTransformation(context.getResources().getColor(R.color.secondary_text)))
-                        .placeholder(R.drawable.ic_generic_category)
-                        .into(bottomViewHolder.categoryImageView);
-                        */
-                //bottomViewHolder.categoryNameView.setText(business1.categories().toString());
                 bottomViewHolder.businessNameView.setText(business1.name());
                 bottomViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -136,7 +123,6 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
                 });
                 break;
         }
-
     }
 
     @Override
@@ -156,10 +142,10 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
         return ViewType.MIDDLE.ordinal();
     }
 
-    private String getAddress(Context context, Location location) {
+    private String getAddress(Context context, double latitude, double longitude) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses == null || addresses.isEmpty()) return null;
             Address address = addresses.get(0);
             StringBuilder addressBuilder = new StringBuilder();
@@ -176,6 +162,16 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
             Log.e(TAG, "Error while retrieving address", ex);
             return null;
         }
+
+    }
+
+    private String getAddress(Context context, Business business) {
+        return getAddress(context, business.location().coordinate().latitude(),
+                business.location().coordinate().longitude());
+    }
+
+    private String getAddress(Context context, Location location) {
+        return getAddress(context, location.getLatitude(), location.getLongitude());
     }
 
     public interface OnDeleteItemListener {
@@ -200,14 +196,15 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
         private TextView businessNameView;
         private TextView categoryNameView;
         private ImageButton deleteButton;
+        private TextView locationDescriptionTextView;
 
         public MiddleViewHolder(View itemView) {
             super(itemView);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             categoryImageView = (ImageView) itemView.findViewById(R.id.category_image);
             businessNameView = (TextView) itemView.findViewById(R.id.business_name);
-            categoryNameView = (TextView) itemView.findViewById(R.id.category_name);
             deleteButton = (ImageButton) itemView.findViewById(R.id.delete_button);
+            locationDescriptionTextView = (TextView) itemView.findViewById(R.id.location_description);
         }
     }
 
@@ -218,14 +215,15 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
         private TextView businessNameView;
         private TextView categoryNameView;
         private ImageButton deleteButton;
+        private TextView locationDescriptionTextView;
 
         public BottomViewHolder(View itemView) {
             super(itemView);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             categoryImageView = (ImageView) itemView.findViewById(R.id.category_image);
             businessNameView = (TextView) itemView.findViewById(R.id.business_name);
-            categoryNameView = (TextView) itemView.findViewById(R.id.category_name);
             deleteButton = (ImageButton) itemView.findViewById(R.id.delete_button);
+            locationDescriptionTextView = (TextView) itemView.findViewById(R.id.location_description);
         }
     }
 }

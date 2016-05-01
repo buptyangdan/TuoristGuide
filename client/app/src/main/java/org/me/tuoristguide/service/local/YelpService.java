@@ -63,6 +63,16 @@ public class YelpService {
         return this.businesses;
     }
 
+    public ArrayList<Business> getRecommendedBusiness() {
+        ArrayList<Business> result = new ArrayList<>();
+        for (Business b: this.businesses){
+            if (b.rating() > 4) {
+                result.add(b);
+            }
+        }
+        return result;
+    }
+
 
     /***
      * This method is used to find all nearby recommendations

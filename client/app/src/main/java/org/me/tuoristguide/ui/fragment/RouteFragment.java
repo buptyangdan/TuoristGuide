@@ -53,12 +53,11 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
     private static final String MAP_FRAGMENT_TAG = "MAP_FRAGMENT";
     private static final String CURRENT_LOCATION_ARG = "CURRENT_LOCATION";
 
-    @InjectView(R.id.recalculating_route_progress_bar) private ProgressBar recalculatingRouteProgressBar;
     @InjectView(R.id.walking_directions_button)        private FloatingActionButton walkingDirectionsButton;
     @InjectView(R.id.transit_directions_button)        private FloatingActionButton transitDirectionsButton;
     @InjectView(R.id.driving_directions_button)        private FloatingActionButton drivingDirectionsButton;
-    @InjectView(R.id.travel_distance_container)        private CardView travelDistanceContainer;
     @InjectView(R.id.bike_directions_button)           private FloatingActionButton bikeDirectionsButton;
+    @InjectView(R.id.travel_distance_container)        private CardView travelDistanceContainer;
     @InjectView(R.id.building_route_layout)            private LinearLayout buildingRouteLayout;
     @InjectView(R.id.travel_distance_text)             private TextView travelDistanceTextView;
     @InjectView(R.id.directions_menu)                  private FloatingActionMenu directionsMenu;
@@ -139,7 +138,7 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
         super.onActivityCreated(savedInstanceState);
         //shouldRestoreRoute = false;
         if (savedInstanceState == null) {
-            businessList = YelpService.getInstance().getBusinesses();
+            businessList = YelpService.getInstance().getRecommendedBusiness();
             businessRouteAdapter.set(businessList);
             routeBuilderTask = new RouteBuilderTask()
                     .setGeoAPI(geoApiContext)
@@ -180,7 +179,17 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
     private void onDeleteBusinessInRoute(int position) {
         int poiPosition = position-1;
         businessList.remove(poiPosition);
-        //recalculateRoute(getCurrentTravelMode());
+        recalculateRoute(getCurrentTravelMode());
+    }
+
+    private void recalculateRoute(TravelMode travelMode) {
+        saveCurrentTravelMode(travelMode);
+        routeBuilderTask = new RouteBuilderTask()
+                .setGeoAPI(geoApiContext)
+                .setBusinesses(businessList)
+                .origin(getCurrentLocationArg())
+                .travelMode(getCurrentTravelMode());
+        routeBuilderTask.request();
     }
 
     private Location getCurrentLocationArg() {
@@ -230,7 +239,7 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
             googleMap.setPadding(0, 0, 0, routeContainer.getHeight());
         }
     }
-    private void addBusMarker(Business business) {
+    private void addBusinessMarker(Business business) {
         if (business != null) {
             Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(business.location().coordinate().latitude(), business.location().coordinate().longitude()))
@@ -245,7 +254,7 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
         if (businessList != null && businessList.size() > 0){
             businessRouteAdapter.set(businessList);
             businessRouteAdapter.notifyDataSetChanged();
-            for (Business b: businessList) addBusMarker(b);
+            for (Business b: businessList) addBusinessMarker(b);
         }
         this.route = route;
         if (route != null) {
@@ -266,8 +275,19 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
     }
 
     private void onCompleteRouteBuilderTask() {
+        travelDistanceContainer.setVisibility(View.VISIBLE);
         buildingRouteLayout.setVisibility(View.GONE);
         routeList.setVisibility(View.VISIBLE);
+    }
+
+
+    private void onPreExecuteBuildRouteTask() {
+        travelDistanceContainer.setVisibility(View.GONE);
+        buildingRouteLayout.setVisibility(View.VISIBLE);
+        if (googleMap != null) {
+            googleMap.clear();
+            showCurrentLocationInMap();
+        }
     }
 
 
@@ -302,6 +322,12 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
         private RouteBuilderTask setBusinesses(List<Business> businesses) {
             this.businesses = businesses;
             return this;
+        }
+
+        @Override
+        protected void onPreExecute() throws Exception {
+            super.onPreExecute();
+            onPreExecuteBuildRouteTask();
         }
 
         @Override
