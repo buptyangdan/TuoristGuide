@@ -57,7 +57,10 @@
         <activity android:name=".ui.activity.ProfileActivity">
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
-       </activity>>
+        </activity>>
+
+        <activity android:name=".ui.activity.RouteActivity">
+        </activity>>
 
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>

@@ -193,6 +193,10 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new LocationsFragment();
                     openFragment(fragment);
                     return true;
+                case R.id.route:
+                    Intent intent = new Intent(MainActivity.this, RouteActivity.class);
+                    startActivity(intent);
+                    return true;
                 default:
                     Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
                     return true;
