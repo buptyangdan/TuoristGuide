@@ -39,7 +39,6 @@ public class YelpService {
     private ArrayList<Business> businesses = null;
 
 
-
     public static YelpService getInstance() {
         if(instance == null) {
             instance = new YelpService();
@@ -57,6 +56,11 @@ public class YelpService {
     public void setController(YelpServiceInterface controller){
         if (instance != null)
             instance.controller = controller;
+    }
+
+
+    public ArrayList<Business> getBusinesses() {
+        return this.businesses;
     }
 
 

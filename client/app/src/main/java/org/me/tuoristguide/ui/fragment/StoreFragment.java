@@ -1,5 +1,6 @@
 package org.me.tuoristguide.ui.fragment;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import com.yelp.clientlib.entities.Business;
 
 import org.me.tuoristguide.R;
+import org.me.tuoristguide.service.local.LocationService;
 import org.me.tuoristguide.service.local.YelpService;
+import org.me.tuoristguide.ui.activity.RouteActivity;
 import org.w3c.dom.Text;
 
 import roboguice.inject.InjectView;
@@ -55,6 +58,14 @@ public class StoreFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 YelpService.getInstance().yelpBussiness(business.id());
+            }
+        });
+
+        buildRouteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Location location = LocationService.getInstance(null).getCurrentLocation();
+                if (location != null) startActivity(RouteActivity.getIntent(getActivity(), location));
             }
         });
 

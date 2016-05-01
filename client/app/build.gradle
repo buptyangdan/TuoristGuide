@@ -52,6 +52,7 @@ dependencies {
     compile 'com.yelp.clientlib:yelp-android:1.0.0'
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.google.maps:google-maps-services:0.1.7'
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'org.roboguice:roboguice:3.+'
     provided 'org.roboguice:roboblender:3.+'
     compile files('lib/android-wunderground-client-1.0-SNAPSHOT.jar')

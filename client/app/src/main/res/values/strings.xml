@@ -43,4 +43,6 @@
     <string name="travel_time">Time: %s</string>
     <string name="long_time_format" translatable="false">H\' h \'m\' m\'</string>
     <string name="short_time_format" translatable="false">m\' m\'</string>
+
+    <string name="network_unavailable">A stable connection is required to perform request</string>
 </resources>

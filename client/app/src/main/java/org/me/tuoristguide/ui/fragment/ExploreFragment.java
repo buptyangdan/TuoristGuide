@@ -55,7 +55,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         super.onCreate(savedInstanceState);
         //YelpService.getInstance().setController(this);
         setRetainInstance(true);
-        locationService = new LocationService(getActivity());
+        locationService = LocationService.getInstance(getActivity());
     }
     @Override
     public void onResume() {

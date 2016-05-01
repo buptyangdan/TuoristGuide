@@ -50,7 +50,7 @@ public class LocationService implements
     private ViewPager viewPager;
     private static LocationService instance = null;
 
-    static  public LocationService getInstance(Context context){
+    static public LocationService getInstance(Context context){
         if(instance!=null){
             return instance;
         }else{
@@ -58,7 +58,8 @@ public class LocationService implements
             return  instance;
         }
     }
-    public LocationService(Context context) {
+
+    private LocationService(Context context) {
         googleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
