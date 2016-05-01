@@ -113,6 +113,36 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
         }
 
         directionsMenu.setIconAnimated(false);
+        walkingDirectionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                directionsMenu.close(true);
+                if (routeBuilderTask != null && !routeBuilderTask.isActive())
+                    recalculateRoute(TravelMode.WALKING);
+            }
+        });
+        transitDirectionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                directionsMenu.close(true);
+                if (routeBuilderTask != null && !routeBuilderTask.isActive()) recalculateRoute(TravelMode.TRANSIT);
+            }
+        });
+        drivingDirectionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                directionsMenu.close(true);
+                if (routeBuilderTask != null && !routeBuilderTask.isActive()) recalculateRoute(TravelMode.DRIVING);
+            }
+        });
+        bikeDirectionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                directionsMenu.close(true);
+                if (routeBuilderTask != null && !routeBuilderTask.isActive()) recalculateRoute(TravelMode.BICYCLING);
+            }
+        });
+
 
         routeList.setLayoutManager(new LinearLayoutManager(getActivity()));
         routeList.setItemAnimator(null);
@@ -203,7 +233,7 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
                 .position(latLng)
                 .title(getString(R.string.current_location))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f));
     }
 
     /**
@@ -239,6 +269,7 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
             googleMap.setPadding(0, 0, 0, routeContainer.getHeight());
         }
     }
+
     private void addBusinessMarker(Business business) {
         if (business != null) {
             Marker marker = googleMap.addMarker(new MarkerOptions()
@@ -265,13 +296,13 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
             travelDistanceContainer.setVisibility(View.VISIBLE);
             List<com.google.maps.model.LatLng> polyline = route.overviewPolyline.decodePath();
             PolylineOptions pathOptions = new PolylineOptions().color(getResources().getColor(R.color.accent));
-            for (com.google.maps.model.LatLng point : polyline) pathOptions.add(new LatLng(point.lat, point.lng));
+            for (com.google.maps.model.LatLng point : polyline)
+                pathOptions.add(new LatLng(point.lat, point.lng));
             googleMap.addPolyline(pathOptions);
         } else {
             Toast.makeText(getActivity().getApplicationContext(),
                     R.string.unavailable_route, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void onCompleteRouteBuilderTask() {
@@ -285,6 +316,9 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
         travelDistanceContainer.setVisibility(View.GONE);
         buildingRouteLayout.setVisibility(View.VISIBLE);
         if (googleMap != null) {
+            for (Business b: businessList){
+                addBusinessMarker(b);
+            }
             googleMap.clear();
             showCurrentLocationInMap();
         }
