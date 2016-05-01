@@ -7,24 +7,42 @@ package org.me.tuoristguide.ui.adapter;
   import android.widget.BaseAdapter;
   import android.widget.ImageView;
   import android.widget.TextView;
+  import android.widget.Toast;
 
   import com.squareup.picasso.Picasso;
+  import com.yelp.clientlib.connection.YelpAPIFactory;
 
   import org.me.tuoristguide.R;
   import org.me.tuoristguide.model.CommentList;
+
   import java.util.List;
 
 public class CommentsAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<CommentList> mCommentList;
-
+    private  CommentsAdapterInterface controller=null;
+    private static CommentsAdapter instance=null;
     public CommentsAdapter(Context mContext, List<CommentList> mCommentList) {
 
         this.mCommentList = mCommentList;
         this.mContext = mContext;
     }
 
+    public CommentsAdapter(){
+
+    }
+    public void setController(CommentsAdapterInterface controller){
+        if (instance != null)
+            instance.controller = controller;
+
+    }
+    public static CommentsAdapter getInstance() {
+        if(instance == null) {
+            instance = new CommentsAdapter();
+        }
+        return instance;
+    }
 
     @Override
     public int getCount() {
@@ -53,15 +71,26 @@ public class CommentsAdapter extends BaseAdapter {
         CardView cardView = (CardView)v.findViewById(R.id.cardview);
         cardView.setCardBackgroundColor(-1);
 
-        tvName.setText("Store:"+mCommentList.get(position).getStore_name());
+        tvName.setText("Store:" + mCommentList.get(position).getStore_name());
         tvComment.setText("Comment: "+mCommentList.get(position).getComment_text());
         tvTime.setText("Time: "+mCommentList.get(position).getCreated_time());
         Picasso.with(mContext).load(mCommentList.get(position).getPhoto_url())
                 .into(imageView);
         tvUserName.setText(mCommentList.get(position).getComment_user());
         v.setTag(mCommentList.get(position).getComment_id());
+        tvComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (instance.controller != null)
+                    instance.controller.onSelectImage();
+            }
+        });
         return v;
-
     }
+
+    public interface CommentsAdapterInterface{
+        void onSelectImage();
+    }
+
 }
 

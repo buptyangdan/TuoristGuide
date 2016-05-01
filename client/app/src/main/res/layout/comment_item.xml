@@ -83,7 +83,7 @@ android:layout_height="match_parent" android:background="#ffffff">
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_route"
                 android:drawablePadding="10dp"
-                android:text="@string/build_route"/>
+                android:text="comment"/>
 
         </LinearLayout>
     </LinearLayout>
