@@ -90,6 +90,15 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
                 middleViewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
                 middleViewHolder.swipeLayout.setDragEdge(SwipeLayout.DragEdge.Right);
                 middleViewHolder.businessNameView.setText(business.name());
+                middleViewHolder.businessNameView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onDeleteItemListener != null) {
+                            String name = ((TextView) v).getText().toString();
+                            onDeleteItemListener.showMarkerAtPosition(name);
+                        }
+                    }
+                });
                 middleViewHolder.locationDescriptionTextView.setText(business.rating().toString() + "  " +
                 getAddress(context, business));
                 middleViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +120,15 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
                  + "  " + getAddress(context, business1));
                 bottomViewHolder.swipeLayout.setDragEdge(SwipeLayout.DragEdge.Right);
                 bottomViewHolder.businessNameView.setText(business1.name());
+                bottomViewHolder.businessNameView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onDeleteItemListener != null) {
+                            String name = ((TextView) v).getText().toString();
+                            onDeleteItemListener.showMarkerAtPosition(name);
+                        }
+                    }
+                });
                 bottomViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -176,7 +194,9 @@ public class BusinessRouteAdapter extends RecyclerSwipeAdapter<RecyclerView.View
 
     public interface OnDeleteItemListener {
         void onDelete(Business business, int position);
+        void showMarkerAtPosition(String markerName);
     }
+
     private static class TopViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView markerImage;

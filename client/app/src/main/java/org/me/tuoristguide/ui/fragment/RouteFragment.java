@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -39,7 +40,9 @@ import org.me.tuoristguide.R;
 import org.me.tuoristguide.service.local.YelpService;
 import org.me.tuoristguide.service.task.NetworkAsyncTask;
 import org.me.tuoristguide.ui.adapter.BusinessRouteAdapter;
+import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.fragment.RoboFragment;
@@ -72,6 +75,7 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
     private List<Business> businessList;
     private DirectionsRoute route;
     private GeoApiContext geoApiContext;
+    private List<Marker> markers;
 
 
     public static RouteFragment newInstance(Location currentLocation) {
@@ -92,6 +96,7 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         geoApiContext = new GeoApiContext().setApiKey(getString(R.string.google_maps_key));
+        markers = new ArrayList<>();
     }
 
 
@@ -152,10 +157,13 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
             public void onDelete(Business business, int position) {
                 onDeleteBusinessInRoute(position);
             }
+
+            @Override
+            public void showMarkerAtPosition(String markerName) {
+                showMarker(markerName);
+            }
         });
         routeList.setAdapter(businessRouteAdapter);
-
-
 
         verticalShowAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.vertical_show);
         verticalHideAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.vertical_hide);
@@ -275,6 +283,20 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
             Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(business.location().coordinate().latitude(), business.location().coordinate().longitude()))
                     .title(business.name()));
+            markers.add(marker);
+        }
+    }
+
+    public void showMarker(String name){
+        for (int i = 0; i< businessList.size(); i++){
+            Business b = businessList.get(i);
+            if (b.name().toString().equals(name)) {
+                Marker marker = markers.get(i);
+                if (marker != null) {
+                    marker.showInfoWindow();
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15f));
+                }
+            }
         }
     }
 
@@ -285,6 +307,7 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
         if (businessList != null && businessList.size() > 0){
             businessRouteAdapter.set(businessList);
             businessRouteAdapter.notifyDataSetChanged();
+            markers.clear();
             for (Business b: businessList) addBusinessMarker(b);
         }
         this.route = route;
