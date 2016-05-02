@@ -1,11 +1,8 @@
 package org.me.tuoristguide;
 
-import android.widget.Toast;
-
 import com.android.volley.toolbox.Volley;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
-import com.uber.sdk.android.rides.UberSdk;
 
 import org.me.tuoristguide.entities.UserManager;
 import org.me.tuoristguide.util.NetworkConnector;
@@ -37,10 +34,5 @@ public class Application extends android.app.Application {
                 }
             }
         });
-
-
-
-
     }
-
 }

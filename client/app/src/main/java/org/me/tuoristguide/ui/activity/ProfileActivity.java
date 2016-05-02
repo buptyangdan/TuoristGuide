@@ -3,7 +3,6 @@ package org.me.tuoristguide.ui.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,20 +11,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
@@ -62,7 +55,7 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
     private ListView IvComment;
     private CommentsAdapter adapter;
     private List<CommentList> mCommentList = new ArrayList<CommentList>();
-
+    final static String LOG_TAG = ProfileActivity.class.getSimpleName();
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     ShareDialog shareDialog;
 
@@ -155,33 +148,26 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
     public void getJsonResponse(JSONObject jsonObject) {
         System.out.print("here is the by user response!");
         System.out.println(jsonObject);
-        JSONArray arrayObj=null;
+        JSONArray arrayObj = null;
 
         try {
-            String user_name=jsonObject.getString("user_name");
-            String photo_url=jsonObject.getString("poto_url");
-            String stores=jsonObject.getString("stores");
-            arrayObj=new JSONArray(stores);
-            for(int i=0;i<arrayObj.length();i++){
-                JSONObject json=arrayObj.getJSONObject(i);
-                mCommentList.add(new CommentList(user_name, photo_url, i+"" , json.getString("store_name"),json.getString("comment_txt"), json.getString("created_time")));
-                adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
-                IvComment.setAdapter(adapter);
+            String user_name = jsonObject.getString("user_name");
+            String photo_url = jsonObject.getString("poto_url");
+            String stores = jsonObject.getString("stores");
+            arrayObj = new JSONArray(stores);
+            for (int i = 0; i < arrayObj.length(); i++) {
+                JSONObject json = arrayObj.getJSONObject(i);
+                mCommentList.add(new CommentList(user_name, photo_url, i + "", json.getString("store_name"), json.getString("comment_txt"), json.getString("created_time")));
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
-        adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
-        IvComment = (ListView)findViewById(R.id.listview_comment);
+        adapter = new CommentsAdapter(getApplicationContext(), mCommentList);
+        IvComment = (ListView) findViewById(R.id.listview_comment);
         IvComment.setAdapter(adapter);
     }
-
-
-
-
 
     public void selectImage() {
         Toast.makeText(getApplicationContext(), "here is image select", Toast.LENGTH_LONG).show();
@@ -241,6 +227,8 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
 
         ShareDialog(thumbnail);
     }
+
+
     /***  this method used for take profile photo *******/
     private void onCaptureImageResult(Intent data) {
         Toast.makeText(getApplicationContext(),"Here is camera",Toast.LENGTH_LONG).show();
@@ -280,6 +268,7 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         shareDialog.show(content);
 
     }
+
 
     @Override
     public void onSelectImage() {
