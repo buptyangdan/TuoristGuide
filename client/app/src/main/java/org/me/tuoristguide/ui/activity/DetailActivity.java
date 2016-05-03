@@ -2,11 +2,8 @@ package org.me.tuoristguide.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -19,7 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.tuoristguide.R;
-import org.me.tuoristguide.entities.CommentManager;
 import org.me.tuoristguide.entities.StoreManager;
 import org.me.tuoristguide.entities.UserManager;
 import org.me.tuoristguide.model.Comment;
@@ -28,7 +24,6 @@ import org.me.tuoristguide.model.Store;
 import org.me.tuoristguide.service.remote.CommentService;
 import org.me.tuoristguide.service.remote.StoreService;
 import org.me.tuoristguide.ui.adapter.CommentsAdapter;
-import org.me.tuoristguide.util.NetworkConnector;
 
 import java.util.ArrayList;
 import java.util.Date;
