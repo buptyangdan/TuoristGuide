@@ -1,10 +1,18 @@
 package org.me.tuoristguide.model;
 
+import org.json.JSONObject;
+
 /**
  * Created by danyang on 4/26/16.
  */
-public class CommentList {
-    public CommentList(String comment_user, String photo_url,String comment_id, String store_name, String comment_text, String created_time) {
+public class CommentListItem {
+    private String created_time;
+    private String store_name;
+    private String comment_text;
+    private String comment_user;
+    private String photo_url;
+
+    public CommentListItem(String comment_user, String photo_url, String comment_id, String store_name, String comment_text, String created_time) {
         this.store_name = store_name;
         this.comment_text = comment_text;
         this.created_time = created_time;
@@ -13,11 +21,9 @@ public class CommentList {
         this.photo_url=photo_url;
     }
 
-    private String created_time;
-    private String store_name;
-    private String comment_text;
-    String comment_user;
-    String photo_url;
+    public CommentListItem(JSONObject json){
+    }
+
 
     public String getComment_user() {
         return comment_user;
