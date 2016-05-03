@@ -41,7 +41,6 @@
 
 
                 <TextView
-                    android:text="Name"
                     android:id="@+id/comment_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,13 +77,17 @@
                     android:layout_marginLeft="5dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="italic"
-                    android:textColor="#000000" />
+                    />
 
 
-                <Button
+                <TextView
+                    android:paddingTop="5dp"
+                    android:paddingBottom="8dp"
                     android:id="@+id/CommentText"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#000000"
                     android:text="comment"/>
 
                 <LinearLayout

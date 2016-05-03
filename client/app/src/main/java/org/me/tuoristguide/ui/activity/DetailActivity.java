@@ -65,8 +65,8 @@ public class DetailActivity extends RoboActivity implements CommentService.Comme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Store store= StoreManager.getInstance().getCurrent_store();
-        store_name =store.store_name;
-        store_id=store.store_id;
+        store_name = store.store_name;
+        store_id = store.store_id;
 
         if (storeNameText != null) {
             storeNameText.setText(store_name);

@@ -17,21 +17,22 @@ import com.squareup.picasso.Picasso;
 
 import org.me.tuoristguide.R;
 import org.me.tuoristguide.model.CommentListItem;
-import org.w3c.dom.Comment;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CommentsAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<CommentListItem> mCommentList;
     private CommentsAdapterInterface controller;
-    private ImageView imageView1;
-    private ImageView imageView2;
+    private boolean showStoreName = false;
 
-    CardView mLinearLayout;
-    CardView cardView;
 
     final static String LOG_TAG =  CommentsAdapter.class.getSimpleName();
 
@@ -49,6 +50,10 @@ public class CommentsAdapter extends BaseAdapter {
         mCommentList.add(item);
     }
 
+    public CommentsAdapter showStoreName(){
+        showStoreName = true;
+        return this;
+    }
 
     public CommentsAdapter setController(CommentsAdapterInterface controller){
         this.controller = controller;
@@ -77,8 +82,11 @@ public class CommentsAdapter extends BaseAdapter {
         TextView tvComment = (TextView) v.findViewById(R.id.CommentText);
         TextView tvTime = (TextView) v.findViewById(R.id.TimeText);
         final ImageView imageView = (ImageView) v.findViewById(R.id.comment_profile_picture);
-        TextView tvUserName = (TextView) v.findViewById(R.id.comment_user_name);
+        //TextView tvUserName = (TextView) v.findViewById(R.id.comment_user_name);
         CardView cardView = (CardView) v.findViewById(R.id.cardview);
+
+        ImageView imageView1;
+        ImageView imageView2;
 
         imageView1 = (ImageView) v.findViewById(R.id.img_like);
         imageView1.setClickable(true);
@@ -115,7 +123,7 @@ public class CommentsAdapter extends BaseAdapter {
         cardView.setCardBackgroundColor(-1);
 
 
-        mLinearLayout = (CardView) v.findViewById(R.id.expandable);
+        final CardView mLinearLayout = (CardView) v.findViewById(R.id.expandable);
         //set visibility to GONE
         mLinearLayout.setVisibility(View.GONE);
 
@@ -124,7 +132,7 @@ public class CommentsAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 ViewGroup viewGroup = (ViewGroup) v.getParent();
-                mLinearLayout = (CardView) viewGroup.findViewById(R.id.expandable);
+                // mLinearLayout = (CardView) viewGroup.findViewById(R.id.expandable);
                 mLinearLayout.setCardBackgroundColor(-1);
                 if (mLinearLayout.getVisibility() == View.GONE) {
                     //set Visible
@@ -165,12 +173,18 @@ public class CommentsAdapter extends BaseAdapter {
                 }
             }
         });
-        tvName.setText("Store:" + mCommentList.get(position).getStore_name());
-        tvComment.setText("Comment: " + mCommentList.get(position).getComment_text());
-        tvTime.setText("Time: " + mCommentList.get(position).getCreated_time());
+
+        if (showStoreName)
+            tvName.setText(mCommentList.get(position).getStore_name());
+        else
+            tvName.setText(mCommentList.get(position).getComment_user());
+
+        tvComment.setText(mCommentList.get(position).getComment_text());
+
+        tvTime.setText(getDateString(mCommentList.get(position).getCreated_time()));
         Picasso.with(mContext).load(mCommentList.get(position).getPhoto_url())
                 .into(imageView);
-        tvUserName.setText(mCommentList.get(position).getComment_user());
+        //tvUserName.setText(mCommentList.get(position).getComment_user());
         v.setTag(mCommentList.get(position).getComment_id());
         tvComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,7 +227,6 @@ public class CommentsAdapter extends BaseAdapter {
 
         public InnerListview(Context context, AttributeSet attrs, int defStyle) {
             super(context, attrs, defStyle);
-
         }
 
         @Override
@@ -229,7 +242,6 @@ public class CommentsAdapter extends BaseAdapter {
 
                     setParentScrollAble(true);
                     break;
-
             }
             return super.onInterceptTouchEvent(ev);
 
@@ -238,7 +250,29 @@ public class CommentsAdapter extends BaseAdapter {
         private void setParentScrollAble(boolean flag) {
             getParent().requestDisallowInterceptTouchEvent(!flag);
         }
+    }
 
+
+    private String getDateString(String target){
+        try {
+            DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+            Date result = null;
+            result = df.parse(target);
+            long diff = (System.currentTimeMillis() - result.getTime() ) / 1000 / 60;
+
+            if (diff < 60)
+                return diff + " minute ago";
+            else if (diff < 1440)
+                return diff / 60 + " hour ago";
+            else{
+                diff = diff / 1440;
+                return diff + " day ago";
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
+
 

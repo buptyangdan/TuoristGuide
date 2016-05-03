@@ -42,8 +42,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
@@ -57,11 +55,12 @@ public class ProfileActivity extends RoboActivity implements FacebookService.OnF
     @InjectView(R.id.user_name)         private TextView nameTextview;
     @InjectView(R.id.user_email)        private TextView emailTextview;
     @InjectView(R.id.profile_picture)   private ImageView photoImageview;
-    @InjectView(R.id.listview_comment)  private ListView IvComment;
+    @InjectView(R.id.listview_comment)  private ListView commentListView;
 
     private CommentsAdapter adapter;
 
     final static String LOG_TAG = ProfileActivity.class.getSimpleName();
+
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     ShareDialog shareDialog;
 
@@ -80,12 +79,12 @@ public class ProfileActivity extends RoboActivity implements FacebookService.OnF
 
         CommentService.getInstance().setController(this);
 
-        //CommentsAdapter.getInstance().setController(this);
-
-        adapter = new CommentsAdapter(this).setController(this);
-        IvComment.setAdapter(adapter);
+        // create new adapter and set it to listView
+        adapter = new CommentsAdapter(this)
+                .setController(this)
+                .showStoreName();
         shareDialog = new ShareDialog(this);
-        checkUserInfo();
+
     }
 
     @Override
@@ -94,6 +93,10 @@ public class ProfileActivity extends RoboActivity implements FacebookService.OnF
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+
+        // check user info on resume
+        commentListView.setAdapter(adapter);
+        checkUserInfo();
     }
 
     @Override
@@ -117,6 +120,7 @@ public class ProfileActivity extends RoboActivity implements FacebookService.OnF
             emailTextview.setText(user.email);
             Picasso.with(this).load(user.picture_url)
                     .into(photoImageview);
+
             DatabaseConnector databaseConnector = new DatabaseConnector(ProfileActivity.this, "User.db", null, 2);
             databaseConnector.setUser(user);
             ContentValues values = databaseConnector.insertValues();
