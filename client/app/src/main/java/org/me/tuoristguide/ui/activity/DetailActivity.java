@@ -47,7 +47,7 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
     private Double store_ratting;
     private ImageView place_image;
     private TextView storeRattingText;
-    private  TextView commentText;
+    private TextView commentText;
     private String comment_content;
     private ListView IvComment;
     private CommentsAdapter adapter;
@@ -67,15 +67,15 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Store store= StoreManager.getInstance().getCurrent_store();
-         store_name =store.store_name;
-         store_id=store.store_id;
-         store_pic=store.store_pic;
-         store_ratting=store.store_rating;
-         storeNameText = (TextView) findViewById(R.id.store_name);
-         place_image=(ImageView)findViewById(R.id.place_image);
-         storeRattingText=(TextView)findViewById(R.id.store_rate);
-         commentText=(TextView)findViewById(R.id.comment_content);
-         IvComment = (ListView)findViewById(R.id.listview_comment);
+        store_name =store.store_name;
+        store_id=store.store_id;
+        store_pic=store.store_pic;
+        store_ratting=store.store_rating;
+        storeNameText = (TextView) findViewById(R.id.store_name);
+        place_image=(ImageView)findViewById(R.id.place_image);
+        storeRattingText=(TextView)findViewById(R.id.store_rate);
+        commentText=(TextView)findViewById(R.id.comment_content);
+        IvComment = (ListView)findViewById(R.id.listview_comment);
         setListViewScrollable(IvComment);
         if (storeNameText != null) {
             storeNameText.setText(store_name);
@@ -110,27 +110,27 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
 
     @Override
     public void getJsonResponse(JSONObject jsonObject) {
-            System.out.println("here is the json response!!!");
-            JSONArray arrayObj=null;
-            if(jsonObject!=null){
+        System.out.println("here is the json response!!!");
+        JSONArray arrayObj=null;
+        if(jsonObject!=null){
 
-                try {
-                    String store_name=jsonObject.getString("store_name");
-                    String users=jsonObject.getString("users");
-                     arrayObj=new JSONArray(users);
-                     for(int i=0;i<arrayObj.length();i++){
-                         JSONObject json=arrayObj.getJSONObject(i);
-                         System.out.println(json.getString("user_name"));
-                         System.out.println(json.getString("photo_url"));
-                         mCommentList.add(new CommentList(json.getString("user_name"), json.getString("photo_url"), i + "", store_name, json.getString("comment_txt"), json.getString("created_time")));
-                         adapter.notifyDataSetChanged();
-                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            try {
+                String store_name=jsonObject.getString("store_name");
+                String users=jsonObject.getString("users");
+                arrayObj=new JSONArray(users);
+                for(int i=0;i<arrayObj.length();i++){
+                    JSONObject json=arrayObj.getJSONObject(i);
+                    System.out.println(json.getString("user_name"));
+                    System.out.println(json.getString("photo_url"));
+                    mCommentList.add(new CommentList(json.getString("user_name"), json.getString("photo_url"), i + "", store_name, json.getString("comment_txt"), json.getString("created_time")));
+                    adapter.notifyDataSetChanged();
                 }
 
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+        }
     }
 
     // listeners
@@ -139,20 +139,20 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
         @Override
         public void onClick(View v) {
             // register for callback of clicking button
-           // NetworkConnector.getInstance().getJsonData("/promos/editor", new OnReceiveJSONResponse());
+            // NetworkConnector.getInstance().getJsonData("/promos/editor", new OnReceiveJSONResponse());
             //save the comment and store_info into the server
-           //if left comment, means the user has gone to the place
+            //if left comment, means the user has gone to the place
             comment_content=String.valueOf(commentText.getText());
             //use adapter to inflate the view to viewpage
             if(comment_content!=null&& UserManager.getInstance().getCurrentUser()!=null){
                 Comment comment=new Comment(comment_content,String.valueOf(new Date()), UserManager.getInstance().getCurrentUser().email,StoreManager.getInstance().getCurrent_store().store_id);
                 mCommentList.add(new CommentList(UserManager.getInstance().getCurrentUser().name, UserManager.getInstance().getCurrentUser().picture_url, "1",StoreManager.getInstance().getCurrent_store().store_name , comment.comment_text, comment.created_time));
-               //adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
+                //adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
                 adapter.notifyDataSetChanged();
                 StoreService.getInstance().CreateStore(StoreManager.getInstance().getCurrent_store());
                 StoreService.getInstance().CreateUserStore(comment);
             }else{
-                 Toast.makeText(getBaseContext(),"Please login!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"Please login!", Toast.LENGTH_LONG).show();
             }
 
         }

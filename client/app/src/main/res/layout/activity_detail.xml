@@ -2,6 +2,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -16,7 +19,7 @@
             android:id="@+id/comment_content"
             android:layout_weight="4"
             android:layout_width="0dp"
-            android:hint="enter your comment here."
+            android:hint="Leave your comment here."
             android:layout_height="wrap_content" />
 
         <Button
