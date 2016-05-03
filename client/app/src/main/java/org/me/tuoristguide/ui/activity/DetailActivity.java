@@ -99,9 +99,6 @@ public class DetailActivity extends Activity implements CommentService.CommentSe
     @Override
     public void onResume() {
         super.onResume();
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
 
     }
 
