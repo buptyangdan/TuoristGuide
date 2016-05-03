@@ -159,7 +159,9 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
                 JSONObject json = arrayObj.getJSONObject(i);
                 mCommentList.add(new CommentList(user_name, photo_url, i + "", json.getString("store_name"), json.getString("comment_txt"), json.getString("created_time")));
             }
-
+            adapter = new CommentsAdapter(getApplicationContext(), mCommentList);
+            IvComment = (ListView) findViewById(R.id.listview_comment);
+            IvComment.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
