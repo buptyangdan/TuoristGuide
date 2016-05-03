@@ -16,40 +16,43 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.me.tuoristguide.R;
-import org.me.tuoristguide.model.CommentList;
+import org.me.tuoristguide.model.CommentListItem;
+import org.w3c.dom.Comment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentsAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<CommentList> mCommentList;
-    private  CommentsAdapterInterface controller=null;
-    private ImageView imageView1,imageView2;
-    private static CommentsAdapter instance=null;
+    private List<CommentListItem> mCommentList;
+    private CommentsAdapterInterface controller;
+    private ImageView imageView1;
+    private ImageView imageView2;
+
     CardView mLinearLayout;
     CardView cardView;
+
     final static String LOG_TAG =  CommentsAdapter.class.getSimpleName();
 
-    public CommentsAdapter(Context mContext, List<CommentList> mCommentList) {
-
-        this.mCommentList = mCommentList;
+    public CommentsAdapter(Context mContext) {
+        mCommentList = new ArrayList<>();
         this.mContext = mContext;
     }
 
-    public CommentsAdapter(){
-
+    public void set(List<CommentListItem> items){
+        mCommentList.clear();
+        mCommentList.addAll(items);
     }
-    public void setController(CommentsAdapterInterface controller){
-        if (instance != null)
-            instance.controller = controller;
 
+    public void add(CommentListItem item){
+        mCommentList.add(item);
     }
-    public static CommentsAdapter getInstance() {
-        if(instance == null) {
-            instance = new CommentsAdapter();
-        }
-        return instance;
+
+
+    public CommentsAdapter setController(CommentsAdapterInterface controller){
+        this.controller = controller;
+        return this;
     }
 
     @Override
@@ -172,8 +175,8 @@ public class CommentsAdapter extends BaseAdapter {
         tvComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (instance.controller != null)
-                    instance.controller.onSelectImage();
+                if (controller != null)
+                    controller.onSelectImage();
             }
         });
         return v;

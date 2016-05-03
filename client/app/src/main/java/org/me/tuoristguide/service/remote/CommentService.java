@@ -31,6 +31,7 @@ public class CommentService {
     public void setController(CommentServiceInterface controller){
         this.controller=controller;
     }
+
     public void getByStore(String store_id) {
         String uri = "http://54.172.42.185:8080/org.me.backend/user_info?Mode=byStore&store_id=" + store_id;
         final JSONObject[] result = {new JSONObject()};
@@ -75,7 +76,6 @@ public class CommentService {
 
         NetworkConnector.getInstance().mQueue.add(getRequest);
     }
-
 
 
     public interface CommentServiceInterface{

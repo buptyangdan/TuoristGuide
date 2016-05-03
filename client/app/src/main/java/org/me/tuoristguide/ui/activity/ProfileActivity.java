@@ -31,7 +31,7 @@ import org.json.JSONObject;
 import org.me.tuoristguide.R;
 import org.me.tuoristguide.database.DatabaseConnector;
 import org.me.tuoristguide.entities.UserManager;
-import org.me.tuoristguide.model.CommentList;
+import org.me.tuoristguide.model.CommentListItem;
 import org.me.tuoristguide.model.User;
 import org.me.tuoristguide.service.local.FacebookService;
 import org.me.tuoristguide.service.remote.CommentService;
@@ -45,16 +45,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 
-public class ProfileActivity extends Activity implements FacebookService.OnFacebookLoggedIn, CommentService.CommentServiceInterface, CommentsAdapter.CommentsAdapterInterface{
 
-    private LoginButton btn_login;
-    private TextView nameTextview;
-    private TextView emailTextview;
-    private ImageView photoImageview;
-    private ListView IvComment;
+@ContentView(R.layout.activity_login)
+public class ProfileActivity extends RoboActivity implements FacebookService.OnFacebookLoggedIn, CommentService.CommentServiceInterface, CommentsAdapter.CommentsAdapterInterface{
+
+    @InjectView(R.id.btn_login)         private LoginButton btn_login;
+    @InjectView(R.id.user_name)         private TextView nameTextview;
+    @InjectView(R.id.user_email)        private TextView emailTextview;
+    @InjectView(R.id.profile_picture)   private ImageView photoImageview;
+    @InjectView(R.id.listview_comment)  private ListView IvComment;
+
     private CommentsAdapter adapter;
-    private List<CommentList> mCommentList = new ArrayList<CommentList>();
+
     final static String LOG_TAG = ProfileActivity.class.getSimpleName();
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     ShareDialog shareDialog;
@@ -67,29 +73,20 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         FacebookService.getInstance(this);
 
         // then inflate the view
-        setContentView(R.layout.activity_login);
         if(!FacebookService.getInstance().checkLoginStatus()){
             // set up login button
-            btn_login = (LoginButton) findViewById(R.id.btn_login);
             FacebookService.getInstance(this).setupFBLoginButton(btn_login);
-
         }
 
-        // set up other components
-        nameTextview = (TextView) findViewById(R.id.user_name);
-        emailTextview = (TextView) findViewById(R.id.user_email);
-        photoImageview = (ImageView) findViewById(R.id.profile_picture);
-        IvComment = (ListView) findViewById(R.id.listview_comment);
-        //add sample data for list;
-        //we can get data from DB
         CommentService.getInstance().setController(this);
 
-        CommentsAdapter.getInstance().setController(this);
+        //CommentsAdapter.getInstance().setController(this);
 
+        adapter = new CommentsAdapter(this).setController(this);
+        IvComment.setAdapter(adapter);
         shareDialog = new ShareDialog(this);
+        checkUserInfo();
     }
-
-
 
     @Override
     public void onResume() {
@@ -97,11 +94,7 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        checkUserInfo();
-
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -109,13 +102,9 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
         super.onActivityResult(requestCode, resultCode, data);
         FacebookService.getInstance(this).onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-
             if (requestCode == SELECT_FILE)
-
                 onSelectFromGalleryResult(data);
-
             else if (requestCode == REQUEST_CAMERA)
-
                 onCaptureImageResult(data);
         }
     }
@@ -135,8 +124,6 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
             database.execSQL("delete from User;");
             database.insert("User", null, values);
         }
-
-
     }
 
     @Override
@@ -157,18 +144,13 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
             arrayObj = new JSONArray(stores);
             for (int i = 0; i < arrayObj.length(); i++) {
                 JSONObject json = arrayObj.getJSONObject(i);
-                mCommentList.add(new CommentList(user_name, photo_url, i + "", json.getString("store_name"), json.getString("comment_txt"), json.getString("created_time")));
+                adapter.add(new CommentListItem(user_name, photo_url, i + "", json.getString("store_name"), json.getString("comment_txt"), json.getString("created_time")));
             }
-            adapter = new CommentsAdapter(getApplicationContext(), mCommentList);
-            IvComment = (ListView) findViewById(R.id.listview_comment);
-            IvComment.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        adapter = new CommentsAdapter(getApplicationContext(), mCommentList);
-        IvComment = (ListView) findViewById(R.id.listview_comment);
-        IvComment.setAdapter(adapter);
     }
 
     public void selectImage() {
@@ -204,7 +186,7 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
     /**** this method used for select image From Gallery  *****/
 
     private void onSelectFromGalleryResult(Intent data) {
-        Toast.makeText(getApplicationContext(), "Here is file", Toast.LENGTH_LONG).show();
+
         Uri selectedImageUri = data.getData();
         String[] projection = { MediaStore.MediaColumns.DATA };
         Cursor cursor = managedQuery(selectedImageUri, projection, null, null,
@@ -268,7 +250,6 @@ public class ProfileActivity extends Activity implements FacebookService.OnFaceb
                 .build();
 
         shareDialog.show(content);
-
     }
 
 
