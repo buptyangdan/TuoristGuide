@@ -16,9 +16,14 @@ public class StoresAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Business> businesses;
 
-    public StoresAdapter(FragmentManager fragmentManager, ArrayList<Business> businesses){
+    public StoresAdapter(FragmentManager fragmentManager){
         super(fragmentManager);
-        this.businesses = businesses;
+        this.businesses = new ArrayList<>();
+    }
+
+    public void set(ArrayList<Business> businesses){
+        this.businesses.clear();
+        this.businesses.addAll(businesses);
     }
 
     @Override

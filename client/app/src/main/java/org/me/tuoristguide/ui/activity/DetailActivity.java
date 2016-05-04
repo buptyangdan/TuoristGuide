@@ -1,8 +1,10 @@
 package org.me.tuoristguide.ui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -124,12 +126,21 @@ public class DetailActivity extends RoboActivity implements CommentService.Comme
             //use adapter to inflate the view to viewpage
             if(comment_content!=null&& UserManager.getInstance().getCurrentUser()!=null){
                 Comment comment=new Comment(comment_content,String.valueOf(new Date()), UserManager.getInstance().getCurrentUser().email,StoreManager.getInstance().getCurrent_store().store_id);
-                Toast.makeText(getApplicationContext(),StoreManager.getInstance().getCurrent_store().store_name ,Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),StoreManager.getInstance().getCurrent_store().store_name ,Toast.LENGTH_LONG).show();
                 adapter.add(new CommentListItem(UserManager.getInstance().getCurrentUser().name, UserManager.getInstance().getCurrentUser().picture_url, "1", StoreManager.getInstance().getCurrent_store().store_name, comment.comment_text, comment.created_time));
                 //adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
                 adapter.notifyDataSetChanged();
                 StoreService.getInstance().CreateStore(StoreManager.getInstance().getCurrent_store());
                 StoreService.getInstance().CreateUserStore(comment);
+
+                commentText.clearFocus();
+                commentText.setText("");
+                // dismiss keyboard
+                View view = DetailActivity.this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
             }else{
                 Toast.makeText(getBaseContext(),"Please login!", Toast.LENGTH_LONG).show();
             }

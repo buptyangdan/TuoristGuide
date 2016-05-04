@@ -86,10 +86,6 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
         return fragment;
     }
 
-    public RouteFragment(){
-
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState){

@@ -95,12 +95,10 @@ public class LocationService implements
             LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             float zoom = googleMap.getCameraPosition().zoom;
 
-            if (zoom < 12.5f)
-            {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.5f));
+            if (zoom < 14f) {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f));
             }
-            else
-            {
+            else {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             }
 
@@ -110,6 +108,7 @@ public class LocationService implements
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
         }
     }
+
     public void showCurrentLocationInMap(Double latitude, Double longtitude, String type) {
             LatLng latLng = new LatLng(latitude,longtitude );
             float zoom = googleMap.getCameraPosition().zoom;
@@ -136,7 +135,6 @@ public class LocationService implements
                         .title("Current Location")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
             }
-
     }
 
     public void requestLocationUpdates() {
@@ -174,6 +172,12 @@ public class LocationService implements
         if (googleApiClient.isConnected())
             LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
         googleApiClient.disconnect();
+    }
+
+    public void clearMarker(){
+        googleMap.clear();
+        markers.clear();
+        showCurrentLocationInMap();
     }
 
     public void addMarker(MarkerOptions markerOptions){

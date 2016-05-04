@@ -47,8 +47,9 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     private LocationService locationService;
     private static Double latitude, longitude;
     private static GoogleMap mMap;
-    SearchView searchview;
-    View view;
+    private SearchView searchview;
+
+    private StoresAdapter storesAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,9 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         //YelpService.getInstance().setController(this);
         setRetainInstance(true);
         locationService = LocationService.getInstance(getActivity());
+        storesAdapter = new StoresAdapter(getChildFragmentManager());
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -73,7 +76,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view=(RelativeLayout)inflater.inflate(R.layout.fragment_explore, container, false);
+        View view=(RelativeLayout)inflater.inflate(R.layout.fragment_explore, container, false);
         searchview=(SearchView)view.findViewById(R.id.search_view);
         searchview.setOnSearchClickListener(this);
         return view;
@@ -82,7 +85,6 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         // google map fragment
         FragmentManager fragmentManager = getChildFragmentManager();
@@ -111,8 +113,6 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
             }
         });
 
-
-
         // pager
         viewPager = (ViewPager) getActivity().findViewById(R.id.pager);
         locationService.setViewPager(viewPager);
@@ -132,12 +132,16 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
             }
         });
 
+        viewPager.setAdapter(storesAdapter);
+        viewPager.setVisibility(View.GONE);
         fragment.getMapAsync(locationService);
     }
 
 
     // interface method from YelpService interface
     public void placeBusinessMarks(ArrayList<Business> businesses) {
+        locationService.clearMarker();
+
         for (Business b : businesses) {
             Coordinate coord = b.location().coordinate();
             //locationService.googleMap.setOnMarkerClickListener(this);
@@ -149,15 +153,16 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
                             .snippet(b.id())
             );
         }
+
+        storesAdapter.set(businesses);
+        storesAdapter.notifyDataSetChanged();
         viewPager.setVisibility(View.VISIBLE);
-        viewPager.setAdapter(new StoresAdapter(getChildFragmentManager(), businesses));
     }
 
     @Override
     public void startDetailActivity() {
             Intent intent=new Intent(getContext(),DetailActivity.class);
             getContext().startActivity(intent);
-
     }
 
     @Override
@@ -201,7 +206,6 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
                 } else {
                     Toast.makeText(getContext(), "failed",
                             Toast.LENGTH_LONG).show();
-
                 }
             }
         }
