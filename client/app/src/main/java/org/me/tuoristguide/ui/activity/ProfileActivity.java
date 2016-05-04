@@ -81,7 +81,7 @@ public class ProfileActivity extends RoboActivity implements FacebookService.OnF
 
         // create new adapter and set it to listView
         adapter = new CommentsAdapter(this)
-                .setController(this)
+                .setController(this,"profile")
                 .showStoreName();
         shareDialog = new ShareDialog(this);
 

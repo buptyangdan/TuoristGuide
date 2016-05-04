@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class CommentsAdapter extends BaseAdapter {
     private CommentsAdapterInterface controller;
     private boolean showStoreName = false;
 
-
+    private String str;
     final static String LOG_TAG =  CommentsAdapter.class.getSimpleName();
 
     public CommentsAdapter(Context mContext) {
@@ -55,8 +56,9 @@ public class CommentsAdapter extends BaseAdapter {
         return this;
     }
 
-    public CommentsAdapter setController(CommentsAdapterInterface controller){
+    public CommentsAdapter setController(CommentsAdapterInterface controller,String str){
         this.controller = controller;
+        this.str=str;
         return this;
     }
 
@@ -81,6 +83,7 @@ public class CommentsAdapter extends BaseAdapter {
         TextView tvName = (TextView) v.findViewById(R.id.StoreNameText);
         TextView tvComment = (TextView) v.findViewById(R.id.CommentText);
         TextView tvTime = (TextView) v.findViewById(R.id.TimeText);
+        Button shareFb=(Button)v.findViewById(R.id.share_fb);
         final ImageView imageView = (ImageView) v.findViewById(R.id.comment_profile_picture);
         //TextView tvUserName = (TextView) v.findViewById(R.id.comment_user_name);
         CardView cardView = (CardView) v.findViewById(R.id.cardview);
@@ -186,10 +189,10 @@ public class CommentsAdapter extends BaseAdapter {
                 .into(imageView);
         //tvUserName.setText(mCommentList.get(position).getComment_user());
         v.setTag(mCommentList.get(position).getComment_id());
-        tvComment.setOnClickListener(new View.OnClickListener() {
+        shareFb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (controller != null)
+                if (controller != null && str.equals("profile"))
                     controller.onSelectImage();
             }
         });

@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
         imageView=(ImageView)header.findViewById(R.id.profile_image);
         User user = UserManager.getInstance().getCurrentUser();
         if (user != null){
+            System.out.println("-------------------------------");
+            System.out.println(user.name);
+            System.out.println(user.email);
+            System.out.println(user.picture_url);
             textView1.setText(user.name);
             textView2.setText(user.email);
             Picasso.with(this).load(user.picture_url)

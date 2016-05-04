@@ -135,8 +135,8 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="80dp"
                         android:layout_height="35dp"
-                        android:text="Comment"
-                        android:id="@+id/_comment"
+                        android:text="Share"
+                        android:id="@+id/share_fb"
                         android:textSize="10dp" />
                 </LinearLayout>
 
