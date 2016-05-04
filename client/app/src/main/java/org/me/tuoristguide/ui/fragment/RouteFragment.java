@@ -57,7 +57,6 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
     private static final String CURRENT_LOCATION_ARG = "CURRENT_LOCATION";
 
     @InjectView(R.id.walking_directions_button)        private FloatingActionButton walkingDirectionsButton;
-    @InjectView(R.id.transit_directions_button)        private FloatingActionButton transitDirectionsButton;
     @InjectView(R.id.driving_directions_button)        private FloatingActionButton drivingDirectionsButton;
     @InjectView(R.id.bike_directions_button)           private FloatingActionButton bikeDirectionsButton;
     @InjectView(R.id.travel_distance_container)        private CardView travelDistanceContainer;
@@ -120,13 +119,6 @@ public class RouteFragment extends RoboFragment implements OnMapReadyCallback {
                 directionsMenu.close(true);
                 if (routeBuilderTask != null && !routeBuilderTask.isActive())
                     recalculateRoute(TravelMode.WALKING);
-            }
-        });
-        transitDirectionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                directionsMenu.close(true);
-                if (routeBuilderTask != null && !routeBuilderTask.isActive()) recalculateRoute(TravelMode.TRANSIT);
             }
         });
         drivingDirectionsButton.setOnClickListener(new View.OnClickListener() {
