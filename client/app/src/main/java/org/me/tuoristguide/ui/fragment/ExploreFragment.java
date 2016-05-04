@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
@@ -50,6 +51,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
     private SearchView searchview;
 
     private StoresAdapter storesAdapter;
+    private boolean showCurrentLocation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,7 +111,7 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
                     locationService.showCurrentLocationInMap(currentlocation.getLatitude(),currentlocation.getLongitude(),"current_location");
                     YelpService.getInstance().yelpNearby(currentlocation);
                 }
-
+                showCurrentLocation = true;
             }
         });
 
@@ -157,6 +159,9 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
         storesAdapter.set(businesses);
         storesAdapter.notifyDataSetChanged();
         viewPager.setVisibility(View.VISIBLE);
+
+        if (showCurrentLocation)
+            locationService.showCurrentLocationInMap();
     }
 
     @Override
@@ -167,25 +172,37 @@ public class ExploreFragment extends Fragment implements YelpService.YelpService
 
     @Override
     public void onClick(View v) {
+
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (query.length() != 0) {
+
+                    // dismiss keyboard
+                    View view = ExploreFragment.this.getActivity().getCurrentFocus();
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)
+                                ExploreFragment.this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+
                     Intent intent=new Intent(getContext(), SearchService.class);
                     System.out.println("--->" + query);
                     // handle search here
                     intent.putExtra("queryString", query);
                     getActivity().startService(intent);
+                    showCurrentLocation = false;
                     return true;
                 }
                 return false;
             }
         });
-
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {

@@ -18,7 +18,7 @@
         android:queryHint="@string/search_hint"
         android:visibility="visible"
         android:backgroundTintMode="src_over"
-        android:onClick="onClick">
+        >
     </SearchView>
 
 

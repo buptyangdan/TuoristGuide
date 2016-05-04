@@ -43,6 +43,7 @@ public class DetailActivity extends RoboActivity implements CommentService.Comme
 
     private String store_id;
     private String store_name;
+    private Store store;
 
     @InjectView(R.id.submit)            private Button submitButton;
     @InjectView(R.id.store_name)        private TextView storeNameText;
@@ -66,10 +67,15 @@ public class DetailActivity extends RoboActivity implements CommentService.Comme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Store store= StoreManager.getInstance().getCurrent_store();
+        store = StoreManager.getInstance().getCurrent_store();
         store_name = store.store_name;
         store_id = store.store_id;
+    }
 
+    @Override
+    public void onResume() {
+
+        super.onResume();
         if (storeNameText != null) {
             storeNameText.setText(store_name);
         }

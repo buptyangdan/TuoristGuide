@@ -53,8 +53,9 @@ public class StoreFragment extends Fragment{
         storeRatingTextView = (TextView) view.findViewById(R.id.poi_rating);
         storeNameTextView = (TextView) view.findViewById(R.id.poi_name);
         viewDetails=(Button)view.findViewById(R.id.view_detail);
+        viewDetails.setVisibility(View.GONE);
 
-        viewDetails.setOnClickListener(new View.OnClickListener() {
+        storeNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 YelpService.getInstance().yelpBussiness(business.id());
@@ -78,9 +79,6 @@ public class StoreFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         storeRatingTextView.setText(String.valueOf(business.rating()));
         storeNameTextView.setText(business.name());
-
     }
-
-
 
 }

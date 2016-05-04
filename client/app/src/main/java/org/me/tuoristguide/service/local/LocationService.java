@@ -177,7 +177,7 @@ public class LocationService implements
     public void clearMarker(){
         googleMap.clear();
         markers.clear();
-        showCurrentLocationInMap();
+        //showCurrentLocationInMap();
     }
 
     public void addMarker(MarkerOptions markerOptions){
