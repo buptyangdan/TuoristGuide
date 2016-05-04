@@ -90,26 +90,26 @@ public class LocationService implements
         return currentLocation;
     }
 
-//    public void showCurrentLocationInMap() {
-//        if (currentLocation != null) {
-//            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-//            float zoom = googleMap.getCameraPosition().zoom;
-//
-//            if (zoom < 12.5f)
-//            {
-//                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.5f));
-//            }
-//            else
-//            {
-//                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//            }
-//
-//            googleMap.addMarker(new MarkerOptions()
-//                    .position(latLng)
-//                    .title("Current Location")
-//                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
-//        }
-//    }
+    public void showCurrentLocationInMap() {
+        if (currentLocation != null) {
+            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+            float zoom = googleMap.getCameraPosition().zoom;
+
+            if (zoom < 12.5f)
+            {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.5f));
+            }
+            else
+            {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            }
+
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title("Current Location")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_location)));
+        }
+    }
     public void showCurrentLocationInMap(Double latitude, Double longtitude, String type) {
             LatLng latLng = new LatLng(latitude,longtitude );
             float zoom = googleMap.getCameraPosition().zoom;

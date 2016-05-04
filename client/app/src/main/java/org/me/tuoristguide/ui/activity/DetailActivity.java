@@ -124,7 +124,7 @@ public class DetailActivity extends RoboActivity implements CommentService.Comme
             //use adapter to inflate the view to viewpage
             if(comment_content!=null&& UserManager.getInstance().getCurrentUser()!=null){
                 Comment comment=new Comment(comment_content,String.valueOf(new Date()), UserManager.getInstance().getCurrentUser().email,StoreManager.getInstance().getCurrent_store().store_id);
-                adapter.add(new CommentListItem(UserManager.getInstance().getCurrentUser().name, UserManager.getInstance().getCurrentUser().picture_url, "1",StoreManager.getInstance().getCurrent_store().store_name , comment.comment_text, comment.created_time));
+                adapter.add(new CommentListItem(UserManager.getInstance().getCurrentUser().name, UserManager.getInstance().getCurrentUser().picture_url, "1", StoreManager.getInstance().getCurrent_store().store_name , comment.comment_text, comment.created_time));
                 //adapter = new CommentsAdapter(getApplicationContext(),mCommentList);
                 adapter.notifyDataSetChanged();
                 StoreService.getInstance().CreateStore(StoreManager.getInstance().getCurrent_store());
