@@ -1,6 +1,7 @@
 package org.me.tuoristguide.ui.activity;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -147,6 +148,10 @@ public class DetailActivity extends RoboActivity implements CommentService.Comme
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
+
+                // play sound
+                MediaPlayer mediaPlayer = MediaPlayer.create(DetailActivity.this, R.raw.mario1);
+                mediaPlayer.start();
             }else{
                 Toast.makeText(getBaseContext(),"Please login!", Toast.LENGTH_LONG).show();
             }
