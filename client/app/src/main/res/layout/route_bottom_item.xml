@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <include layout="@layout/delete_layout"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/marker_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_generic_category"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/location_description"
+            android:layout_toRightOf="@id/marker_image"
+            android:scaleType="fitXY"
+            android:src="@drawable/route_bottom_dot"/>
+
+        <TextView
+            android:id="@+id/business_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/marker_image"
+            android:text="@string/current_location"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:id="@+id/location_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/business_name"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/marker_image"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+    </RelativeLayout>
+</com.daimajia.swipe.SwipeLayout>
+

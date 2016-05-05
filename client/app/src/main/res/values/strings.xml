@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">TuoristGuide</string>
+    <string name="facebook_app_id">1535706426732193</string>
+    <string name="action_settings">Settings</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="navigation_item_1">Home</string>
+    <string name="navigation_item_2">Events</string>
+    <string name="profile_string">Profile</string>
+    <string name="explore_string">Explore</string>
+    <string name="search_string">Search</string>
+    <string name="locations_string">Locations</string>
+    <string name="spam_string">Spams</string>
+    <string name="closeDrawer">Navigation View</string>
+    <string name="openDrawer">Navigation View Closed</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="CommercialName">Safeway Rating:9.2/10.0</string>
+    <string name="lbl_you_are_at">YOU ARE AT</string>
+    <string name="btn_get_location">SEND</string>
+    <string name="Temperature">Temperature</string>
+    <string name="condition">Condition</string>
+    <string name="locations">location</string>
+    <string name="Time">Time</string>
+    <string name="header_name">Dan Yang</string>
+    <string name="search_hint">Search Places</string>
+    <string name="search_settings">Search Places</string>
+    <string name="last_map_location_lat_key" translatable="false">LAST_MAP_LAT</string>
+    <string name="last_map_location_lng_key" translatable="false">LAST_MAP_LNG</string>
+    <string name="last_map_zoom_key" translatable="false">LAST_MAP_ZOOM</string>
+    <string name="current_location">Current location</string>
+    <string name="build_route">View recommended route</string>
+    <string name="view_detail">View Details</string>
+
+    <!-- RecommendedRouteFragment -->
+    <string name="recommended_route_title">Recommended route</string>
+    <string name="building_route">Building route&#8230;</string>
+    <string name="unavailable_route">Unavailable route. Choose a different travel mode.</string>
+    <string name="walking_directions_button_label">Walking</string>
+    <string name="bike_directions_button_label">Biking</string>
+    <string name="transit_directions_button_label">Transit</string>
+    <string name="driving_directions_button_label">Driving</string>
+    <string name="travel_distance">Distance: %.2f km</string>
+    <string name="travel_time">Time: %s</string>
+    <string name="long_time_format" translatable="false">H\' h \'m\' m\'</string>
+    <string name="short_time_format" translatable="false">m\' m\'</string>
+
+    <string name="network_unavailable">A stable connection is required to perform request</string>
+</resources>
