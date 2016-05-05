@@ -158,7 +158,6 @@ public class ProfileActivity extends RoboActivity implements FacebookService.OnF
     }
 
     public void selectImage() {
-        Toast.makeText(getApplicationContext(), "here is image select", Toast.LENGTH_LONG).show();
         final CharSequence[] items = { "Take Photo", "Choose from Library",
                 "Cancel" };
 
@@ -219,7 +218,6 @@ public class ProfileActivity extends RoboActivity implements FacebookService.OnF
 
     /***  this method used for take profile photo *******/
     private void onCaptureImageResult(Intent data) {
-        Toast.makeText(getApplicationContext(),"Here is camera",Toast.LENGTH_LONG).show();
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);

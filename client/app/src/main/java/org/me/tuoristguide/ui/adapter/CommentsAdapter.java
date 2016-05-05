@@ -177,8 +177,10 @@ public class CommentsAdapter extends BaseAdapter {
             }
         });
 
-        if (showStoreName)
+        if (showStoreName){
             tvName.setText(mCommentList.get(position).getStore_name());
+            shareFb.setVisibility(View.VISIBLE);
+        }
         else
             tvName.setText(mCommentList.get(position).getComment_user());
 
